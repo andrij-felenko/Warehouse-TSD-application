@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>wcomponent/WComboBox.qml</file>
+        <file>wcomponent/WIcon.qml</file>
+        <file>wcomponent/WIconButton.qml</file>
+        <file>wcomponent/WMirrorLabel.qml</file>
+        <file>wcomponent/WRectangle.qml</file>
+        <file>wcomponent/WTextInput.qml</file>
+    </qresource>
+</RCC>
