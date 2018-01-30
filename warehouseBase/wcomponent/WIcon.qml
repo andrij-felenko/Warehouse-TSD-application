@@ -9,11 +9,9 @@ Item {
     property int percent : 60
     visible: source !== ""
 
-    onHeightChanged: console.log(image.source, visible)
-
     Image {
         id: image
-        property string iconDir: "/icon/android/res/drawable/"
+        property string iconDir: "/icon/"
         source: Qt.resolvedUrl(iconDir + icon.source + ".png")
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectCrop

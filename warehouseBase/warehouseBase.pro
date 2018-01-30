@@ -61,15 +61,3 @@ HEADERS += \
     cpp/template/cacheListTemplate.h \
     cpp/template/cacheSingle.h \
     cpp/template/templateSingleton.h
-
-#contains(ANDROID_TARGET_ARCH,x86) {
-#    ANDROID_EXTRA_LIBS = \
-#        $$PWD/lib/x86/libssl.so \
-#        $$PWD/lib/x86/libcrypto.so
-#}
-
-#contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
-#    ANDROID_EXTRA_LIBS = \
-#        $$PWD/lib/arm/libcrypto.so \
-#        $$PWD/lib/arm/libssl.so
-#}

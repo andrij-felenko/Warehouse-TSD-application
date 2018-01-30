@@ -1,6 +1,6 @@
 import QtQuick 2.9
 
-FRectangle {
+WRectangle {
     id: textInput
 
     property int marginH: 2
@@ -16,7 +16,7 @@ FRectangle {
     signal leftChoose()
     signal rightChoose()
 
-    FIconButton {
+    WIconButton {
         id: iconLeft_
         anchors.left: parent.left
         anchors.top: parent.top
@@ -25,7 +25,7 @@ FRectangle {
         visible: iconLeftSource !== "" && iconLeftVisible
     }
 
-    FIconButton {
+    WIconButton {
         id: iconRight_
         anchors.right: parent.right
         anchors.top: parent.top
@@ -34,7 +34,7 @@ FRectangle {
         visible: iconRightSource !== "" && iconRightVisible
     }
 
-    FRectangle {
+    WRectangle {
         anchors.left:  iconLeftSource  === "" ? parent.left  : iconLeft_.right
         anchors.right: iconRightSource === "" ? parent.right : iconRight_.left
         anchors.top: parent.top

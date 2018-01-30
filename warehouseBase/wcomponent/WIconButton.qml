@@ -1,6 +1,6 @@
 ﻿import QtQuick 2.0
 
-FRectangle {
+WRectangle {
     id: iconButton
     property alias text: text_.text
     property alias iconSource: icon.source
@@ -8,7 +8,7 @@ FRectangle {
     property alias iconColor: icon.color
     property bool isRight: false
 
-    FIcon {
+    WIcon {
         id: icon
         anchors.top: parent.top
         anchors.bottom: parent.bottom
