@@ -2,5 +2,5 @@
 
 SettingPrototype::SettingPrototype(QObject *parent) : QObject(parent)
 {
-
+    //
 }

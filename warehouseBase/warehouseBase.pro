@@ -30,21 +30,26 @@ RESOURCES += \
     qml.qrc
 
 SOURCES += \
+    cpp/warehouseBase.cpp \
     cpp/barcode/barcodeprototype.cpp \
     cpp/cache/cachePrototype.cpp \
+    cpp/cache/cacheSingle.cpp \
     cpp/enum/json.cpp \
     cpp/enum/url.cpp \
     cpp/model/modelPrototype.cpp \
     cpp/server/requestGenerate.cpp \
     cpp/server/serverPrototype.cpp \
     cpp/setting/settingPrototype.cpp \
-    cpp/view/view.cpp \
-    cpp/warehouseBase.cpp \
-    cpp/template/cacheSingle.cpp
+    cpp/view/view.cpp
 
 HEADERS += \
+    cpp/warehouseBase.h \
+    cpp/warehousebase_global.h \
+    cpp/singleton.h \
     cpp/barcode/barcodeprototype.h \
+    cpp/cache/cacheListObject.h \
     cpp/cache/cachePrototype.h \
+    cpp/cache/cacheSingle.h \
     cpp/enum/enum.h \
     cpp/enum/json.h \
     cpp/enum/static.h \
@@ -53,11 +58,6 @@ HEADERS += \
     cpp/server/requestGenerate.h \
     cpp/server/serverPrototype.h \
     cpp/setting/settingPrototype.h \
-    cpp/view/view.h \
-    cpp/singleton.h \
-    cpp/warehousebase_global.h \
-    cpp/warehouseBase.h \
-    cpp/template/cacheListObject.h \
     cpp/template/cacheListTemplate.h \
-    cpp/template/cacheSingle.h \
-    cpp/template/templateSingleton.h
+    cpp/template/templateSingleton.h \
+    cpp/view/view.h

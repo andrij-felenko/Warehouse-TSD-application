@@ -1,14 +1,15 @@
 #ifndef CACHELIST_TEMPLATE_H
 #define CACHELIST_TEMPLATE_H
 
+#include <QtCore/QDataStream>
 #include <QtCore/QDir>
+#include <QtCore/QFile>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
 #include <QtCore/QList>
 #include <QtCore/QString>
 
-#include "cacheListObject.h"
-#include "cacheSingle.h"
+#include "cache/cacheListObject.h"
 #include "json.h"
 
 /*!
@@ -92,7 +93,11 @@ public:
         return false;
     }
 
-    virtual void add   (const QJsonArray& array) final
+    /*!
+     * \brief Добавление списка в кэш.
+     * \param array масив json-обьектов для пополнение кэша
+     */
+    virtual void add(const QJsonArray& array) final
     {
         QStringList idList;
 
@@ -106,6 +111,10 @@ public:
         saveLocalCache();
     }
 
+    /*!
+     * \brief Добавление одного обьекта в кэш
+     * \param obj json-обьект нового элемента кэша
+     */
     virtual void addOne(const QJsonObject& obj) final
     {
         T* single = new T(obj, this);
@@ -115,6 +124,10 @@ public:
         saveLocalCache();
     }
 
+    /*!
+     * \brief Добавление одного обьекта в кэш по значению
+     * \param value json-значение нового элемента кэша
+     */
     virtual void addOne(const QJsonValue& value) final
     {
         T* single = new T(value.toObject(), this);
@@ -124,6 +137,10 @@ public:
         saveLocalCache();
     }
 
+    /*!
+     * \brief Добавление одного обьекта в кэш по ссылке
+     * \param single Новый элемент кэша
+     */
     virtual void addOne(T* const single) final
     {
         p_addOne(single);
@@ -174,6 +191,11 @@ public:
         return ret;
     }
 
+    /*!
+     * \brief Обновление элементов кэша.
+     * \details Обновление элемента кэша, если какого то єлемента нет, добавит его.
+     * \param array масив json-обьектов
+     */
     virtual void update(const QJsonArray& array) final
     {
         QStringList idPushList;
@@ -194,6 +216,11 @@ public:
         saveLocalCache();
     }
 
+    /*!
+     * \brief Обновление элемента кэша.
+     * \details Обновление элемента кэша, если его нет, добавляем его.
+     * \param obj json-обьект
+     */
     virtual void update(const QJsonObject& obj) final
     {
         QString id(Json::get(obj, Json::Id).toString());
@@ -205,17 +232,24 @@ public:
         saveLocalCache();
     }
 
+    /*!
+     * \brief Обновление элемента кэша.
+     * \details Обновление элемента кэша, если его нет, добавляем его.
+     * \param value json-переменная (или список или обьект, иначе ничего не произойдет)
+     */
     virtual void update(const QJsonValue& value) final
     {
-        QString id(Json::get(value, Json::Id).toString());
-        T* single = getOne(id);
-        if (p_update(single, value.toObject()))
-            emit listPushed(QStringList(id));
-        else
-            emit listUpdated(QStringList(single->id()));
-        saveLocalCache();
+        if (value.isArray())
+            update(value.toArray());
+        else if (value.isObject())
+            update(value.toObject());
     }
 
+    /*!
+     * \brief Запрос штрихкода по идентификатору
+     * \param id Идентификатор
+     * \return Штрихкод элемента кеша по идентификатору.
+     */
     virtual const QString getBarcodeById(const QString& id) const final
     {
         for (auto it : m_list)
@@ -224,6 +258,11 @@ public:
         return Static::undefined();
     }
 
+    /*!
+     * \brief Запрос штрихкода по наименованию
+     * \param name Наименование
+     * \return Штрихкод элемента кеша по наименованию.
+     */
     virtual const QString getBarcodeByName(const QString& name) const final
     {
         for (auto it : m_list)
@@ -232,6 +271,11 @@ public:
         return Static::undefined();
     }
 
+    /*!
+     * \brief Запрос идентификатора по штрихкоду
+     * \param barcode Штрихкод
+     * \return Идентификатор элемента кеша по штрихкоду.
+     */
     virtual const QString getIdByBarcode(const QString& barcode) const final
     {
         for (auto it : m_list)
@@ -240,6 +284,11 @@ public:
         return Static::guidDefault();
     }
 
+    /*!
+     * \brief Запрос идентификатора по наименованию
+     * \param name Наименование
+     * \return Идентификатор элемента по имени.
+     */
     virtual const QString getIdByName(const QString& name) const final
     {
         for (auto it : m_list)
@@ -248,6 +297,11 @@ public:
         return Static::guidDefault();
     }
 
+    /*!
+     * \brief Запрос наименования по штрихкоду
+     * \param barcode Штрихкод
+     * \return Наименование элемента по штрихкоду.
+     */
     virtual const QString getNameByBarcode(const QString& barcode) const final
     {
         for (auto it : m_list)
@@ -256,6 +310,11 @@ public:
         return Static::undefined();
     }
 
+    /*!
+     * \brief Запрос наименования по идентификатору
+     * \param id Идентификатор
+     * \return Наименование элемента по идентифкатору.
+     */
     virtual const QString getNameById(const QString& id) const final
     {
         for (auto it : m_list)
@@ -265,6 +324,10 @@ public:
     }
 
 protected:
+    /*!
+     * \brief Чтение кэша с локального хранилища и загрузка его в операционную память
+     * \return Удачность чтения.
+     */
     virtual bool readLocalCache() final
     {
         QFile file(m_local_dir.absoluteFilePath(m_local_file_name + ".cache"));
@@ -274,7 +337,7 @@ protected:
             removeAll();
 
             while (! stream.atEnd()){
-                CacheSingle* single = new T(this);
+                T* single = new T(this);
                 stream >> *single;
                 m_list.push_back(single);
                 idList.push_back(single->id());
@@ -309,13 +372,25 @@ private:
     QList <T*> m_list;         ///< Список строк кэша.
     QString m_local_file_name; ///< Наименование кэша.
 
-
+    /*!
+     * \brief Внутренний метод для добавления элемента
+     * \details Универсальный для всех остальных методов
+     * \param single Элемент готовый для добавления в кэш.
+     */
     virtual void p_addOne(T* const single) final
     {
         removeById(single->id());
         m_list.push_back(single);
     }
 
+    /*!
+     * \brief Функция обновления кэша.
+     * \details Определяет есть ли в системе уже данный обьект, если нет, добавляет его,
+     * если есть, обновляет и перезаписывает значение.
+     * \param single Ссылка на обьект, или nullptr если обьекта еще нет в системе
+     * \param obj json-обьект с новой ифнормацией про обьект
+     * \return Истину если обьект перезаписан, или ложь если обьект был создан новый.
+     */
     virtual bool p_update(T* single, const QJsonObject& obj) final
     {
         if (single == nullptr)

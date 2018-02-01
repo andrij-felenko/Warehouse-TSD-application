@@ -18,10 +18,8 @@ DEPENDPATH  += $$PWD/cpp
 INCLUDEPATH += $$PWD/cpp
 
 HEADERS += \
-    cpp/view/view.h
 
 SOURCES += \
-    cpp/view/view.cpp \
     cpp/main.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../warehouseBase/release/ -lwarehouseBase

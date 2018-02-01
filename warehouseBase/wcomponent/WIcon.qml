@@ -12,7 +12,8 @@ Item {
     Image {
         id: image
         property string iconDir: "/icon/"
-        source: Qt.resolvedUrl(iconDir + icon.source + ".png")
+        source: icon.source === "" ? Qt.resolvedUrl(null)
+                                   : Qt.resolvedUrl(iconDir + icon.source + ".png")
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectCrop
         height: parent.height * percent / 100

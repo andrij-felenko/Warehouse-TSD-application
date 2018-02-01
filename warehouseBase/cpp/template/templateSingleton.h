@@ -19,7 +19,7 @@ public:
     static T* registrate() { return _instance; }
 
 protected:
-    virtual ~SingletonTemplate()
+    virtual ~TemplateSingleton()
     {
         if (TemplateSingleton::_instance != nullptr) {
             delete TemplateSingleton::_instance;

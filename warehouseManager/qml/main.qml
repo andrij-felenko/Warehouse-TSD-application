@@ -15,136 +15,55 @@ Rectangle {
         x: parent.width * 0.2
         y: 20
         source: "qrc:/icon/haiku.png"
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: WApp.quit()
+        }
     }
 
-    Item {
+    WIcon {
         anchors.right: parent.right
         anchors.top: parent.top
+        anchors.leftMargin: height / 4
+        anchors.rightMargin: height / 4
+        anchors.topMargin: height / 4
+        anchors.bottomMargin: height / 4
         height: width
-        width: parent.width / 5
-
-        Image {
-            anchors.fill: parent
-            anchors.leftMargin: parent.height / 4
-            anchors.rightMargin: parent.height / 4
-            anchors.topMargin: parent.height / 4
-            anchors.bottomMargin: parent.height / 4
-            fillMode: Image.PreserveAspectFit
-            source: "qrc:/icon/power_2.png"
-        }
+        width: parent.width / 6
+        source: "power_2"
     }
 
-    Rectangle {
-        id: login_input
-        anchors.top: logo_item.bottom
+    WTextInput {
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.topMargin: 20
+        anchors.bottom: password_input.top
         anchors.leftMargin: 20
         anchors.rightMargin: 20
+        anchors.bottomMargin: 20
         height: parent.height / 13
-        opacity: 0.9
 
-        Rectangle {
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.left: login_icon.right
-            anchors.right: parent.right
-            anchors.topMargin: 1
-            anchors.bottomMargin: 1
-            anchors.leftMargin: 1
-            anchors.rightMargin: 1
-            color: "black"
-
-            TextInput {
-                anchors.centerIn: parent
-            }
-        }
-
-        TextInput {
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.left: login_icon.right
-            anchors.right: parent.right
-            anchors.topMargin: 1
-            anchors.bottomMargin: 1
-            anchors.leftMargin: 10
-            anchors.rightMargin: 1
-            color: "white"
-            font.pointSize: 9
-            verticalAlignment: Text.AlignVCenter
-        }
-
-        Rectangle {
-            id: login_icon
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            width: height
-            color: "white"
-
-            Image {
-                anchors.fill: parent
-                anchors.leftMargin: parent.height / 4
-                anchors.rightMargin: parent.height / 4
-                anchors.topMargin: parent.height / 4
-                anchors.bottomMargin: parent.height / 4
-                fillMode: Image.PreserveAspectFit
-                source: "qrc:/icon/businessman.png"
-            }
-        }
+        iconLeftSource: "businessman"
+        iconLeftVisible: true
+        onAccepted: password_input.input.focus = true
     }
 
-    Rectangle {
+    WTextInput {
         id: password_input
-        anchors.top: login_input.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.topMargin: 20
         anchors.leftMargin: 20
         anchors.rightMargin: 20
+        y: (parent.height - height) / 2
         height: parent.height / 13
-        opacity: 0.9
 
-        Rectangle {
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            width: height
-            color: "white"
-
-            Image {
-                anchors.fill: parent
-                anchors.leftMargin: parent.height / 4
-                anchors.rightMargin: parent.height / 4
-                anchors.topMargin: parent.height / 4
-                anchors.bottomMargin: parent.height / 4
-                fillMode: Image.PreserveAspectFit
-                source: "qrc:/icon/lock.png"
-            }
-        }
-
-        Rectangle {
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            width: height
-            color: "white"
-            opacity: 0.5
-
-            Image {
-                anchors.fill: parent
-                anchors.leftMargin: parent.height / 4
-                anchors.rightMargin: parent.height / 4
-                anchors.topMargin: parent.height / 4
-                anchors.bottomMargin: parent.height / 4
-                fillMode: Image.PreserveAspectFit
-                source: "qrc:/icon/question_mark_4.png"
-            }
-        }
+        iconLeftSource: "lock"
+        iconLeftVisible: true
+        iconRightSource: "visible"
+        iconRightVisible: true
     }
 
-    Rectangle {
+    WIconButton {
         id: sign_in
         anchors.top: password_input.bottom
         anchors.left: parent.left
@@ -154,93 +73,23 @@ Rectangle {
         anchors.rightMargin: 20
         height: parent.height / 13
 
-        Rectangle {
-            id: add_user_item
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            width: height
-            color: "#acc864"
-
-            Image {
-                anchors.fill: parent
-                anchors.leftMargin: parent.height / 4
-                anchors.rightMargin: parent.height / 4
-                anchors.topMargin: parent.height / 4
-                anchors.bottomMargin: parent.height / 4
-                fillMode: Image.PreserveAspectFit
-                source: "qrc:/icon/add_user_2.png"
-            }
-        }
-
-        Rectangle {
-            anchors.left: add_user_item.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            color: "#008f47"
-
-            Text {
-                anchors.fill: parent
-                text: "Sign up"
-                font.pointSize: 15
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                color: "white"
-            }
-        }
+        text: "Sign up"
+        iconSource: "add_user_2"
     }
 
-    WTextInput {
-        anchors.top: sign_in.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.topMargin: 20
-        anchors.leftMargin: 20
-        anchors.rightMargin: 20
-        height: parent.height / 13
-
-        iconLeftSource: "angry"
-        iconLeftVisible: true
-        iconRightVisible: true
-        iconRightSource: "comments"
-    }
-
-    Item {
+    Text {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.leftMargin: 20
         height: parent.height / 18
-        width: parent.width
-
-        Text {
-            width: parent.width
-            color: "#ffffff"
-            wrapMode: Text.WrapAnywhere
-            text: "Noto v. 0.1"
-            font.pointSize: 9
-        }
+        color: "#ffffff"
+        wrapMode: Text.WrapAnywhere
+        text: "January 2018\nWarehouse manager v. 0.1"
+        font.pointSize: 9
     }
 
-    Item {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        height: parent.height / 18
-        width: parent.width
-
-        Text {
-            width: parent.width
-            color: "#ffffff"
-            wrapMode: Text.WrapAnywhere
-            text: "Jan. 2018"
-            horizontalAlignment: Text.AlignHCenter
-            font.pointSize: 9
-        }
-    }
-
-    Item {
+    Text {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
@@ -248,14 +97,11 @@ Rectangle {
         height: parent.height / 18
         width: parent.width
 
-        Text {
-            color: "#ffffff"
-            anchors.right: parent.right
-            wrapMode: Text.WrapAnywhere
-            text: "Andrey Felenko"
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            font.pointSize: 8
-        }
+        color: "#ffffff"
+        wrapMode: Text.WrapAnywhere
+        text: "\n© Andrey Felenko"
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignRight
+        font.pointSize: 8
     }
 }
