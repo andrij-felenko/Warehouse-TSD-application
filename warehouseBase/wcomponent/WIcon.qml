@@ -2,7 +2,7 @@ import QtQuick 2.0
 import Qt.labs.settings 1.0
 import QtGraphicalEffects 1.0
 
-Item {
+WItem {
     id: icon
     property alias color: colorOverlay.color
     property string source: ""

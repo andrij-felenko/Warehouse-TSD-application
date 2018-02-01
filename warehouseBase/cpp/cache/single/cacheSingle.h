@@ -9,7 +9,7 @@
 #include "json.h"
 #include "static.h"
 
-/*! \brief Информация про одну ячейку */
+/*! \brief Информация про один элемент кэша */
 class CacheSingle : public QObject
 {
     Q_OBJECT
@@ -30,15 +30,15 @@ public:
     QJsonObject toJson() const;
     void fromJson(const QJsonObject& obj);
 
-    QString id()      const { return m_id; }      ///< Возвращает идентификатор ячейки
-    QString name()    const { return m_name; }    ///< Возвращает наименование ячейки
-    QString barcode() const { return m_barcode; } ///< Возвращает штрихкод ячейки
+    QString id() const;
+    QString name() const;
+    QString barcode() const;
 
     // RESET ---------------------------------------------------------------------------------------
     void resetAll();
-    void resetBarcode() { setBarcode(Static::undefined()); }
-    void resetId()      { setId     (Static::guidDefault()); }
-    void resetName()    { setName   (Static::undefined()); }
+    void resetBarcode();
+    void resetId();
+    void resetName();
 
 public slots:
     void setId(QString id);
@@ -55,9 +55,9 @@ protected:
     friend QDataStream& operator >> (QDataStream &s, CacheSingle &d);
 
 private:
-    QString m_id;       ///< Идентификатор ячейки
-    QString m_name;     ///< Наименование ячейки
-    QString m_barcode;  ///< Штрихкод ячейки
+    QString m_id;      ///< Идентификатор ячейки
+    QString m_name;    ///< Наименование ячейки
+    QString m_barcode; ///< Штрихкод ячейки
 };
 
 #endif // CACHESINGLE_H

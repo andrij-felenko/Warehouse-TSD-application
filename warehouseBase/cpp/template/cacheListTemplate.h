@@ -9,7 +9,7 @@
 #include <QtCore/QList>
 #include <QtCore/QString>
 
-#include "cache/cacheListObject.h"
+#include "cache/list/cacheListObject.h"
 #include "json.h"
 
 /*!

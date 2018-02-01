@@ -1,6 +1,4 @@
 #include <QtGui/QGuiApplication>
-#include "view/view.h"
-#include "enum/url.h"
 #include "warehouseBase.h"
 
 int main(int argc, char** argv)

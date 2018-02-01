@@ -6,5 +6,7 @@
         <file>wcomponent/WMirrorLabel.qml</file>
         <file>wcomponent/WRectangle.qml</file>
         <file>wcomponent/WTextInput.qml</file>
+        <file>wcomponent/WPage.qml</file>
+        <file>wcomponent/WItem.qml</file>
     </qresource>
 </RCC>

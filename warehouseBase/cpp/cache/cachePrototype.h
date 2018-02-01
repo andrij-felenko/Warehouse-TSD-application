@@ -5,7 +5,7 @@
 #include <QtCore/QObject>
 #include <QtQml/QQmlEngine>
 
-#include "cacheSingle.h"
+#include "single/cacheSingle.h"
 #include "template/cacheListTemplate.h"
 
 ///< Общий клас для управления всем кэшем.

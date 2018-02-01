@@ -32,24 +32,22 @@ RESOURCES += \
 SOURCES += \
     cpp/warehouseBase.cpp \
     cpp/barcode/barcodeprototype.cpp \
-    cpp/cache/cachePrototype.cpp \
-    cpp/cache/cacheSingle.cpp \
     cpp/enum/json.cpp \
     cpp/enum/url.cpp \
     cpp/model/modelPrototype.cpp \
     cpp/server/requestGenerate.cpp \
     cpp/server/serverPrototype.cpp \
     cpp/setting/settingPrototype.cpp \
-    cpp/view/view.cpp
+    cpp/view/view.cpp \
+    cpp/cache/cachePrototype.cpp \
+    cpp/cache/single/cacheSingle.cpp \
+    cpp/cache/single/containersingle.cpp
 
 HEADERS += \
     cpp/warehouseBase.h \
     cpp/warehousebase_global.h \
     cpp/singleton.h \
     cpp/barcode/barcodeprototype.h \
-    cpp/cache/cacheListObject.h \
-    cpp/cache/cachePrototype.h \
-    cpp/cache/cacheSingle.h \
     cpp/enum/enum.h \
     cpp/enum/json.h \
     cpp/enum/static.h \
@@ -60,4 +58,8 @@ HEADERS += \
     cpp/setting/settingPrototype.h \
     cpp/template/cacheListTemplate.h \
     cpp/template/templateSingleton.h \
-    cpp/view/view.h
+    cpp/view/view.h \
+    cpp/cache/cachePrototype.h \
+    cpp/cache/list/cacheListObject.h \
+    cpp/cache/single/cacheSingle.h \
+    cpp/cache/single/containersingle.h

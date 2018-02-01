@@ -7,6 +7,9 @@ WRectangle {
     property alias iconPercent: icon.percent
     property alias iconColor:   icon.color
     property bool isRight: false
+    clickMode: true
+
+    signal iconClicked()
 
     anchors.topMargin:    anchors.top    === parent.top    ? parent.border.width : 0
     anchors.leftMargin:   anchors.left   === parent.left   ? parent.border.width : 0
@@ -20,6 +23,9 @@ WRectangle {
         anchors.left:  isRight ? undefined : parent.left
         anchors.right: isRight ? parent.right : undefined
         width: height
+        clickMode: true
+
+        onClicked: /* emit */ iconButton.iconClicked()
     }
 
     Text {

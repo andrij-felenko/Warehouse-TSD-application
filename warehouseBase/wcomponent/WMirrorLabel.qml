@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
-FRectangle {
+WRectangle {
     id: mirrorLabel
     visible: visibleWithEmptyProperties ? true
                                         : textLeft  === undefined || textRight === undefined ? false
