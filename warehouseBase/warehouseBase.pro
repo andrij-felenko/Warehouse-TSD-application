@@ -41,7 +41,12 @@ SOURCES += \
     cpp/view/view.cpp \
     cpp/cache/cachePrototype.cpp \
     cpp/cache/single/cacheSingle.cpp \
-    cpp/cache/single/containersingle.cpp
+    cpp/cache/single/containersingle.cpp \
+    cpp/server/requestGenerate.cpp \
+    cpp/server/serverCache.cpp \
+    cpp/server/serverPrototype.cpp \
+    cpp/setting/settingPrototype.cpp \
+    cpp/setting/settingServer.cpp
 
 HEADERS += \
     cpp/warehouseBase.h \
@@ -62,4 +67,10 @@ HEADERS += \
     cpp/cache/cachePrototype.h \
     cpp/cache/list/cacheListObject.h \
     cpp/cache/single/cacheSingle.h \
-    cpp/cache/single/containersingle.h
+    cpp/cache/single/containersingle.h \
+    cpp/server/requestGenerate.h \
+    cpp/server/serverCache.h \
+    cpp/server/serverCacheSingle.h \
+    cpp/server/serverPrototype.h \
+    cpp/setting/settingPrototype.h \
+    cpp/setting/settingServer.h

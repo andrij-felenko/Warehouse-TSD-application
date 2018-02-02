@@ -26,10 +26,10 @@ public:
     void fromJson(const QJsonObject& obj);
 
     // READ ----------------------------------------------------------------------------------------
-    QString employeeId() const { return m_employee_id; }
+    QString employeeId() const; ///< Возвращает ИД текущего владельца
 
     // RESET ---------------------------------------------------------------------------------------
-    void resetEmployeeId() { setEmployeeId(Static::guidDefault()); }
+    void resetEmployeeId();
 
 signals:
     void employeeIdChanged(QString employee_id);

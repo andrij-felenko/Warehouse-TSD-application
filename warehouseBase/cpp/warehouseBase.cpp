@@ -30,18 +30,18 @@ void WarehouseBase::registrateTypes()
     root->setContextProperty("Cache",    Cache::registrate());
     root->setContextProperty("Model",    Model::registrate());
     root->setContextProperty("Server",   Server::registrate());
-    root->setContextProperty("Setting",  Settings::registrate());
+    root->setContextProperty("Setting",  Setting::registrate());
 
-    Cache::get().registerType();
-//    Settings::get().registerType();
+    Cache  ::get().registerType();
+    Setting::get().registerType();
 }
 
 void WarehouseBase::init()
 {
-    Cache   ::instance(this);
-    Model   ::instance(this);
-    Server  ::instance(this);
-    Settings::instance(this);
+    Cache  ::instance(this);
+    Model  ::instance(this);
+    Server ::instance(this);
+    Setting::instance(this);
 }
 
 void WarehouseBase::loadQML(const QUrl& url)

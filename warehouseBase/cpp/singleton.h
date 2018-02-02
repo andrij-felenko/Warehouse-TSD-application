@@ -18,6 +18,6 @@ class Model : public TemplateSingleton <ModelPrototype> {};
 class Server : public TemplateSingleton <ServerPrototype> {};
 
 /*! \brief Singleton обьект для работы с настройками приложения */
-class Settings : public TemplateSingleton <SettingPrototype> {};
+class Setting : public TemplateSingleton <SettingPrototype> {};
 
 #endif // SINGLETON_H

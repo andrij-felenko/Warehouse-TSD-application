@@ -8,7 +8,7 @@ class RequestGenerate : public QObject
 {
     Q_OBJECT
 public:
-    explicit RequestGenerate(QObject *parent = nullptr);
+    explicit RequestGenerater(QObject *parent = nullptr);
 
 signals:
 

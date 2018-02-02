@@ -13,6 +13,7 @@ WRectangle {
     property alias iconRight: iconRight_
     property alias input: textInput_
     property alias text: textInput_.text
+//    property alias passwordMode: textInput_.
     border.color: "#AAAAAA"
     border.width: 2
 
