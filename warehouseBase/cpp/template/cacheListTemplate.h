@@ -10,7 +10,7 @@
 #include <QtCore/QString>
 
 #include "cache/list/cacheListObject.h"
-#include "json.h"
+#include "enum/wjson.h"
 
 /*!
  * \brief Шаблон для класов списков кэша.
@@ -32,8 +32,7 @@ public:
         : CacheListObject(parent),
           m_local_dir(dir),
           m_local_file_name(name){
-        // FIXME read uncomment
-        //        readLocalCache();
+        readLocalCache();
     }
 
     /*!
@@ -201,7 +200,7 @@ public:
         QStringList idPushList;
         QStringList idUpdateList;
         for (auto it : array){
-            QString id(Json::get(it, Json::Id).toString());
+            QString id(WJson::get(it, WJson::Id).toString());
             T* single = getOne(id);
             if (p_update(single, it.toObject()))
                 idPushList.push_back(id);
@@ -223,7 +222,7 @@ public:
      */
     virtual void update(const QJsonObject& obj) final
     {
-        QString id(Json::get(obj, Json::Id).toString());
+        QString id(WJson::get(obj, WJson::Id).toString());
         T* single = getOne(id);
         if (p_update(single, obj))
             emit listPushed(QStringList(id));
@@ -255,7 +254,7 @@ public:
         for (auto it : m_list)
             if (it->id() == id)
                 return it->barcode();
-        return Static::undefined();
+        return WStatic::undefined();
     }
 
     /*!
@@ -268,7 +267,7 @@ public:
         for (auto it : m_list)
             if (it->name() == name)
                 return it->barcode();
-        return Static::undefined();
+        return WStatic::undefined();
     }
 
     /*!
@@ -281,7 +280,7 @@ public:
         for (auto it : m_list)
             if (it->barcode() == barcode)
                 return it->id();
-        return Static::guidDefault();
+        return WStatic::guidDefault();
     }
 
     /*!
@@ -294,7 +293,7 @@ public:
         for (auto it : m_list)
             if (it->name() == name)
                 return it->id();
-        return Static::guidDefault();
+        return WStatic::guidDefault();
     }
 
     /*!
@@ -307,7 +306,7 @@ public:
         for (auto it : m_list)
             if (it->barcode() == barcode)
                 return it->name();
-        return Static::undefined();
+        return WStatic::undefined();
     }
 
     /*!
@@ -320,7 +319,7 @@ public:
         for (auto it : m_list)
             if (it->id() == id)
                 return it->name();
-        return Static::undefined();
+        return WStatic::undefined();
     }
 
 protected:

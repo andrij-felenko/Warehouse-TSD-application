@@ -1,60 +1,51 @@
 #include "serverPrototype.h"
+#include "singleton.h"
+#include "requestGenerate.h"
 
-ServerPrototype::ServerPrototype(QObject *parent) : QObject(parent)
+ServerPrototype::ServerPrototype(QObject *parent) : QNetworkAccessManager(parent)
 {
     m_serverCache = new ServerCache(this);
 }
 
-bool ServerPrototype::request(QList<int> url, Enum::Version version, QString msg,
-                              QJsonDocument document, int priority,
+// from QML
+void ServerPrototype::request(QList<int> url, int version, QString msg,
+                              QJsonValue json, int priority,
                               QObject* senderObject, QString functionName)
 {
-    request(Url::compareUrl(url, version), msg, document, priority, senderObject, functionName);
+    request(WUrl::compareUrl(url, static_cast <WEnum::Version> (version)), msg, json,
+            static_cast <WEnum::Request_priority> (priority), senderObject, functionName);
 }
 
 // FIXME
-bool ServerPrototype::request(const QString& url, const QString& msg,
-                              const QJsonDocument& document, Enum::Request_priority priority,
-                              const QObject* senderObject, const QString& functionName)
+void ServerPrototype::request(QString url, QString msg,
+                              QJsonValue json, WEnum::Request_priority priority,
+                              QObject* senderObject, QString functionName)
 {
-    if (not document.isEmpty())
-        if (not Json::contains(document.object(), Json::Request)){
-//            Message::get().set_message("Запрос оформлен некоректно",
-//                                       Enum::Msg_error, Enum::Priority_high);
-            return false;
-        }
+    Q_UNUSED(msg)
 
     // send message
     QString id_msg;
-//    switch (priority){
-//    case Enum::Request_priority_can_cache:
-//        id_msg = Message::get().setMessage(text, Enum::Msg_inquery, Enum::Priority_middle_above);
-//        break;
-//    case Enum::Request_priority_can_ignore:
-//        id_msg = Message::get().setMessage(text, Enum::Msg_inquery, Enum::Priority_middle_above);
-//        break;
-//    case Enum::Request_priority_must_server:
-//        id_msg = Message::get().setMessage(text, Enum::Msg_inquery, Enum::Priority_high);
-//        break;
-//    default:;
-//    }
+    switch (priority){
+    case WEnum::Request_can_cache:
+        id_msg = Message::get().setMessage(msg, WEnum::Msg_progress, WEnum::Priority_middle);
+        break;
+    case WEnum::Request_just_info:
+        id_msg = Message::get().setMessage(msg, WEnum::Msg_progress, WEnum::Priority_middle_bellow);
+        break;
+    case WEnum::Request_must_server:
+        id_msg = Message::get().setMessage(msg, WEnum::Msg_progress, WEnum::Priority_middle_above);
+        break;
+    default:;
+    }
+
+    // create request object
+    auto serverRequest = new ServerCacheSingle(senderObject, functionName, url, id_msg, json, this, priority);
 
     // send request to server cache system
-    if (document.isEmpty()) // haven`t body, call when try send get request
-        m_serverCache->add(new ServerCacheSingle(senderObject, functionName, "", url, id_msg, this));
-    else if (Json::contains(document.object(), Json::Request))
-        m_serverCache->add(new ServerCacheSingle(senderObject, functionName,
-                                                 Json::get(document.object(),
-                                                           Json::Request).toString(),
-                                                 url, id_msg, document, this, priority));
+    m_serverCache->add(serverRequest);
 
     // send request to server
-    if (document.isEmpty()) // haven`t body, call when try send get request
-        get(url);
-    else
-        post(url, document);
-
-    return true;
+    post(url, serverRequest->json()->toJsonDocument());
 }
 
 // FIXME
@@ -67,12 +58,13 @@ void ServerPrototype::authentificate(QNetworkReply *reply, QAuthenticator *auth)
     qDebug() << Setting::get().server()->name() << Setting::get().server()->password()
              << Setting::get().server()->domain();
 //    if (! Cache::get().employee()->is_authorizate())
-//        get(Url::composeUrl({ Url::Get, Url::Employee, Url::List }));
+//        get(WUrl::composeUrl({ WUrl::Get, WUrl::Employee, WUrl::List }));
 }
 
 // FIXME
 void ServerPrototype::handler(QNetworkReply *reply)
 {
+    Q_UNUSED(reply)
     //
 }
 

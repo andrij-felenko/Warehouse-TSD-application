@@ -9,16 +9,16 @@ ServerCache::ServerCache(QObject *parent) : QObject(parent)
     QObject::connect(m_timer, &QTimer::timeout, this, &ServerCache::trySendServerCache);
 }
 
-void ServerCache::add(ServerCacheSingle *single)
+ServerCacheSingle* ServerCache::add(ServerCacheSingle *single)
 {
     cache_list.push_back(single);
+    return single;
 }
 
 void ServerCache::remove(QString id)
 {
     for (auto it : cache_list)
-        if (it->id_request() == id or
-                (it->url() == id and it->priority() != Enum::Request_priority_can_cache))
+        if (it->json()->request() == id)
             cache_list.removeOne(it);
 }
 
@@ -26,7 +26,7 @@ ServerCacheSingle* ServerCache::getOne(QString id)
 {
     for (auto it : cache_list)
         if (not it->isAccept())
-            if (it->id_request() == id or it->url() == id or it->id_msg() == id)
+            if (it->json()->request() == id or it->id_msg() == id)
                 return it;
     return new ServerCacheSingle();
 }
@@ -34,11 +34,7 @@ ServerCacheSingle* ServerCache::getOne(QString id)
 void ServerCache::trySendServerCache()
 {
     for (auto it : cache_list)
-        if (it->priority() == Enum::Request_priority_can_cache)
-            if (it->secAfterRequest() > 10){
-                if (it->document().isEmpty())
-                    emit get(it->url());
-                else
-                    emit post(it->url(), it->document());
-            }
+        if (it->priority() == WEnum::Request_can_cache)
+            if (it->secAfterRequest() > 10)
+                emit post(it->json()->url(), it->json()->toJsonDocument());
 }

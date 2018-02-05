@@ -1,20 +1,20 @@
-#ifndef URL_H
-#define URL_H
+#ifndef WURL_H
+#define WURL_H
 
 #include <QtCore/QMap>
 #include <QtCore/QObject>
-#include "enum.h"
-#include "static.h"
+#include "wenum.h"
+#include "wstatic.h"
 
-class Url;
-extern Url _url;
+class WUrl;
+extern WUrl _wurl;
 
-class Url : public QObject
+class WUrl : public QObject
 {
 public:
-    explicit Url(QObject* parent = nullptr);
+    explicit WUrl(QObject* parent = nullptr);
 
-    enum Url_enum {
+    enum WUrl_enum {
         // first word to request -------------------------------------------------------------------
         Get = 0xB000, ///< Запрос на получение
         Set,          ///< Отправка информации на сервер
@@ -55,32 +55,33 @@ public:
 
         // error url
         ___ = 0xBFFF, ///< Ошибка, если не найден ключ
-    }; Q_ENUMS(Url_enum)
+    }; Q_ENUMS(WUrl_enum)
 
     // static variable
-    static Enum::Version version () { return     Enum::Version_0_1; }
-    static Url_enum      errorKey() { return Url_enum::___;         }
+    static WEnum::Version version () { return     WEnum::Version_0_1; }
+    static WUrl_enum      errorKey() { return WUrl_enum::___;         }
 
     // static convert method
-    static Url_enum fromString(QString name, Enum::Version version_ = version());
-    static QString    toString(Url_enum key, Enum::Version version_ = version());
+    static WUrl_enum fromString(QString name, WEnum::Version version_ = version());
+    static QString    toString(WUrl_enum key, WEnum::Version version_ = version());
 
     // non static method
-    Url_enum p_fromString(QString name, Enum::Version version_ = version());
-    QString    p_toString(Url_enum key, Enum::Version version_ = version());
+    WUrl_enum p_fromString(QString name, WEnum::Version version_ = version());
+    QString    p_toString(WUrl_enum key, WEnum::Version version_ = version());
 
 public slots:
     static QString toString(int key);
-    static QString compareUrl(std::initializer_list <Url_enum> list, Enum::Version version_ = version());
-    static QList <Url_enum> disunite(const QString& url, Enum::Version version_ = version());
+    static QString compareUrl(std::initializer_list <WUrl_enum> list, WEnum::Version version_ = version());
+    static QString compareUrl(QList <int> list, WEnum::Version version_ = version());
+    static QList <WUrl_enum> disunite(const QString& url, WEnum::Version version_ = version());
 
 private:
-    struct Url_single {
-        Url_enum key;
+    struct WUrl_single {
+        WUrl_enum key;
         QString name;
-        Enum::Version version;
+        WEnum::Version version;
     };
-    QList <Url_single> m_list;
+    QList <WUrl_single> m_list;
 };
 
-#endif // URL_H
+#endif // WURL_H

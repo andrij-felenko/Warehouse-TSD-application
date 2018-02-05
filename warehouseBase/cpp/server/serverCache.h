@@ -11,7 +11,7 @@ class ServerCache : public QObject
 public:
     explicit ServerCache(QObject *parent = nullptr);
 
-    void add(ServerCacheSingle* single);
+    ServerCacheSingle* add(ServerCacheSingle* single);
     void remove(QString id);
     ServerCacheSingle* getOne(QString id);
 

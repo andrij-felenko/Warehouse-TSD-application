@@ -1,10 +1,10 @@
-#ifndef ERIDON_ENUM_H
-#define ERIDON_ENUM_H
+#ifndef WENUM_H
+#define WENUM_H
 
 #include <QtCore/QObject>
 
 /*! \brief Клас перечислений что используються в проэкте */
-class Enum : public QObject
+class WEnum : public QObject
 {
     Q_OBJECT
 public:
@@ -16,11 +16,11 @@ public:
     }; Q_ENUMS(Side)
 
     enum Priority {
-        Priority_low = 0xE100,  ///< Низкий
-        Priority_middle_bellow, ///< Ниже среднего
-        Priority_middle,        ///< Средний
-        Priority_middle_above,  ///< Выше среднего
-        Priority_high,          ///< Высокий
+        Priority_low           = 0xE100 | (1 << 0), ///< Низкий
+        Priority_middle_bellow = 0xE100 | (1 << 1), ///< Ниже среднего
+        Priority_middle        = 0xE100 | (1 << 2), ///< Средний
+        Priority_middle_above  = 0xE100 | (1 << 3), ///< Выше среднего
+        Priority_high          = 0xE100 | (1 << 4), ///< Высокий
     }; Q_ENUMS(Priority)
 
     enum Request_priority {
@@ -29,10 +29,17 @@ public:
         Request_just_info,            ///< Запрос может быть проигнорирован
     }; Q_ENUMS(Request_priority)
 
+    enum Msg_type {
+        Msg_error = 0xE300, ///< Сообщение об ошибке
+        Msg_complete,       ///< Выполненое сообщение
+        Msg_progress,       ///< Сообщение о процесе запроса или работы с кэшем
+        Msg_warning,        ///< Сообщение содержит предупреждение о возможных проблемах
+    }; Q_ENUMS(Msg_type)
+
     enum Msg_status {
-        Msg_complete = 0xE300, ///< Выполненое сообщение
-        Msg_error,             ///< Сообщение об ошибке
-        Msg_progress,          ///< Сообщение о процесе запроса или работы с кэшем
+        Msg_close = 0xE320, ///< Сообщение уже было показано
+        Msg_show,           ///< Сообщение отображаеться в данный момент
+        Msg_waiting,        ///< Сообщение в ожидании для отображения
     }; Q_ENUMS(Msg_status)
 
     enum Document_type {
@@ -65,4 +72,4 @@ public:
     }; Q_ENUMS(CacheType)
 };
 
-#endif // ERIDON_ENUM_H
+#endif // WENUM_H

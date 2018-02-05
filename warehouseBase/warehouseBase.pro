@@ -18,10 +18,8 @@ DEFINES += WAREHOUSEBASE_LIBRARY
 DEFINES += QT_DEPRECATED_WARNINGS
 
 DEPENDPATH += $$PWD/cpp
-DEPENDPATH += $$PWD/cpp/enum
 
 INCLUDEPATH += $$PWD/cpp
-INCLUDEPATH += $$PWD/cpp/enum
 
 OTHER_FILES += $$PWD/wcomponent/*.qml
 
@@ -32,12 +30,9 @@ RESOURCES += \
 SOURCES += \
     cpp/warehouseBase.cpp \
     cpp/barcode/barcodeprototype.cpp \
-    cpp/enum/json.cpp \
-    cpp/enum/url.cpp \
+    cpp/enum/wjson.cpp \
+    cpp/enum/wurl.cpp \
     cpp/model/modelPrototype.cpp \
-    cpp/server/requestGenerate.cpp \
-    cpp/server/serverPrototype.cpp \
-    cpp/setting/settingPrototype.cpp \
     cpp/view/view.cpp \
     cpp/cache/cachePrototype.cpp \
     cpp/cache/single/cacheSingle.cpp \
@@ -46,21 +41,20 @@ SOURCES += \
     cpp/server/serverCache.cpp \
     cpp/server/serverPrototype.cpp \
     cpp/setting/settingPrototype.cpp \
-    cpp/setting/settingServer.cpp
+    cpp/setting/settingServer.cpp \
+    cpp/message/messagePrototype.cpp \
+    cpp/server/wjsonTemplate.cpp
 
 HEADERS += \
+    cpp/enum/wenum.h \
+    cpp/enum/wjson.h \
+    cpp/enum/wstatic.h \
+    cpp/enum/wurl.h \
     cpp/warehouseBase.h \
     cpp/warehousebase_global.h \
     cpp/singleton.h \
     cpp/barcode/barcodeprototype.h \
-    cpp/enum/enum.h \
-    cpp/enum/json.h \
-    cpp/enum/static.h \
-    cpp/enum/url.h \
     cpp/model/modelPrototype.h \
-    cpp/server/requestGenerate.h \
-    cpp/server/serverPrototype.h \
-    cpp/setting/settingPrototype.h \
     cpp/template/cacheListTemplate.h \
     cpp/template/templateSingleton.h \
     cpp/view/view.h \
@@ -73,4 +67,7 @@ HEADERS += \
     cpp/server/serverCacheSingle.h \
     cpp/server/serverPrototype.h \
     cpp/setting/settingPrototype.h \
-    cpp/setting/settingServer.h
+    cpp/setting/settingServer.h \
+    cpp/message/messagePrototype.h \
+    cpp/message/messageSingle.h \
+    cpp/server/wjsonTemplate.h

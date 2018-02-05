@@ -6,47 +6,47 @@ SettingServer::SettingServer(QObject *parent) : QObject(parent), settings()
     settings.beginGroup("server");
 
     if (settings.contains("defaultName"))
-        m_defaultName = settings.value("defaultName", default_domain()).toString();
+        m_defaultName = settings.value("defaultName").toString();
     else
         resetDefaultName();
 
     if (settings.contains("defaultPassword"))
-        m_defaultPassword = settings.value("defaultPassword", default_domain()).toString();
+        m_defaultPassword = settings.value("defaultPassword").toString();
     else
         resetDefaultPassword();
 
     if (settings.contains("defaultDateFormat"))
-        m_defaultDateFormat = settings.value("defaultDateFormat", default_domain()).toString();
+        m_defaultDateFormat = settings.value("defaultDateFormat").toString();
     else
         resetDefaultDateFormat();
 
     if (settings.contains("defaultOnlineTimeout"))
-        m_defaultOnlineTimeout = settings.value("defaultOnlineTimeout", default_domain()).toInt();
+        m_defaultOnlineTimeout = settings.value("defaultOnlineTimeout").toInt();
     else
         resetDefaultOnlineTimeout();
 
     if (settings.contains("defaultOfflineTimeout"))
-        m_defaultOfflineTimeout = settings.value("defaultOfflineTimeout", default_domain()).toInt();
+        m_defaultOfflineTimeout = settings.value("defaultOfflineTimeout").toInt();
     else
         resetDefaultOfflineTimeout();
 
     if (settings.contains("defaultRequestTimeout"))
-        m_defaultRequestTimeout = settings.value("defaultRequestTimeout", default_domain()).toInt();
+        m_defaultRequestTimeout = settings.value("defaultRequestTimeout").toInt();
     else
         resetDefaultRequestTimeout();
 
     if (settings.contains("defaultUpdatePriority"))
-        m_defaultUpdatePriority = settings.value("defaultUpdatePriority", default_domain()).toInt();
+        m_defaultUpdatePriority = settings.value("defaultUpdatePriority").toInt();
     else
         resetDefaultUpdatePriority();
 
     if (settings.contains("defaultWorkingDomain"))
-        m_defaultWorkingDomain  = settings.value("defaultWorkingDomain",  default_domain()).toString();
+        m_defaultWorkingDomain  = settings.value("defaultWorkingDomain").toString();
     else
         resetDefaultWorkingDomain();
 
     if (settings.contains("defaultTestingDomain"))
-        m_defaultTestingDomain  = settings.value("defaultTestingDomain",  default_domain()).toString();
+        m_defaultTestingDomain  = settings.value("defaultTestingDomain").toString();
     else
         resetDefaultTestingDomain();
 
@@ -155,15 +155,6 @@ void SettingServer::setUpdatePriority(int updatePriority)
         m_updatePriority  = updatePriority;
         settings.setValue("server/updatePriority", updatePriority);
         emit updatePriorityChanged(m_updatePriority);
-    }
-}
-
-void SettingServer::setDefaultDomain(QString defaultDomain)
-{
-    if (m_defaultDomain != defaultDomain){
-        m_defaultDomain  = defaultDomain;
-        settings.setValue("server/defaultDomain", defaultDomain);
-        emit defaultDomainChanged(m_defaultDomain);
     }
 }
 

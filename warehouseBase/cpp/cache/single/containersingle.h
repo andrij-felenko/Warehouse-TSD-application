@@ -6,8 +6,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
-#include "json.h"
-#include "static.h"
+#include "enum/wjson.h"
+#include "enum/wstatic.h"
 #include "cacheSingle.h"
 
 /*! \brief Информация про контейнер */

@@ -7,10 +7,9 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 
-#include "url.h"
-#include "enum.h"
-#include "json.h"
-#include "singleton.h"
+#include "enum/wurl.h"
+#include "enum/wenum.h"
+#include "enum/wjson.h"
 #include "serverCache.h"
 
 class ServerPrototype : public QNetworkAccessManager
@@ -22,18 +21,16 @@ class ServerPrototype : public QNetworkAccessManager
 public:
     explicit ServerPrototype(QObject *parent = nullptr);
 
-    bool request(const QString& url, const QString& msg,
-                 const QJsonDocument& document = QJsonDocument(),
-                 Enum::Request_priority priority = Enum::Request_just_info,
-                 const QObject* senderObject = nullptr,
-                 const QString& functionName = QString(""));
-
-public slots:
-    bool request(QList <int> url, Enum::Version version, QString msg,
-                 QJsonDocument document = QJsonDocument(),
-                 int priority = +Enum::Request_just_info,
+    void request(QString url, QString msg,
+                 QJsonValue json = QJsonValue(),
+                 WEnum::Request_priority priority = WEnum::Request_just_info,
                  QObject* senderObject = nullptr,
                  QString functionName = QString(""));
+
+public slots:
+    void request(QList <int> url, int version, QString msg, QJsonValue json = QJsonValue(),
+                 int priority = static_cast <int> (WEnum::Request_just_info),
+                 QObject* senderObject = nullptr, QString functionName = QString(""));
 
 signals:
 

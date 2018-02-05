@@ -1,24 +1,24 @@
-#ifndef STATIC_H
-#define STATIC_H
+#ifndef WSTATIC_H
+#define WSTATIC_H
 
 #include <QtCore/QDateTime>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QUuid>
-#include "enum.h"
+#include "wenum.h"
 
-class Static : public QObject
+class WStatic : public QObject
 {
     Q_OBJECT
 public:
-    Static(QObject* parent = nullptr) : QObject(parent) {}
+    WStatic(QObject* parent = nullptr) : QObject(parent) {}
 
     static QString guidCut(QString guid) { return guid.mid(1, guid.length() - 2); }
 
 public slots:
     // guid ----------------------------------------------------------------------------------------
-    static QString guidCreate () { return Static::guidCut(QUuid::createUuid().toString()); }
-    static QString guidNull   () { return Static::guidCut(QUuid().toString()); }
+    static QString guidCreate () { return WStatic::guidCut(QUuid::createUuid().toString()); }
+    static QString guidNull   () { return WStatic::guidCut(QUuid().toString()); }
     static QString guidDefault() { return "ffffffff-ffff-ffff-ffff-ffffffffffff"; }
     static QString idCreate () { return guidCreate(); }
     static QString idDefault() { return guidDefault(); }
@@ -33,7 +33,7 @@ public slots:
     static QString undefined() { return QObject::tr("Не найден"); }
 
     // version -------------------------------------------------------------------------------------
-    static Enum::Version version() { return Enum::Version_0_1; }
+    static WEnum::Version version() { return WEnum::Version_0_1; }
 };
 
-#endif // STATIC_H
+#endif // WSTATIC_H

@@ -1,4 +1,6 @@
 #include "cacheSingle.h"
+#include "enum/wjson.h"
+#include "enum/wstatic.h"
 
 /*!
  * \brief По умолчанию.
@@ -28,9 +30,9 @@ CacheSingle::CacheSingle(const QJsonObject& obj, QObject* parent) : CacheSingle(
 QJsonObject CacheSingle::toJson() const
 {
     QJsonObject obj;
-    Json::insert(obj, Json::Id,      m_id);
-    Json::insert(obj, Json::Name,    m_name);
-    Json::insert(obj, Json::Barcode, m_barcode);
+    WJson::insert(obj, WJson::Id,      m_id);
+    WJson::insert(obj, WJson::Name,    m_name);
+    WJson::insert(obj, WJson::Barcode, m_barcode);
     return obj;
 }
 
@@ -41,9 +43,9 @@ QJsonObject CacheSingle::toJson() const
 void CacheSingle::fromJson(const QJsonObject& obj)
 {
     resetAll();
-    if (Json::contains(obj, Json::Id))      setId     (Json::get(obj, Json::Id)     .toString());
-    if (Json::contains(obj, Json::Name))    setName   (Json::get(obj, Json::Name)   .toString());
-    if (Json::contains(obj, Json::Barcode)) setBarcode(Json::get(obj, Json::Barcode).toString());
+    if (WJson::contains(obj, WJson::Id))      setId     (WJson::get(obj, WJson::Id)     .toString());
+    if (WJson::contains(obj, WJson::Name))    setName   (WJson::get(obj, WJson::Name)   .toString());
+    if (WJson::contains(obj, WJson::Barcode)) setBarcode(WJson::get(obj, WJson::Barcode).toString());
 }
 
 /*!
@@ -84,19 +86,19 @@ void CacheSingle::resetAll()
 /*! \brief Сброс штрихкода на пустое значение */
 void CacheSingle::resetBarcode()
 {
-    setBarcode(Static::undefined());
+    setBarcode(WStatic::undefined());
 }
 
 /*! \brief Сброс идентификатора на пустой идентификатор */
 void CacheSingle::resetId()
 {
-    setId(Static::guidDefault());
+    setId(WStatic::guidDefault());
 }
 
 /*! \brief Сброс имени на имя по умолчанию */
 void CacheSingle::resetName()
 {
-    setName(Static::undefined());
+    setName(WStatic::undefined());
 }
 
 /*!

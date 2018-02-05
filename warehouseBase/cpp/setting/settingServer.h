@@ -92,7 +92,7 @@ public:
 
     // RESET ---------------------------------------------------------------------------------------
     void resetAll();
-    void resetDomain() { setDomain(defaultDomain()); }
+    void resetDomain() { setDomain(defaultTestingDomain()); }
     void resetName() { setName(defaultName()); }
     void resetPassword() { setPassword(defaultPassword()); }
     void resetDateFormat() { setDateFormat(defaultDateFormat()); }
@@ -167,7 +167,6 @@ public slots:
     void setOfflineTimeout(int offlineTimeout);
     void setRequestTimeout(int requestTimeout);
     void setUpdatePriority(int updatePriority);
-    void setDefaultDomain(QString defaultDomain);
     void setWorkingDomain(QString workingDomain);
     void setDefaultName(QString defaultName);
     void setDefaultPassword(QString defaultPassword);

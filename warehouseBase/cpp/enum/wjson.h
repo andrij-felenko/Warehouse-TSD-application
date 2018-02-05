@@ -1,22 +1,22 @@
-#ifndef JSON_H
-#define JSON_H
+#ifndef WJSON_H
+#define WJSON_H
 
 #include <QtCore/QJsonObject>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 
-#include "enum.h"
-#include "static.h"
+#include "wenum.h"
+#include "wstatic.h"
 
-class Json;
-extern Json _json;
+class WJson;
+extern WJson _json;
 
-class Json : public QObject
+class WJson : public QObject
 {
 public:
-    explicit Json(QObject* parent = nullptr);
+    explicit WJson(QObject* parent = nullptr);
 
-    enum Json_enum {
+    enum WJson_enum {
         // basic value -----------------------------------------------------------------------------
         Id = 0xA000, ///< Идентификатор
         Barcode,     ///< Штрихкод
@@ -124,32 +124,33 @@ public:
         Message,       ///< Сообщение ошибки
         Request,       ///< Уникальный код запроса
         Result,        ///< Результат ответа
+        Url,           ///< Адрес запроса
 
     }; Q_ENUMS(Json_enum)
 
-    static Enum::Version version() { return Enum::Version_0_1; }
-    static bool insert(QJsonObject& obj, Json_enum key, const QJsonValue& value_insert,
-                       Enum::Version version_ = version());
-    QString value(Json_enum key, QString default_ = Static::undefined(),
-                  Enum::Version version_ = version());
+    static WEnum::Version version() { return WEnum::Version_0_1; }
+    static bool insert(QJsonObject& obj, WJson_enum key, const QJsonValue& value_insert,
+                       WEnum::Version version_ = version());
+    QString value(WJson_enum key, QString default_ = WStatic::undefined(),
+                  WEnum::Version version_ = version());
 
-    static QString toString(Json_enum key, Enum::Version version_ = version());
-    static QJsonValue get(const QJsonObject& obj,  Json_enum key, Enum::Version version_ = version());
-    static QJsonValue get(const QJsonValue& value, Json_enum key, Enum::Version version_ = version());
-    static bool contains(const QJsonObject& obj,  Json_enum key, Enum::Version version_ = version());
-    static bool contains(const QJsonValue& value, Json_enum key, Enum::Version version_ = version());
+    static QString toString(WJson_enum key, WEnum::Version version_ = version());
+    static QJsonValue get(const QJsonObject& obj,  WJson_enum key, WEnum::Version version_ = version());
+    static QJsonValue get(const QJsonValue& value, WJson_enum key, WEnum::Version version_ = version());
+    static bool contains(const QJsonObject& obj,  WJson_enum key, WEnum::Version version_ = version());
+    static bool contains(const QJsonValue& value, WJson_enum key, WEnum::Version version_ = version());
 
 public slots:
     static QString toString(int key, int version_ = version());
 
 private:
-    struct Json_single {
-        Json_enum key;
+    struct WJson_single {
+        WJson_enum key;
         QString name;
-        Enum::Version version;
+        WEnum::Version version;
     };
 
-    QList <Json_single> m_list;
+    QList <WJson_single> m_list;
 };
 
-#endif // JSON_H
+#endif // WJSON_H

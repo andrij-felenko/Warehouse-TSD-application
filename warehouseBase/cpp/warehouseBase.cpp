@@ -4,15 +4,15 @@
 
 #include "warehouseBase.h"
 #include "singleton.h"
-#include "url.h"
+#include "enum/wurl.h"
 
 WarehouseBase::WarehouseBase(QObject* parent) : QObject(parent)
 {
     m_view = new View;
 
-    qmlRegisterType <Enum> ("Enum", 1, 0, "Enum");
-    qmlRegisterType <Json> ("Json", 1, 0, "Json");
-    qmlRegisterType <Url>  ("Url",  1, 0, "Url");
+    qmlRegisterType <WEnum> ("WEnum", 1, 0, "WEnum");
+    qmlRegisterType <WJson> ("WJson", 1, 0, "WJson");
+    qmlRegisterType <WUrl>  ("Url",  1, 0, "Url");
 }
 
 void WarehouseBase::registrateApp()
@@ -32,6 +32,7 @@ void WarehouseBase::registrateTypes()
     root->setContextProperty("Server",   Server::registrate());
     root->setContextProperty("Setting",  Setting::registrate());
 
+//    qmlRegisterType <MessageSingle> ("MsgSingle", 0, 1, "MsgSingle");
     Cache  ::get().registerType();
     Setting::get().registerType();
 }
@@ -39,6 +40,7 @@ void WarehouseBase::registrateTypes()
 void WarehouseBase::init()
 {
     Cache  ::instance(this);
+    Message::instance(this);
     Model  ::instance(this);
     Server ::instance(this);
     Setting::instance(this);

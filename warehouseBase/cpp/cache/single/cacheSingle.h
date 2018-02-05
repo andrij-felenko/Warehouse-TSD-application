@@ -6,9 +6,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
-#include "json.h"
-#include "static.h"
-
 /*! \brief Информация про один элемент кэша */
 class CacheSingle : public QObject
 {

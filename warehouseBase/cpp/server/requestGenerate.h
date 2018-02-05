@@ -2,17 +2,22 @@
 #define REQUESTGENERATE_H
 
 #include <QtCore/QObject>
-#include <QtCore/qglobal.h>
+#include "enum/wjson.h"
+#include "enum/wurl.h"
 
 class RequestGenerate : public QObject
 {
     Q_OBJECT
 public:
-    explicit RequestGenerater(QObject *parent = nullptr);
+    explicit RequestGenerate(QObject *parent = nullptr);
+
 
 signals:
 
 public slots:
+
+private:
+    //
 };
 
 #endif // REQUESTGENERATE_H

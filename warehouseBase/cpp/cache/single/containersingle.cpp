@@ -1,6 +1,6 @@
 #include "containersingle.h"
 
-ContainerSingle::ContainerSingle(QObject *parent) : QObject(parent)
+ContainerSingle::ContainerSingle(QObject *parent) : CacheSingle(parent)
 {
     //
 }
@@ -13,7 +13,7 @@ ContainerSingle::ContainerSingle(const QJsonObject &obj, QObject *parent) : Cont
 QJsonObject ContainerSingle::toJson() const
 {
     QJsonObject obj = CacheSingle::toJson();
-    Json::insert(obj, Json::Employee_id, QJsonValue(m_employee_id));
+    WJson::insert(obj, WJson::Employee_id, QJsonValue(m_employee_id));
     return obj;
 }
 
@@ -21,8 +21,8 @@ void ContainerSingle::fromJson(const QJsonObject& obj)
 {
     CacheSingle::fromJson(obj);
 
-    if (Json::contains(obj, Json::Employee_id))
-        setEmployeeId(Json::get(obj, Json::Employee_id).toString());
+    if (WJson::contains(obj, WJson::Employee_id))
+        setEmployeeId(WJson::get(obj, WJson::Employee_id).toString());
 }
 
 QString ContainerSingle::employeeId() const
@@ -32,7 +32,7 @@ QString ContainerSingle::employeeId() const
 
 void ContainerSingle::resetEmployeeId()
 {
-    setEmployeeId(Static::guidDefault());
+    setEmployeeId(WStatic::guidDefault());
 }
 
 void ContainerSingle::setEmployeeId(QString employee_id)
