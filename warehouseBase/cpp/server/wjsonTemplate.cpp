@@ -1,7 +1,7 @@
 #include "wjsonTemplate.h"
 #include "singleton.h"
 
-WJsonTemplate::WJsonTemplate(QString url, QJsonValue json, QObject *parent)
+WJsonTemplate::WJsonTemplate(QString url, QJsonObject json, QObject *parent)
     : QObject(parent),
       m_request(WStatic::guidCreate()), m_url(url),
       m_json(json), m_dTime(QDateTime::currentDateTime())
@@ -20,7 +20,7 @@ QJsonDocument WJsonTemplate::toJsonDocument(WEnum::Version version)
 
     QJsonObject obj;
     WJson::insert(obj, WJson::Meta, QJsonValue(meta), version);
-    WJson::insert(obj, WJson::Data, m_json, version);
+    WJson::insert(obj, WJson::Data, QJsonValue(m_json), version);
 
     return QJsonDocument(obj);
 }

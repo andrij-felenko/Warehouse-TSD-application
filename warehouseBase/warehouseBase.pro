@@ -71,3 +71,6 @@ HEADERS += \
     cpp/message/messagePrototype.h \
     cpp/message/messageSingle.h \
     cpp/server/wjsonTemplate.h
+
+DISTFILES += \
+    jsonAPI.pdf

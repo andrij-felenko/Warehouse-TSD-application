@@ -9,7 +9,7 @@ ServerPrototype::ServerPrototype(QObject *parent) : QNetworkAccessManager(parent
 
 // from QML
 void ServerPrototype::request(QList<int> url, int version, QString msg,
-                              QJsonValue json, int priority,
+                              QJsonObject json, int priority,
                               QObject* senderObject, QString functionName)
 {
     request(WUrl::compareUrl(url, static_cast <WEnum::Version> (version)), msg, json,
@@ -18,7 +18,7 @@ void ServerPrototype::request(QList<int> url, int version, QString msg,
 
 // FIXME
 void ServerPrototype::request(QString url, QString msg,
-                              QJsonValue json, WEnum::Request_priority priority,
+                              QJsonObject json, WEnum::Request_priority priority,
                               QObject* senderObject, QString functionName)
 {
     Q_UNUSED(msg)

@@ -22,13 +22,13 @@ public:
     explicit ServerPrototype(QObject *parent = nullptr);
 
     void request(QString url, QString msg,
-                 QJsonValue json = QJsonValue(),
+                 QJsonObject json = QJsonObject(),
                  WEnum::Request_priority priority = WEnum::Request_just_info,
                  QObject* senderObject = nullptr,
                  QString functionName = QString(""));
 
 public slots:
-    void request(QList <int> url, int version, QString msg, QJsonValue json = QJsonValue(),
+    void request(QList <int> url, int version, QString msg, QJsonObject json = QJsonObject(),
                  int priority = static_cast <int> (WEnum::Request_just_info),
                  QObject* senderObject = nullptr, QString functionName = QString(""));
 

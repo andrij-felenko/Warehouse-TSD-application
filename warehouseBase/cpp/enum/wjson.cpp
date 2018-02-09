@@ -111,6 +111,7 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Message, "message", WEnum::Version_0_1 });
     m_list.push_back({ Request, "request", WEnum::Version_0_1 });
     m_list.push_back({ Result,  "result",  WEnum::Version_0_1 });
+    m_list.push_back({ Text,    "text",    WEnum::Version_0_1 });
     m_list.push_back({ Url,     "url",     WEnum::Version_0_1 });
 }
 
@@ -130,6 +131,31 @@ QString WJson::value(WJson_enum key, QString default_, WEnum::Version version_)
     if (lastSuitableVersion != WEnum::Version_none)
         return value;
     return default_;
+}
+
+QJsonObject WJson::createObject(WJson::WJson_enum key, const QJsonValue& value_insert, WEnum::Version version_)
+{
+    QJsonObject obj;
+    WJson::insert(obj, key, value_insert, version_);
+    return obj;
+}
+
+/*!
+ * \brief WJson::createObject
+ * \code auto t = WJson::createObject({ std::make_pair(WJson::Name, "1"),
+                                        std::make_pair(WJson::Transit, "2") });
+   \endcode
+ * \param list
+ * \param version_
+ * \return
+ */
+QJsonObject WJson::createObject(std::initializer_list<std::pair <WJson::WJson_enum, QJsonValue>> list,
+                                WEnum::Version version_)
+{
+    QJsonObject obj;
+    for (auto it : list)
+        WJson::insert(obj, it.first, it.second, version_);
+    return obj;
 }
 
 QString WJson::toString(WJson_enum key, WEnum::Version version_)

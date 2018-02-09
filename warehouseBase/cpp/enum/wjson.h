@@ -124,6 +124,7 @@ public:
         Message,       ///< Сообщение ошибки
         Request,       ///< Уникальный код запроса
         Result,        ///< Результат ответа
+        Text,          ///< Текст (например текст ошибки)
         Url,           ///< Адрес запроса
 
     }; Q_ENUMS(Json_enum)
@@ -134,11 +135,17 @@ public:
     QString value(WJson_enum key, QString default_ = WStatic::undefined(),
                   WEnum::Version version_ = version());
 
+    static QJsonObject createObject(WJson_enum key, const QJsonValue& value_insert,
+                                    WEnum::Version version_ = version());
+
+    static QJsonObject createObject(std::initializer_list<std::pair<WJson_enum, QJsonValue> > list,
+                                    WEnum::Version version_ = version());
+
     static QString toString(WJson_enum key, WEnum::Version version_ = version());
     static QJsonValue get(const QJsonObject& obj,  WJson_enum key, WEnum::Version version_ = version());
     static QJsonValue get(const QJsonValue& value, WJson_enum key, WEnum::Version version_ = version());
-    static bool contains(const QJsonObject& obj,  WJson_enum key, WEnum::Version version_ = version());
-    static bool contains(const QJsonValue& value, WJson_enum key, WEnum::Version version_ = version());
+    static bool  contains(const QJsonObject& obj,  WJson_enum key, WEnum::Version version_ = version());
+    static bool  contains(const QJsonValue& value, WJson_enum key, WEnum::Version version_ = version());
 
 public slots:
     static QString toString(int key, int version_ = version());

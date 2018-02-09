@@ -15,9 +15,7 @@ int main(int argc, char** argv)
     module.loadQML(QUrl("qrc:/qml/qml/main.qml"));
     module.start();
 
-    Server::get().request("getUserList", "tututx", QJsonValue("tt"));
-    qDebug() << WEnum::Priority_low << WEnum::Priority_middle_bellow << WEnum::Priority_middle
-             << WEnum::Priority_middle_above << WEnum::Priority_high;
+    Server::get().request("getUserList", "test msg", WJson::createObject(WJson::Name, "test msg"));
 
     return app.exec();
 }

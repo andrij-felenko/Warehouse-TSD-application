@@ -92,46 +92,46 @@ public:
 
     // RESET ---------------------------------------------------------------------------------------
     void resetAll();
-    void resetDomain() { setDomain(defaultTestingDomain()); }
-    void resetName() { setName(defaultName()); }
-    void resetPassword() { setPassword(defaultPassword()); }
-    void resetDateFormat() { setDateFormat(defaultDateFormat()); }
-    void resetOnlineTimeout() { setOnlineTimeout(defaultOnlineTimeout()); }
+    void resetDomain()         { setDomain(defaultTestingDomain()); }
+    void resetName()           { setName(defaultName()); }
+    void resetPassword()       { setPassword(defaultPassword()); }
+    void resetDateFormat()     { setDateFormat(defaultDateFormat()); }
+    void resetOnlineTimeout()  { setOnlineTimeout(defaultOnlineTimeout()); }
     void resetOfflineTimeout() { setOfflineTimeout(defaultOfflineTimeout()); }
     void resetRequestTimeout() { setRequestTimeout(defaultRequestTimeout()); }
     void resetUpdatePriority() { setUpdatePriority(defaultUpdatePriority()); }
-    void resetWorkingDomain() { setWorkingDomain(defaultWorkingDomain()); }
-    void resetTestingDomain() { setTestingDomain(defaultTestingDomain()); }
+    void resetWorkingDomain()  { setWorkingDomain(defaultWorkingDomain()); }
+    void resetTestingDomain()  { setTestingDomain(defaultTestingDomain()); }
 
-    void resetDefaultWorkingDomain() { setDefaultWorkingDomain("https://wms.eridon.ua:7443/wms/hs/tcd-http/"); }
-    void resetDefaultTestingDomain() { setDefaultTestingDomain("http://138.201.225.55/eridon/hs/tcd-http/"); }
-    void resetDefaultName() { setDefaultName("Admin"); }
-    void resetDefaultPassword() { setDefaultPassword("WMS#2016"); }
-    void resetDefaultDateFormat() { setDefaultDateFormat("yyyyMMddhhmmss"); }
-    void resetDefaultOnlineTimeout() { setDefaultOnlineTimeout(30); }
+    void resetDefaultWorkingDomain()  { setDefaultWorkingDomain("https://wms.eridon.ua:7443/wms/hs/tcd-http/"); }
+    void resetDefaultTestingDomain()  { setDefaultTestingDomain("http://138.201.225.55/eridon/hs/tcd-http/"); }
+    void resetDefaultName()           { setDefaultName         ("Admin"); }
+    void resetDefaultPassword()       { setDefaultPassword     ("WMS#2016"); }
+    void resetDefaultDateFormat()     { setDefaultDateFormat   ("yyyyMMddhhmmss"); }
+    void resetDefaultOnlineTimeout()  { setDefaultOnlineTimeout (30); }
     void resetDefaultOfflineTimeout() { setDefaultOfflineTimeout(30); }
     void resetDefaultRequestTimeout() { setDefaultRequestTimeout(30); }
-    void resetDefaultUpdatePriority() { setDefaultUpdatePriority(3); }
+    void resetDefaultUpdatePriority() { setDefaultUpdatePriority( 3); }
 
 signals:
-    void domainChanged(QString domain);
-    void nameChanged(QString name);
-    void passwordChanged(QString password);
+    void domainChanged    (QString domain);
+    void nameChanged      (QString name);
+    void passwordChanged  (QString password);
     void dateFormatChanged(QString dateFormat);
-    void onlineTimeoutChanged(int onlineTimeout);
+    void onlineTimeoutChanged (int onlineTimeout);
     void offlineTimeoutChanged(int offlineTimeout);
     void requestTimeoutChanged(int requestTimeout);
     void updatePriorityChanged(int updatePriority);
-    void defaultDomainChanged(QString defaultDomain);
-    void workingDomainChanged(QString workingDomain);
-    void defaultNameChanged(QString defaultName);
-    void defaultPasswordChanged(QString defaultPassword);
+    void defaultDomainChanged    (QString defaultDomain);
+    void workingDomainChanged    (QString workingDomain);
+    void defaultNameChanged      (QString defaultName);
+    void defaultPasswordChanged  (QString defaultPassword);
     void defaultDateFormatChanged(QString defaultDateFormat);
-    void defaultOnlineTimeoutChanged(int defaultOnlineTimeout);
+    void defaultOnlineTimeoutChanged (int defaultOnlineTimeout);
     void defaultOfflineTimeoutChanged(int defaultOfflineTimeout);
     void defaultRequestTimeoutChanged(int defaultRequestTimeout);
     void defaultUpdatePriorityChanged(int defaultUpdatePriority);
-    void testingDomainChanged(QString testingDomain);
+    void testingDomainChanged       (QString testingDomain);
     void defaultWorkingDomainChanged(QString defaultWorkingDomain);
     void defaultTestingDomainChanged(QString defaultTestingDomain);
 
@@ -159,23 +159,23 @@ private:
     QString m_defaultTestingDomain;
 
 public slots:
-    void setDomain(QString domain);
-    void setName(QString name);
-    void setPassword(QString password);
+    void setDomain    (QString domain);
+    void setName      (QString name);
+    void setPassword  (QString password);
     void setDateFormat(QString dateFormat);
-    void setOnlineTimeout(int onlineTimeout);
+    void setOnlineTimeout (int onlineTimeout);
     void setOfflineTimeout(int offlineTimeout);
     void setRequestTimeout(int requestTimeout);
     void setUpdatePriority(int updatePriority);
-    void setWorkingDomain(QString workingDomain);
-    void setDefaultName(QString defaultName);
-    void setDefaultPassword(QString defaultPassword);
+    void setWorkingDomain    (QString workingDomain);
+    void setDefaultName      (QString defaultName);
+    void setDefaultPassword  (QString defaultPassword);
     void setDefaultDateFormat(QString defaultDateFormat);
-    void setDefaultOnlineTimeout(int defaultOnlineTimeout);
+    void setDefaultOnlineTimeout (int defaultOnlineTimeout);
     void setDefaultOfflineTimeout(int defaultOfflineTimeout);
     void setDefaultRequestTimeout(int defaultRequestTimeout);
     void setDefaultUpdatePriority(int defaultUpdatePriority);
-    void setTestingDomain(QString testingDomain);
+    void setTestingDomain       (QString testingDomain);
     void setDefaultWorkingDomain(QString defaultWorkingDomain);
     void setDefaultTestingDomain(QString defaultTestingDomain);
 };
