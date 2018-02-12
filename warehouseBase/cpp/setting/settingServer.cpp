@@ -92,6 +92,7 @@ void SettingServer::setDomain(QString domain)
         m_domain  = domain;
         settings.setValue("server/domain", domain);
         emit domainChanged(m_domain);
+        emit reconnect();
     }
 }
 
@@ -101,6 +102,7 @@ void SettingServer::setName(QString name)
         m_name  = name;
         settings.setValue("server/name", name);
         emit nameChanged(m_name);
+        emit reconnect();
     }
 }
 
@@ -110,6 +112,7 @@ void SettingServer::setPassword(QString password)
         m_password  = password;
         settings.setValue("server/password", password);
         emit passwordChanged(m_password);
+        emit reconnect();
     }
 }
 

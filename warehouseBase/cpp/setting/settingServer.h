@@ -114,6 +114,7 @@ public:
     void resetDefaultUpdatePriority() { setDefaultUpdatePriority( 3); }
 
 signals:
+    void reconnect();
     void domainChanged    (QString domain);
     void nameChanged      (QString name);
     void passwordChanged  (QString password);

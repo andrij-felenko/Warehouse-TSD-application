@@ -5,6 +5,12 @@
 ServerPrototype::ServerPrototype(QObject *parent) : QNetworkAccessManager(parent)
 {
     m_serverCache = new ServerCache(this);
+
+    QObject::connect(this, &ServerPrototype::finished, this, &ServerPrototype::handler);
+    QObject::connect(this, &ServerPrototype::authenticationRequired, this, &ServerPrototype::authentificate);
+    QObject::connect(Setting::get().server(), &SettingServer::reconnect, this, &ServerPrototype::reconnect);
+
+    get(QNetworkRequest(QUrl(Setting::get().server()->domain())));
 }
 
 // from QML
@@ -43,9 +49,14 @@ void ServerPrototype::request(QString url, QString msg,
 
     // send request to server cache system
     m_serverCache->add(serverRequest);
+    qDebug() << serverRequest->json();
 
     // send request to server
-    post(url, serverRequest->json()->toJsonDocument());
+    QNetworkRequest request;
+    request.setUrl(QUrl(Setting::get().server()->domain() + url));
+    request.setHeader(QNetworkRequest::ContentTypeHeader,
+                      QVariant("application/x-www-form-urlencoded"));
+    post(request, serverRequest->formRequest());
 }
 
 // FIXME
@@ -71,30 +82,5 @@ void ServerPrototype::handler(QNetworkReply *reply)
 // FIXME
 void ServerPrototype::reconnect()
 {
-    //
-}
-
-void ServerPrototype::get(QString url)
-{
-    qDebug() << QString("Get at " + QTime::currentTime().toString("hh:mm:ss.zzz")
-                        + "   URL:" + url + "   " + Setting::get().server()->domain() + url)
-                .leftJustified(120, '-');
-    qDebug() << QString().leftJustified(120, '-') << '\n';
-
-    get(QNetworkRequest(QUrl(Setting::get().server()->domain() + url)));
-}
-
-void ServerPrototype::post(QString url, QJsonDocument document)
-{
-    qDebug() << QString("Post at " + QTime::currentTime().toString("hh:mm:ss.zzz")
-                        + "   URL:" + url + "   " + Setting::get().server()->domain() + url)
-                .leftJustified(120, '-');
-    qDebug() << "document" << document;
-    qDebug() << QString().leftJustified(120, '-') << '\n';
-
-    QNetworkRequest request;
-    request.setUrl(QUrl(Setting::get().server()->domain() + url));
-    request.setHeader(QNetworkRequest::ContentTypeHeader,
-                      QVariant("application/x-www-form-urlencoded"));
-    post(request, document.toJson());
+    get(QNetworkRequest(QUrl(Setting::get().server()->domain())));
 }

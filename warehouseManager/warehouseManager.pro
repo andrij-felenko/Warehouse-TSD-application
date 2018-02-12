@@ -28,3 +28,19 @@ else:unix: LIBS += -L$$OUT_PWD/../warehouseBase/ -lwarehouseBase
 
 INCLUDEPATH += $$PWD/../warehouseBase/cpp
 DEPENDPATH  += $$PWD/../warehouseBase/cpp
+
+DISTFILES += \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_EXTRA_LIBS = \
+        $$PWD/../lib/arm/libssl.so \
+        $$PWD/../lib/arm/libcrypto.so
+}

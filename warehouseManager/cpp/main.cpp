@@ -16,6 +16,10 @@ int main(int argc, char** argv)
     module.start();
 
     Server::get().request("getUserList", "test msg", WJson::createObject(WJson::Name, "test msg"));
+    Server::get().request("getUserList", "test msg",
+                          WJson::createObject({ std::make_pair(WJson::Actual, "test msg"),
+                                              std::make_pair(WJson::Barcode, "test msg"),
+                                              std::make_pair(WJson::Name, "test msg")}));
 
     return app.exec();
 }

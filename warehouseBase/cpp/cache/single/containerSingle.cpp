@@ -1,4 +1,4 @@
-#include "containersingle.h"
+#include "containerSingle.h"
 
 ContainerSingle::ContainerSingle(QObject *parent) : CacheSingle(parent)
 {

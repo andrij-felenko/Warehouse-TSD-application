@@ -27,6 +27,8 @@ public:
         //
     }
 
+    QByteArray formRequest() { return m_json->toJsonDocument().toJson(); }
+
     QObject* sender()      { return m_sender; }
     QString functionName() { return m_functionName; }
     QString id_msg()       { return m_id_msg; }

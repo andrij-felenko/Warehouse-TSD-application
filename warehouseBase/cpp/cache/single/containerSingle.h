@@ -11,6 +11,7 @@
 #include "cacheSingle.h"
 
 /*! \brief Информация про контейнер */
+// FIXME contains in container
 class ContainerSingle : public CacheSingle
 {
     Q_OBJECT

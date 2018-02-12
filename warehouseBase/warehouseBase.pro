@@ -36,14 +36,19 @@ SOURCES += \
     cpp/view/view.cpp \
     cpp/cache/cachePrototype.cpp \
     cpp/cache/single/cacheSingle.cpp \
-    cpp/cache/single/containersingle.cpp \
     cpp/server/requestGenerate.cpp \
     cpp/server/serverCache.cpp \
     cpp/server/serverPrototype.cpp \
     cpp/setting/settingPrototype.cpp \
     cpp/setting/settingServer.cpp \
     cpp/message/messagePrototype.cpp \
-    cpp/server/wjsonTemplate.cpp
+    cpp/server/wjsonTemplate.cpp \
+    cpp/cache/single/consignmentSingle.cpp \
+    cpp/cache/single/containerSingle.cpp \
+    cpp/cache/single/nomenclatureSingle.cpp \
+    cpp/cache/single/cellSingle.cpp \
+    cpp/cache/single/qualitySingle.cpp \
+    cpp/server/handlerTemplate.cpp
 
 HEADERS += \
     cpp/enum/wenum.h \
@@ -61,7 +66,6 @@ HEADERS += \
     cpp/cache/cachePrototype.h \
     cpp/cache/list/cacheListObject.h \
     cpp/cache/single/cacheSingle.h \
-    cpp/cache/single/containersingle.h \
     cpp/server/requestGenerate.h \
     cpp/server/serverCache.h \
     cpp/server/serverCacheSingle.h \
@@ -70,7 +74,13 @@ HEADERS += \
     cpp/setting/settingServer.h \
     cpp/message/messagePrototype.h \
     cpp/message/messageSingle.h \
-    cpp/server/wjsonTemplate.h
+    cpp/server/wjsonTemplate.h \
+    cpp/cache/single/containerSingle.h \
+    cpp/cache/single/consignmentSingle.h \
+    cpp/cache/single/nomenclatureSingle.h \
+    cpp/cache/single/cellSingle.h \
+    cpp/cache/single/qualitySingle.h \
+    cpp/server/handlerTemplate.h
 
 DISTFILES += \
     jsonAPI.pdf

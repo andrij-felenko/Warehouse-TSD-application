@@ -12,7 +12,7 @@ WarehouseBase::WarehouseBase(QObject* parent) : QObject(parent)
 
     qmlRegisterType <WEnum> ("WEnum", 1, 0, "WEnum");
     qmlRegisterType <WJson> ("WJson", 1, 0, "WJson");
-    qmlRegisterType <WUrl>  ("Url",  1, 0, "Url");
+    qmlRegisterType <WUrl>  ("WUrl",  1, 0, "WUrl");
 }
 
 void WarehouseBase::registrateApp()
@@ -26,11 +26,11 @@ void WarehouseBase::registrateApp()
 void WarehouseBase::registrateTypes()
 {
     QQmlContext* root = m_view->rootContext();
-    root->setContextProperty("WApp",     m_view);
-    root->setContextProperty("Cache",    Cache::registrate());
-    root->setContextProperty("Model",    Model::registrate());
-    root->setContextProperty("Server",   Server::registrate());
-    root->setContextProperty("Setting",  Setting::registrate());
+    root->setContextProperty("WApp",    m_view);
+    root->setContextProperty("Cache",   Cache::registrate());
+    root->setContextProperty("Model",   Model::registrate());
+    root->setContextProperty("Server",  Server::registrate());
+    root->setContextProperty("Setting", Setting::registrate());
 
 //    qmlRegisterType <MessageSingle> ("MsgSingle", 0, 1, "MsgSingle");
     Cache  ::get().registerType();
@@ -39,11 +39,11 @@ void WarehouseBase::registrateTypes()
 
 void WarehouseBase::init()
 {
-    Cache  ::instance(this);
-    Message::instance(this);
-    Model  ::instance(this);
-    Server ::instance(this);
     Setting::instance(this);
+    Message::instance(this);
+    Server ::instance(this);
+    Cache  ::instance(this);
+    Model  ::instance(this);
 }
 
 void WarehouseBase::loadQML(const QUrl& url)
