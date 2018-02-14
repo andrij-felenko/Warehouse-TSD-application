@@ -23,25 +23,28 @@ WUrl::WUrl(QObject *parent) : QObject(parent)
     m_list.push_back({ Receiving, "Receiving", WEnum::Version_0_1 });
 
     // optional words ------------------------------------------------------------------------------
-    m_list.push_back({ All,  "All",  WEnum::Version_0_1 });
-    m_list.push_back({ By,   "By",   WEnum::Version_0_1 });
-    m_list.push_back({ Line, "Line", WEnum::Version_0_1 });
-    m_list.push_back({ List, "List", WEnum::Version_0_1 });
-    m_list.push_back({ New,  "New",  WEnum::Version_0_1 });
+    m_list.push_back({ All,   "All",   WEnum::Version_0_1 });
+    m_list.push_back({ By,    "By",    WEnum::Version_0_1 });
+    m_list.push_back({ Cache, "Cache", WEnum::Version_0_1 });
+    m_list.push_back({ Line,  "Line",  WEnum::Version_0_1 });
+    m_list.push_back({ List,  "List",  WEnum::Version_0_1 });
+    m_list.push_back({ New,   "New",   WEnum::Version_0_1 });
 
     // other ---------------------------------------------------------------------------------------
-    m_list.push_back({ Cell,        "Cell",        WEnum::Version_0_1 });
-    m_list.push_back({ Consignment, "Consignment", WEnum::Version_0_1 });
-    m_list.push_back({ Container,   "Container",   WEnum::Version_0_1 });
-    m_list.push_back({ Department,  "Department",  WEnum::Version_0_1 });
-    m_list.push_back({ Document,    "Document",    WEnum::Version_0_1 });
-    m_list.push_back({ Employee,    "Employee",    WEnum::Version_0_1 });
-    m_list.push_back({ Error,   "Error",   WEnum::Version_0_1 });
-    m_list.push_back({ Icon,    "Icon",    WEnum::Version_0_1 });
-    m_list.push_back({ Id,      "Id",      WEnum::Version_0_1 });
-    m_list.push_back({ Image,   "Image",   WEnum::Version_0_1 });
-    m_list.push_back({ Info,    "Info",    WEnum::Version_0_1 });
-    m_list.push_back({ Transit, "Transit", WEnum::Version_0_1 });
+    m_list.push_back({ Barcode,      "Barcode",      WEnum::Version_0_1 });
+    m_list.push_back({ Cell,         "Cell",         WEnum::Version_0_1 });
+    m_list.push_back({ Consignment,  "Consignment",  WEnum::Version_0_1 });
+    m_list.push_back({ Container,    "Container",    WEnum::Version_0_1 });
+    m_list.push_back({ Department,   "Department",   WEnum::Version_0_1 });
+    m_list.push_back({ Document,     "Document",     WEnum::Version_0_1 });
+    m_list.push_back({ Employee,     "Employee",     WEnum::Version_0_1 });
+    m_list.push_back({ Error,        "Error",        WEnum::Version_0_1 });
+    m_list.push_back({ Icon,         "Icon",         WEnum::Version_0_1 });
+    m_list.push_back({ Id,           "Id",           WEnum::Version_0_1 });
+    m_list.push_back({ Image,        "Image",        WEnum::Version_0_1 });
+    m_list.push_back({ Info,         "Info",         WEnum::Version_0_1 });
+    m_list.push_back({ Nomenclature, "Nomenclature", WEnum::Version_0_1 });
+    m_list.push_back({ Transit,      "Transit",      WEnum::Version_0_1 });
 }
 
 WUrl::WUrl_enum WUrl::fromString(QString name, WEnum::Version version_)
@@ -109,6 +112,14 @@ QString WUrl::compareUrl(QList<int> list, WEnum::Version version_)
     return ret;
 }
 
+QList<WUrl::WUrl_enum> WUrl::compareUrlList(std::initializer_list<WUrl::WUrl_enum> list)
+{
+    QList <WUrl::WUrl_enum> url;
+    for (auto it : list)
+        url.push_back(it);
+    return url;
+}
+
 QList<WUrl::WUrl_enum> WUrl::disunite(const QString& url, WEnum::Version version_)
 {
     QList<WUrl::WUrl_enum> list;
@@ -125,4 +136,9 @@ QList<WUrl::WUrl_enum> WUrl::disunite(const QString& url, WEnum::Version version
             value += url[i];
     }
     return list;
+}
+
+bool WUrl::isEqual(QList<WUrl::WUrl_enum> url, std::initializer_list<WUrl::WUrl_enum> list)
+{
+    return url == compareUrlList(list);
 }

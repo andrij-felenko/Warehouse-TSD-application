@@ -27,6 +27,7 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Cell_reason_name,    "cell_reason_name",    WEnum::Version_0_1 });
     m_list.push_back({ Cell_reason_comment, "cell_reason_comment", WEnum::Version_0_1 });
     // consignment
+    m_list.push_back({ Consignment,      "consignment",      WEnum::Version_0_1 });
     m_list.push_back({ Consignment_id,   "consignment_id",   WEnum::Version_0_1 });
     m_list.push_back({ Consignment_name, "consignment_name", WEnum::Version_0_1 });
     // container
@@ -36,6 +37,12 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Container_reason_id,      "container_reason_id",      WEnum::Version_0_1 });
     m_list.push_back({ Container_reason_name,    "container_reason_name",    WEnum::Version_0_1 });
     m_list.push_back({ Container_reason_comment, "container_reason_comment", WEnum::Version_0_1 });
+    m_list.push_back({ Container_sender_id,      "container_sender_id",      WEnum::Version_0_1 });
+    m_list.push_back({ Container_sender_name,    "container_sender_name",    WEnum::Version_0_1 });
+    m_list.push_back({ Container_receiver_id,    "container_receiver_id",    WEnum::Version_0_1 });
+    m_list.push_back({ Container_receiver_name,  "container_receiver_name",  WEnum::Version_0_1 });
+    // dictionary
+    m_list.push_back({ ModelTypeId, "model_type_id", WEnum::Version_0_1 });
     // nomenclature
     m_list.push_back({ Nomenclature_id,       "nomenclature_id",       WEnum::Version_0_1 });
     m_list.push_back({ Nomenclature_name,     "nomenclature_name",     WEnum::Version_0_1 });
@@ -66,6 +73,7 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Date_block,      "date_block",      WEnum::Version_0_1 });
     m_list.push_back({ Date_packing,    "date_packing",    WEnum::Version_0_1 });
     m_list.push_back({ Date_production, "date_production", WEnum::Version_0_1 });
+    m_list.push_back({ ShelfLife,       "shelf_life",      WEnum::Version_0_1 });
 
     // dimension -------------------------------------------------------------------------------
     m_list.push_back({ Height, "height", WEnum::Version_0_1 });
@@ -113,6 +121,9 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Result,  "result",  WEnum::Version_0_1 });
     m_list.push_back({ Text,    "text",    WEnum::Version_0_1 });
     m_list.push_back({ Url,     "url",     WEnum::Version_0_1 });
+
+    // other ----------------------------------------------------------------------------------
+    m_list.push_back({ Folder, "folder", WEnum::Version_0_1 });
 }
 
 QString WJson::value(WJson_enum key, QString default_, WEnum::Version version_)

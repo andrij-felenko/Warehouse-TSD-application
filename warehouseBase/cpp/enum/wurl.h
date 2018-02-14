@@ -35,23 +35,29 @@ public:
         // optional words --------------------------------------------------------------------------
         All = 0xB200, ///< Всё
         By,           ///< Поиск по чему то *
+        Cache,        ///< Кэш
         Line,         ///< Строка
         List,         ///< Список
         New,          ///< Новый элемент
 
         // other -----------------------------------------------------------------------------------
-        Cell = 0xB300, ///< Ячейка
-        Consignment,   ///< Партия или серия
-        Container,     ///< Контейнер
-        Department,    ///< Отдел
-        Document,      ///< Документ
-        Employee,      ///< Работник
-        Error,         ///< Ошибка
-        Icon,          ///< Иконка
-        Id,            ///< Идентификатор
-        Image,         ///< Изображение
-        Info,          ///< Информация
-        Transit,       ///< Транзитный товар
+        Barcode = 0xB300, ///< Штрихкод
+        Cell,             ///< Ячейка
+        Consignment,      ///< Партия или серия
+        Container,        ///< Контейнер
+        Department,       ///< Отдел
+        Document,         ///< Документ
+        Employee,         ///< Работник
+        Error,            ///< Ошибка
+        Icon,             ///< Иконка
+        Id,               ///< Идентификатор
+        Image,            ///< Изображение
+        Info,             ///< Информация
+        Nomenclature,     ///< Номенклатура
+        Quality,          ///< Качество
+        Storage,          ///< StorageUnit - Единица хранения
+        Transit,          ///< Транзитный товар
+        Unit,             ///< Единица чего либо
 
         // error url
         ___ = 0xBFFF, ///< Ошибка, если не найден ключ
@@ -73,7 +79,9 @@ public slots:
     static QString toString(int key);
     static QString compareUrl(std::initializer_list <WUrl_enum> list, WEnum::Version version_ = version());
     static QString compareUrl(QList <int> list, WEnum::Version version_ = version());
+    static QList <WUrl_enum> compareUrlList(std::initializer_list<WUrl_enum> list);
     static QList <WUrl_enum> disunite(const QString& url, WEnum::Version version_ = version());
+    static bool isEqual(QList <WUrl_enum> url, std::initializer_list <WUrl_enum> list);
 
 private:
     struct WUrl_single {

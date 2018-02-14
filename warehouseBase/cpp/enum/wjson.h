@@ -40,8 +40,9 @@ public:
         Cell_receiver_id,    ///< Идентификатор ячейки получателя
         Cell_receiver_name,  ///< Наименование ячейки получателя
         // consignment
-        Consignment_id = 0xA110, ///< Идентификатор партии
-        Consignment_name,        ///< Наименование партии
+        Consignment = 0xA110, ///< Просто обозначение партии
+        Consignment_id,       ///< Идентификатор партии
+        Consignment_name,     ///< Наименование партии
         // container
         Container_id_list = 0xA120, ///< Список идентификаторов контейнеров
         Container_id,               ///< Идентификатор контейнера
@@ -49,24 +50,30 @@ public:
         Container_reason_id,        ///< Идентификатор причины смены контейнера
         Container_reason_name,      ///< Название причины смены контейнера
         Container_reason_comment,   ///< Коментарий к смене контейнера
+        Container_sender_id,        ///< Идентификатор контейнера отправителя
+        Container_sender_name,      ///< Наименование контейнера отправителя
+        Container_receiver_id,      ///< Идентификатор контейнера получателя
+        Container_receiver_name,    ///< Наименование контейнера получателя
+        // dictionary
+        ModelTypeId = 0xA130, ///< Идентификатор модели учета
         // nomenclature
-        Nomenclature_id = 0xA130,   ///< Идентификатор номенклатуры
+        Nomenclature_id = 0xA140,   ///< Идентификатор номенклатуры
         Nomenclature_name,          ///< Наименование номенклатуры
         Nomenclature_group_id,      ///< Идентификатор папки куда относиться номенклатура
         // nomenclature by
-        By_weight = 0xA140, ///< Учет по весу
+        By_weight = 0xA150, ///< Учет по весу
         By_piece,           ///< Учет поштучно
         By_date,            ///< Учет по датам
         By_consignment,     ///< Учет по партиям
         By_serial,          ///< Учет по серийным номерам
         // quality
-        Quality_id = 0xA150,    ///< Идентификатор качества
+        Quality_id = 0xA160,    ///< Идентификатор качества
         Quality_name,           ///< Наименование качества
         Quality_reason_id,      ///< Идентификатор смены качества
         Quality_reason_name,    ///< Название причины смены качества
         Quality_reason_comment, ///< Коментарий к смене качества
         // warehouse
-        Warehouse_id = 0xA160,   ///< Идентификатор склада
+        Warehouse_id = 0xA170,   ///< Идентификатор склада
         Warehouse_name,          ///< Наименование склада
         Warehouse_sender_id,     ///< Идентификатор склада отправителя
         Warehouse_sender_name,   ///< Наименование склада отправителя
@@ -79,6 +86,7 @@ public:
         Date_block,      ///< Дата резервирования контейнера и т.д.
         Date_packing,    ///< Дата пакования
         Date_production, ///< Дата производства
+        ShelfLife,       ///< Срок годности
 
         // dimension -------------------------------------------------------------------------------
         Height = 0xA210, ///< Высота
@@ -126,6 +134,9 @@ public:
         Result,        ///< Результат ответа
         Text,          ///< Текст (например текст ошибки)
         Url,           ///< Адрес запроса
+
+        // other ----------------------------------------------------------------------------------
+        Folder = 0xA700, ///< Папка (директория)
 
     }; Q_ENUMS(Json_enum)
 

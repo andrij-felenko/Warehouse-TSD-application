@@ -5,6 +5,7 @@
 ServerPrototype::ServerPrototype(QObject *parent) : QNetworkAccessManager(parent)
 {
     m_serverCache = new ServerCache(this);
+    m_serverHandler = new ServerHandlerManager(this);
 
     QObject::connect(this, &ServerPrototype::finished, this, &ServerPrototype::handler);
     QObject::connect(this, &ServerPrototype::authenticationRequired, this, &ServerPrototype::authentificate);
@@ -14,9 +15,8 @@ ServerPrototype::ServerPrototype(QObject *parent) : QNetworkAccessManager(parent
 }
 
 // from QML
-void ServerPrototype::request(QList<int> url, int version, QString msg,
-                              QJsonObject json, int priority,
-                              QObject* senderObject, QString functionName)
+void ServerPrototype::request(QList<int> url, int version, QString msg, QJsonObject json,
+                              int priority, QObject* senderObject, QString functionName)
 {
     request(WUrl::compareUrl(url, static_cast <WEnum::Version> (version)), msg, json,
             static_cast <WEnum::Request_priority> (priority), senderObject, functionName);
@@ -59,6 +59,11 @@ void ServerPrototype::request(QString url, QString msg,
     post(request, serverRequest->formRequest());
 }
 
+ServerHandlerManager* ServerPrototype::requestHandler()
+{
+    return m_serverHandler;
+}
+
 // FIXME
 void ServerPrototype::authentificate(QNetworkReply *reply, QAuthenticator *auth)
 {
@@ -72,11 +77,26 @@ void ServerPrototype::authentificate(QNetworkReply *reply, QAuthenticator *auth)
 //        get(WUrl::composeUrl({ WUrl::Get, WUrl::Employee, WUrl::List }));
 }
 
-// FIXME
+// FIXME work with server cache
 void ServerPrototype::handler(QNetworkReply *reply)
 {
-    Q_UNUSED(reply)
-    //
+    QString url = reply->request().url().toString();
+    url = url.rightRef(url.length() - Setting::get().server()->domain().length()).toString();
+    if (not m_serverHandler->isUrlContains(url)){
+        Message::get().setErrorMessage(QObject::tr("Не найден обработчик на метод ") + url);
+        return; // FIXME remove from temp cache
+    }
+
+    // test request for standart
+    WJsonTemplate* json = new WJsonTemplate(this);
+    auto resultTestRequest = json->fromJsonDocument(QJsonDocument::fromJson(reply->readAll()));
+    if (not resultTestRequest.first){
+        Message::get().setErrorMessage(resultTestRequest.second);
+        return;
+    }
+
+    m_serverHandler->sendRequest(WUrl::disunite(url), json);
+    json->deleteLater();
 }
 
 // FIXME

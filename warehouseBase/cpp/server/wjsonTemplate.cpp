@@ -1,22 +1,29 @@
 #include "wjsonTemplate.h"
 #include "singleton.h"
 
-WJsonTemplate::WJsonTemplate(QString url, QJsonObject json, QObject *parent)
+WJsonTemplate::WJsonTemplate(QObject *parent)
     : QObject(parent),
-      m_request(WStatic::guidCreate()), m_url(url), m_employee_id(WStatic::idCreate()),// FIXME
-      m_json(json), m_dTime(QDateTime::currentDateTime())
+      m_request(WStatic::guidCreate()), m_url(""), m_employee_id(WStatic::idCreate()),// FIXME
+      m_json(QJsonObject()), m_dTime(QDateTime::currentDateTime())
 {
     //
 }
 
+WJsonTemplate::WJsonTemplate(QString url, QJsonValue json, QObject *parent)
+    : WJsonTemplate(parent)
+{
+    m_url = url;
+    m_json = json;
+}
+
 WJsonTemplate::WJsonTemplate(QJsonDocument &document, WEnum::Version version_, QObject *parent)
-    : QObject(parent)
+    : WJsonTemplate(parent)
 {
     fromJsonDocument(document, version_);
 }
 
 WJsonTemplate::WJsonTemplate(QJsonDocument &document, QObject *parent)
-    : QObject(parent)
+    : WJsonTemplate(parent)
 {
     fromJsonDocument(document, WUrl::version());
 }
@@ -36,7 +43,7 @@ QJsonDocument WJsonTemplate::toJsonDocument(WEnum::Version version) const
     return QJsonDocument(obj);
 }
 
-std::pair <bool, QString> WJsonTemplate::fromJsonDocument(QJsonDocument& document, WEnum::Version version_)
+std::pair <bool, QString> WJsonTemplate::fromJsonDocument(QJsonDocument document, WEnum::Version version_)
 {
     if (not WJson::contains(document.object(), WJson::Meta, version_))
         return std::make_pair(false, QObject::tr("Meta field not found"));
@@ -61,7 +68,7 @@ std::pair <bool, QString> WJsonTemplate::fromJsonDocument(QJsonDocument& documen
 QDebug operator << (QDebug d, const WJsonTemplate& json)
 {
     d.noquote();
-    d << QString("Request").leftJustified(120, '-') << "\n";
+    d << QString("Request ").leftJustified(120, '_') << "\n";
     d << "Meta:\n";
     d << "    date:   " << json.dateTime().toString("yyyy.MM.dd dddd") << "\n";
     d << "    time:   " << json.dateTime().toString("hh:mm:ss:zzz") << "\n";
@@ -75,13 +82,15 @@ QDebug operator << (QDebug d, const WJsonTemplate& json)
 
 QDebug WJsonTemplate::parse(QDebug d, int deep, QString key, QJsonValue value)
 {
+    d << QString(deep * 4, ' ');
     if (not key.isEmpty())
-        d << QString(deep * 4, ' ').append(key).append(" : ");
+        d << key.append(" : ");
+
     if (value.isArray()){
         d << "[" << "\n";
         for (auto it : value.toArray())
             WJsonTemplate::parse(d, deep + 1, "", it);
-        d << "\n" << "]" << "\n";
+        d << QString(deep * 4, ' ').append("]") << "\n";
     }
     else if (value.isObject()){
         d << "{" << "\n";

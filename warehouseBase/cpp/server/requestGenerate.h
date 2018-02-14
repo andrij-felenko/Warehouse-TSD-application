@@ -11,7 +11,6 @@ class RequestGenerate : public QObject
 public:
     explicit RequestGenerate(QObject *parent = nullptr);
 
-
 signals:
 
 public slots:

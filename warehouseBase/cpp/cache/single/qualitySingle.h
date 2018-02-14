@@ -10,7 +10,7 @@
 #include "enum/wstatic.h"
 #include "cacheSingle.h"
 
-class QualitySingle : public QObject
+class QualitySingle : public CacheSingle
 {
     Q_OBJECT
     Q_PROPERTY(bool isDefault READ       isDefault WRITE setIsDefault
@@ -20,14 +20,14 @@ public:
     explicit QualitySingle(QObject *parent = nullptr);
     QualitySingle(const QJsonObject &obj, QObject* parent = nullptr);
 
-    // Json ------------------------------------------------------------------------------------------------------------
+    // Json ---------------------------------------------------------------------------------------
     QJsonObject toJson() const;
     void fromJson(const QJsonObject& obj);
 
-    // READ ------------------------------------------------------------------------------------------------------------
+    // READ ---------------------------------------------------------------------------------------
     bool isDefault() const;
 
-    // RESET -----------------------------------------------------------------------------------------------------------
+    // RESET --------------------------------------------------------------------------------------
     void resetIsDefault();
 
 signals:

@@ -32,6 +32,8 @@ Rectangle {
         height: width
         width: parent.width / 6
         source: "power_2"
+        clickMode: true
+        onClicked: WApp.quit()
     }
 
     WTextInput {

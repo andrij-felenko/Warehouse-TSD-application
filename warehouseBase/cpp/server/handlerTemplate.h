@@ -4,8 +4,7 @@
 #include <QtCore/QObject>
 #include <QtCore/qglobal.h>
 #include "wjsonTemplate.h"
-
-typedef void (*fp)(WJsonTemplate*);
+#include "enum/wurl.h"
 
 class HandlerTemplate : public QObject
 {
@@ -13,21 +12,14 @@ class HandlerTemplate : public QObject
 public:
     explicit HandlerTemplate(QObject *parent = nullptr);
 
-    bool registrate(QString key, fp function);
-
-    void getUserList(WJsonTemplate* temp) {}
-
-signals:
-
-public slots:
+    virtual bool handler(QList <WUrl::WUrl_enum> url, WJsonTemplate* json) = 0;
+    virtual bool registrateUrl(QList <WUrl::WUrl_enum> url) final;
+    virtual bool registrateUrl(std::initializer_list <WUrl::WUrl_enum> url) final;
+    virtual bool isContains(QList <WUrl::WUrl_enum> url) final;
+    virtual bool isContains(QString url, WEnum::Version version = WUrl::version()) final;
 
 private:
-    struct FP {
-        QString key;
-        fp function;
-    };
-
-    QList <FP> m_list;
+    QList <QList <WUrl::WUrl_enum>> m_list;
 };
 
 #endif // HANDLERTEMPLATE_H

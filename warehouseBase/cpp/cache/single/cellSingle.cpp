@@ -1,6 +1,6 @@
 #include "cellSingle.h"
 
-CellSingle::CellSingle(QObject *parent) : QObject(parent)
+CellSingle::CellSingle(QObject *parent) : CacheSingle(parent)
 {
     //
 }
@@ -12,7 +12,7 @@ CellSingle::CellSingle(const QJsonObject &obj, QObject *parent) : CellSingle(par
 
 QJsonObject CellSingle::toJson() const
 {
-    QJsonObject obj = CellSingle::toJson();
+    QJsonObject obj = CacheSingle::toJson();
     WJson::insert(obj, WJson::Warehouse_id, QJsonValue(m_warehouseId));
     return obj;
 }
@@ -23,16 +23,6 @@ void CellSingle::fromJson(const QJsonObject& obj)
 
     if (WJson::contains(obj, WJson::Warehouse_id))
         setWarehouseId(WJson::get(obj, WJson::Warehouse_id).toString());
-}
-
-QString CellSingle::warehouseId() const
-{
-    return m_warehouseId;
-}
-
-void CellSingle::resetWarehouseId()
-{
-    setWarehouseId(WStatic::guidDefault());
 }
 
 void CellSingle::setWarehouseId(QString warehouseId)

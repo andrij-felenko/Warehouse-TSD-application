@@ -48,7 +48,11 @@ SOURCES += \
     cpp/cache/single/nomenclatureSingle.cpp \
     cpp/cache/single/cellSingle.cpp \
     cpp/cache/single/qualitySingle.cpp \
-    cpp/server/handlerTemplate.cpp
+    cpp/server/handlerTemplate.cpp \
+    cpp/server/serverHandlerManager.cpp \
+    cpp/server/serverHandler.cpp \
+    cpp/cache/single/employeeSingle.cpp \
+    cpp/document/line/linePlan.cpp
 
 HEADERS += \
     cpp/enum/wenum.h \
@@ -80,7 +84,11 @@ HEADERS += \
     cpp/cache/single/nomenclatureSingle.h \
     cpp/cache/single/cellSingle.h \
     cpp/cache/single/qualitySingle.h \
-    cpp/server/handlerTemplate.h
+    cpp/server/handlerTemplate.h \
+    cpp/server/serverHandlerManager.h \
+    cpp/server/serverHandler.h \
+    cpp/cache/single/employeeSingle.h \
+    cpp/document/line/linePlan.h
 
 DISTFILES += \
     jsonAPI.pdf

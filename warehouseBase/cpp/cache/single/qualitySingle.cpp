@@ -1,6 +1,6 @@
 #include "qualitySingle.h"
 
-QualitySingle::QualitySingle(QObject *parent) : QObject(parent)
+QualitySingle::QualitySingle(QObject *parent) : CacheSingle(parent)
 {
     //
 }

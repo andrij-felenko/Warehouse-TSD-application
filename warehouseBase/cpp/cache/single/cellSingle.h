@@ -10,7 +10,7 @@
 #include "enum/wstatic.h"
 #include "cacheSingle.h"
 
-class CellSingle : public QObject
+class CellSingle : public CacheSingle
 {
     Q_OBJECT
     Q_PROPERTY(QString warehouseId READ       warehouseId WRITE setWarehouseId
@@ -25,10 +25,10 @@ public:
     void fromJson(const QJsonObject& obj);
 
     // READ ------------------------------------------------------------------------------------------------------------
-    QString warehouseId() const;
+    QString warehouseId() const { return m_warehouseId; }
 
     // RESET -----------------------------------------------------------------------------------------------------------
-    void resetWarehouseId();
+    void resetWarehouseId() { setWarehouseId(WStatic::guidDefault()); }
 
 signals:
     void warehouseIdChanged(QString warehouseId);
