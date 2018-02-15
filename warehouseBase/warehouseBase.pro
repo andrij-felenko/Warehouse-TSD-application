@@ -52,7 +52,8 @@ SOURCES += \
     cpp/server/serverHandlerManager.cpp \
     cpp/server/serverHandler.cpp \
     cpp/cache/single/employeeSingle.cpp \
-    cpp/document/line/linePlan.cpp
+    cpp/document/line/linePlan.cpp \
+    cpp/document/line/lineActual.cpp
 
 HEADERS += \
     cpp/enum/wenum.h \
@@ -88,7 +89,8 @@ HEADERS += \
     cpp/server/serverHandlerManager.h \
     cpp/server/serverHandler.h \
     cpp/cache/single/employeeSingle.h \
-    cpp/document/line/linePlan.h
+    cpp/document/line/linePlan.h \
+    cpp/document/line/lineActual.h
 
 DISTFILES += \
     jsonAPI.pdf

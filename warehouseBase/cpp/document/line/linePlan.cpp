@@ -13,11 +13,12 @@ LinePlan::LinePlan(QObject *parent) : QObject(parent)
     QObject::connect(Cache::get().nomenclature(), &CacheListObject::listUpdated, this, &LinePlan::updateNomenclature);
     QObject::connect(Cache::get().consignment(), &CacheListObject::listPushed,  this, &LinePlan::updateConsignment);
     QObject::connect(Cache::get().consignment(), &CacheListObject::listUpdated, this, &LinePlan::updateConsignment);
+
+    resetAll();
 }
 
 LinePlan::LinePlan(const QJsonObject& obj, QObject* parent)
 {
-    resetAll();
     fromJson(obj);
 }
 

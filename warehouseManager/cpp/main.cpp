@@ -19,9 +19,9 @@ int main(int argc, char** argv)
     array.push_back("buka");
     array.push_back("buka2");
     array.push_back("buka3");
-    QJsonObject obj = WJson::createObject({ std::make_pair(WJson::Actual, "test msg"),
+    QJsonObject obj = WJson::createObject({ std::make_pair(WJson::Actual,  "test msg"),
                                             std::make_pair(WJson::Barcode, "test msg"),
-                                            std::make_pair(WJson::Name, "test msg")});
+                                            std::make_pair(WJson::Name,    "test msg") });
     obj.insert("array", array);
 
     Server::get().request("getUserList", "test msg", obj);
