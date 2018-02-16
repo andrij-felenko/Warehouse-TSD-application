@@ -4,6 +4,7 @@
 #include "template/templateSingleton.h"
 
 #include "cache/cachePrototype.h"
+#include "document/documentPrototype.h"
 #include "message/messagePrototype.h"
 #include "model/modelPrototype.h"
 #include "server/serverPrototype.h"
@@ -11,6 +12,9 @@
 
 /*! \brief Singleton обьект для работы с кэшем */
 class Cache : public TemplateSingleton <CachePrototype> {};
+
+/*! \brief Singleton обьект управления документами */
+class Document : public TemplateSingleton <DocumentPrototype> {};
 
 /*! \brief Singleton обьект управления сообщениями */
 class Message : public TemplateSingleton <MessagePrototype> {};

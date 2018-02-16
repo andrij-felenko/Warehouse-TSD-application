@@ -29,11 +29,11 @@ void LineActual::fromJson(const QJsonObject& obj)
     if (WJson::contains(obj, WJson::Is_done))
         setIsDone(WJson::get(obj, WJson::Is_done).toBool());
 
-    // Line number
+    // Line id
     if (WJson::contains(obj, WJson::Line_id))
         setLineId(WJson::get(obj, WJson::Line_id).toString());
 
-    // Consignment
+    // Employee
     if (WJson::contains(obj, WJson::Employee_id))
         setEmployeeId(WJson::get(obj, WJson::Employee_id).toString());
 

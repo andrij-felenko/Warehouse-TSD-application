@@ -1,5 +1,13 @@
 <RCC>
     <qresource prefix="/qml">
         <file>qml/main.qml</file>
+        <file>qml/Auth.qml</file>
+        <file>qml/Receiving.qml</file>
+        <file>qml/Picking.qml</file>
+        <file>qml/Purchase.qml</file>
+        <file>qml/Allotted.qml</file>
+        <file>qml/Stack.qml</file>
+        <file>qml/Setting.qml</file>
+        <file>qml/MenuWindow.qml</file>
     </qresource>
 </RCC>

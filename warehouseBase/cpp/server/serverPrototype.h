@@ -23,6 +23,7 @@ public:
                  WEnum::Request_priority priority = WEnum::Request_just_info,
                  QObject* senderObject = nullptr, QString functionName = QString(""));
     ServerHandlerManager* requestHandler();
+    ServerCache* cache() const { return m_serverCache; }
 
 public slots:
     void request(QList <int> url, int version, QString msg, QJsonObject json = QJsonObject(),

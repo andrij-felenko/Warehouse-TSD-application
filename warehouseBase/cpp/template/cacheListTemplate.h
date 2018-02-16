@@ -35,6 +35,12 @@ public:
         readLocalCache();
     }
 
+    /*! \brief Возвращает количество элементов в списке */
+    virtual int length() const final { return m_list.length(); }
+
+    /*! \brief Возвращает количество элементов в списке */
+    virtual int count() const final { return m_list.count(); }
+
     /*!
      * \brief Возвращает один елемент со списка.
      * \details Функция возвращает один элемент по заданому идентификатору при условии
@@ -48,6 +54,18 @@ public:
             if (it->id() == id)
                 return it;
         return nullptr;
+    }
+
+    /*!
+     * \brief Возвращает оидн элемент со списка
+     * \param position - позиция в списке
+     * \return Элемент со списка, если позиции не существует возвращает nullptr.
+     */
+    virtual T* getOne(int position) const final
+    {
+        if (position >= this->count())
+            return nullptr;
+        return m_list[position];
     }
 
     /*!

@@ -70,6 +70,10 @@ public:
         Cache_supplier,              ///< Поставщик
         Cache_unknown,               ///< Пустой кэш
     }; Q_ENUMS(CacheType)
+
+    enum ModelItems {
+        Model_item = 0xE700, ///< Единица из списка в моделе
+    }; Q_ENUMS(ModelItems)
 };
 
 #endif // WENUM_H

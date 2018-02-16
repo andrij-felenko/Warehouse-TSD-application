@@ -7,14 +7,13 @@ WRectangle {
     property alias iconPercent: icon.percent
     property alias iconColor:   icon.color
     property bool isRight: false
-    clickMode: true
 
     signal iconClicked()
 
-    anchors.topMargin:    anchors.top    === parent.top    ? parent.border.width : 0
-    anchors.leftMargin:   anchors.left   === parent.left   ? parent.border.width : 0
-    anchors.rightMargin:  anchors.right  === parent.right  ? parent.border.width : 0
-    anchors.bottomMargin: anchors.bottom === parent.bottom ? parent.border.width : 0
+    anchors.topMargin:    anchors.top    === parentItem.top    ? private_.parentItemBorderWidth : 0
+    anchors.leftMargin:   anchors.left   === parentItem.left   ? private_.parentItemBorderWidth : 0
+    anchors.rightMargin:  anchors.right  === parentItem.right  ? private_.parentItemBorderWidth : 0
+    anchors.bottomMargin: anchors.bottom === parentItem.bottom ? private_.parentItemBorderWidth : 0
 
     WIcon {
         id: icon
@@ -28,14 +27,19 @@ WRectangle {
         onClicked: /* emit */ iconButton.iconClicked()
     }
 
-    Text {
+    WText {
         id: text_
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left:  icon.visible ? isRight ? parent.left : icon.right : parent.left
         anchors.right: icon.visible ? isRight ? icon.left : parent.right : parent.right
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
+        textItem.horizontalAlignment: Text.AlignHCenter
+        textItem.verticalAlignment: Text.AlignVCenter
         visible: text !== ""
+    }
+
+    Item {
+        id: private_
+        property int parentItemBorderWidth: parentItem.border === undefined ? 0 : parentItem.border.width
     }
 }

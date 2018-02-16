@@ -1,58 +1,17 @@
 import QtQuick 2.0
 
-Item {
+WItemIconBorder {
     id: combobox
-    anchors.bottom: _private.isOpen ? anchorsBottom : undefined
+    iconRightVisible: true
+    iconRightSource: "arrow_down_204"
 
-    property alias model: value
-    property alias title: itemTitle.children
+    property string current_id: ""
+    property alias current_text: text.text
+    onRightChoosed: /* emit */ openList()
 
-    property int itemHeight: 30
-    property string current: ""
-    property string colorText: ""
-    property string colorTextChoose: ""
-    property string colorBackground: ""
-    property string colorBackgroundChoose: ""
-    property var anchorsBottom: parent.bottom
+    signal openList()
 
-    signal choose(string name)
-
-    onChoose: current = name
-
-    Item {
-        id: itemTitle
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        height: itemHeight
-    }
-
-    FRectangle {
-        id: itemList
-        anchors.top: itemTitle.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: combobox.bottom
-        visible: _private.isOpen
-
-        ListView {
-            id: listView
-            anchors.fill: parent
-
-            delegate: FMirrorLabel {
-                textLeft: name
-                height: itemHeight
-                anchors.left: parent.left
-                anchors.right: parent.right
-                clickMode: true
-
-                onClicked: /* emit */ combobox.choose()
-            }
-        }
-    }
-
-    Item {
-        id: _private
-        property bool isOpen: false
+    content: WText {
+        id: text
     }
 }

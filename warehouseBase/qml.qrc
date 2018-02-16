@@ -8,5 +8,9 @@
         <file>wcomponent/WTextInput.qml</file>
         <file>wcomponent/WPage.qml</file>
         <file>wcomponent/WItem.qml</file>
+        <file>wcomponent/WItemIconBorder.qml</file>
+        <file>wcomponent/WTwoStepped.qml</file>
+        <file>wcomponent/WText.qml</file>
+        <file>wcomponent/WAdditionalWindow.qml</file>
     </qresource>
 </RCC>

@@ -2,7 +2,7 @@
 #define MODELPROTOTYPE_H
 
 #include <QtCore/QObject>
-#include <QtCore/qglobal.h>
+#include <QtQml/QQmlEngine>
 
 class ModelPrototype : public QObject
 {
@@ -10,9 +10,16 @@ class ModelPrototype : public QObject
 public:
     explicit ModelPrototype(QObject *parent = nullptr);
 
-signals:
+    bool registrate(QString key, QObject* model, bool insert_anywhat = true);
+    bool remove_model(QObject* obj);
+    bool remove_model(QString key);
+
+private:
+    QMap <QString /*key*/, QObject* /*model*/> model_map;
+    QQmlEngine* engine;
 
 public slots:
+    QObject* get_model(QString key);
 };
 
 #endif // MODELPROTOTYPE_H

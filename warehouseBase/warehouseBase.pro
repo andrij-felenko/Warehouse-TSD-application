@@ -22,6 +22,7 @@ DEPENDPATH += $$PWD/cpp
 INCLUDEPATH += $$PWD/cpp
 
 OTHER_FILES += $$PWD/wcomponent/*.qml
+OTHER_FILES += $$PWD/icon/*.png
 
 RESOURCES += \
     icon.qrc \
@@ -53,7 +54,11 @@ SOURCES += \
     cpp/server/serverHandler.cpp \
     cpp/cache/single/employeeSingle.cpp \
     cpp/document/line/linePlan.cpp \
-    cpp/document/line/lineActual.cpp
+    cpp/document/line/lineActual.cpp \
+    cpp/document/base/documentHeader.cpp \
+    cpp/model/modelCacheList.cpp \
+    cpp/document/base/documentBase.cpp \
+    cpp/document/documentPrototype.cpp
 
 HEADERS += \
     cpp/enum/wenum.h \
@@ -90,7 +95,13 @@ HEADERS += \
     cpp/server/serverHandler.h \
     cpp/cache/single/employeeSingle.h \
     cpp/document/line/linePlan.h \
-    cpp/document/line/lineActual.h
+    cpp/document/line/lineActual.h \
+    cpp/document/base/documentHeader.h \
+    cpp/model/modelCacheList.h \
+    cpp/document/base/documentBase.h \
+    cpp/wclass/wtuple.h \
+    cpp/document/documentPrototype.h
 
 DISTFILES += \
-    jsonAPI.pdf
+    jsonAPI.pdf \
+    wcomponent/WItemIconBorder.qml

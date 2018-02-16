@@ -6,11 +6,12 @@ Rectangle {
     property alias clickInterval: timer.interval
     property bool clickMode: false
     property bool clickVisible: true
+    property var parentItem: parent
 
-    anchors.topMargin:    anchors.top    === parent.top    ? parent.border.width : 0
-    anchors.leftMargin:   anchors.left   === parent.left   ? parent.border.width : 0
-    anchors.rightMargin:  anchors.right  === parent.right  ? parent.border.width : 0
-    anchors.bottomMargin: anchors.bottom === parent.bottom ? parent.border.width : 0
+    anchors.topMargin:    anchors.top    === parentItem.top    ? parentItem.border.width : 0
+    anchors.leftMargin:   anchors.left   === parentItem.left   ? parentItem.border.width : 0
+    anchors.rightMargin:  anchors.right  === parentItem.right  ? parentItem.border.width : 0
+    anchors.bottomMargin: anchors.bottom === parentItem.bottom ? parentItem.border.width : 0
 
     signal open()
     signal hide()

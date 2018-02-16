@@ -162,5 +162,5 @@ void ServerHandler::getReceivingDocument(WJsonTemplate* json)
 
 void ServerHandler::getReceivingDocumentList(WJsonTemplate* json)
 {
-    //
+    Document::get().updateDocumentList(json, WUrl::Receiving);
 }

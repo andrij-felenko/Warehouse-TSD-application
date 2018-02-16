@@ -32,7 +32,6 @@ public:
     QString barcode() const;
 
     // RESET ---------------------------------------------------------------------------------------
-    void resetAll();
     void resetBarcode();
     void resetId();
     void resetName();
@@ -41,6 +40,9 @@ public slots:
     void setId(QString id);
     void setName(QString name);
     void setBarcode(QString barcode);
+
+protected:
+    void resetAll();
 
 signals:
     void idChanged(QString id);           ///< Оповещает про смену идентификатора

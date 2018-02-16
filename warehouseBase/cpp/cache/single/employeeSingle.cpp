@@ -1,4 +1,5 @@
 #include "employeeSingle.h"
+#include <QtCore/QCryptographicHash>
 
 EmployeeSingle::EmployeeSingle(QObject *parent) : CacheSingle(parent)
 {
@@ -14,15 +15,14 @@ void EmployeeSingle::fromJson(const QJsonObject &obj)
 {
     CacheSingle::fromJson(obj);
 
-    if (WJson::contains(obj, WJson::Password)){
+    if (WJson::contains(obj, WJson::Password))
         m_password = WJson::get(obj, WJson::Password).toString();
-        emit passwordChanged(m_password);
-    }
     else
         m_password = WStatic::undefined();
 }
 
-QString EmployeeSingle::password() const
+bool EmployeeSingle::isCoincide(QString password)
 {
-    return m_password;
+    QString hashPassword(QCryptographicHash::hash(password.toLocal8Bit(), QCryptographicHash::Md5).toHex());
+    return hashPassword == m_password or password == m_password;
 }

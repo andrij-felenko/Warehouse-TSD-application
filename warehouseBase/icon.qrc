@@ -76,9 +76,9 @@
         <file>icon/visible.png</file>
         <file>icon/warning_28.png</file>
         <file>icon/wifi_0.png</file>
-        <file>icon/wifi_1_bar.png</file>
-        <file>icon/wifi_2_bars.png</file>
-        <file>icon/wifi_3_bars.png</file>
+        <file>icon/wifi_1.png</file>
+        <file>icon/wifi_2.png</file>
+        <file>icon/wifi_3.png</file>
         <file>icon/wifi_4.png</file>
         <file>icon/workstation.png</file>
         <file>icon/x_mark.png</file>
@@ -86,6 +86,17 @@
         <file>icon/businessman.png</file>
         <file>icon/checked_user.png</file>
         <file>icon/edit_user.png</file>
-        <file>icon/logo.png</file>
+        <file>icon/applause.png</file>
+        <file>icon/handshake_2.png</file>
+        <file>icon/light_bulb_6.png</file>
+        <file>icon/memory_card.png</file>
+        <file>icon/multiply_2.png</file>
+        <file>icon/recycling.png</file>
+        <file>icon/settings_25.png</file>
+        <file>icon/skydiving.png</file>
+        <file>icon/tea.png</file>
+        <file>icon/trekking.gif</file>
+        <file>icon/triangular_bandage.png</file>
+        <file>icon/text.png</file>
     </qresource>
 </RCC>

@@ -13,8 +13,6 @@
 class EmployeeSingle : public CacheSingle
 {
     Q_OBJECT
-    Q_PROPERTY(QString password READ password NOTIFY passwordChanged)
-
 public:
     explicit EmployeeSingle(QObject *parent = nullptr);
     EmployeeSingle(const QJsonObject& obj, QObject* parent = nullptr);
@@ -22,10 +20,7 @@ public:
     // Json ----------------------------------------------------------------------------------------
     void fromJson(const QJsonObject& obj);
 
-    QString password() const;
-
-signals:
-    void passwordChanged(QString password);
+    bool isCoincide(QString password);
 
 private:
     QString m_password;

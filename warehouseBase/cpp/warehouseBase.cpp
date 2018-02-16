@@ -39,11 +39,12 @@ void WarehouseBase::registrateTypes()
 
 void WarehouseBase::init()
 {
-    Setting::instance(this);
-    Message::instance(this);
-    Server ::instance(this);
-    Cache  ::instance(this);
-    Model  ::instance(this);
+    Setting ::instance(this);
+    Message ::instance(this);
+    Server  ::instance(this);
+    Cache   ::instance(this);
+    Document::instance(this);
+    Model   ::instance(m_view);
 }
 
 void WarehouseBase::loadQML(const QUrl& url)

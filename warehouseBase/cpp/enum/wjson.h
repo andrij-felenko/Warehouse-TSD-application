@@ -31,6 +31,7 @@ public:
         // warehouse value -------------------------------------------------------------------------
         // cell
         Cell_id = 0xA100,    ///< Идентфикатор ячейки
+        Cell_id_list,        ///< Список идентификаторов ячеек
         Cell_name,           ///< Название ячейки
         Cell_reason_id,      ///< Идентификатор причины смены ячейки
         Cell_reason_name,    ///< Названия причины смены ячейки
@@ -86,6 +87,9 @@ public:
         Date_block,      ///< Дата резервирования контейнера и т.д.
         Date_packing,    ///< Дата пакования
         Date_production, ///< Дата производства
+        Date_created,    ///< Дата создания
+        Date_accepted,   ///< Дата проведения
+        Date_completed,  ///< Дата выполнения
         ShelfLife,       ///< Срок годности
 
         // dimension -------------------------------------------------------------------------------
@@ -99,6 +103,11 @@ public:
         Document_date,        ///< Дата документа
         Document_name,        ///< Наименование документа (или его номер в строковом виде)
         Document_header,      ///< Общая информация про документа (его шапка)
+        Supplier,             ///< Поставщик
+        IsStaticCellContains, ///< Есть ли указанная ячейка для документа (например приемка)
+        IsCanChangeCell,      ///< Возможность смены ячейки
+        IsTwoVerifyAccepted,  ///< Есть ли двойная верификация
+        IsGeoposition,        ///< Нужна ли геолокация
 
         // document line ---------------------------------------------------------------------------
         Actual = 0xA400, ///< Фактические строки
@@ -118,11 +127,15 @@ public:
         Quantity_packing,  ///< Количество в упаковке
 
         // employee --------------------------------------------------------------------------------
-        Employee_id = 0xA500, ///< Идентификатор пользователя
-        Employee_name,        ///< Имя пользователя
-        Password,             ///< Пароль
-        Provider_id,          ///< Идентификатор поставщика
-        Provider_name,        ///< Имя поставщика
+        Employee_id = 0xA500,   ///< Идентификатор пользователя
+        Employee_name,          ///< Имя пользователя
+        Employee_sender_id,     ///< Идентификатор склада отправителя
+        Employee_sender_name,   ///< Наименование склада отправителя
+        Employee_receiver_id,   ///< Идентификатор склада получателя
+        Employee_receiver_name, ///< Наименование склада получателя
+        Password,               ///< Пароль
+        Provider_id,            ///< Идентификатор поставщика
+        Provider_name,          ///< Имя поставщика
 
         // server key ------------------------------------------------------------------------------
         Code = 0xA600, ///< Код (не знаю зачем это)
@@ -151,6 +164,12 @@ public:
 
     static QJsonObject createObject(std::initializer_list<std::pair<WJson_enum, QJsonValue> > list,
                                     WEnum::Version version_ = version());
+
+    static QJsonValue createValue(WJson_enum key, const QJsonValue& value_insert,
+                                  WEnum::Version version_ = version());
+
+    static QJsonValue createValue(std::initializer_list<std::pair<WJson_enum, QJsonValue> > list,
+                                  WEnum::Version version_ = version());
 
     static QString toString(WJson_enum key, WEnum::Version version_ = version());
     static QJsonValue get(const QJsonObject& obj,  WJson_enum key, WEnum::Version version_ = version());

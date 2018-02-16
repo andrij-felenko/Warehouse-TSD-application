@@ -18,6 +18,7 @@ WJson::WJson(QObject* parent) : QObject(parent)
     // warehouse value -------------------------------------------------------------------------
     // cell
     m_list.push_back({ Cell_id,             "cell_id",             WEnum::Version_0_1 });
+    m_list.push_back({ Cell_id_list,        "cell_id_list",        WEnum::Version_0_1 });
     m_list.push_back({ Cell_name,           "cell_name",           WEnum::Version_0_1 });
     m_list.push_back({ Cell_sender_id,      "cell_sender_id",      WEnum::Version_0_1 });
     m_list.push_back({ Cell_sender_name,    "cell_sender_name",    WEnum::Version_0_1 });
@@ -73,6 +74,9 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Date_block,      "date_block",      WEnum::Version_0_1 });
     m_list.push_back({ Date_packing,    "date_packing",    WEnum::Version_0_1 });
     m_list.push_back({ Date_production, "date_production", WEnum::Version_0_1 });
+    m_list.push_back({ Date_created,    "date_created",    WEnum::Version_0_1 });
+    m_list.push_back({ Date_accepted,   "date_accepted",   WEnum::Version_0_1 });
+    m_list.push_back({ Date_completed,  "date_completed",  WEnum::Version_0_1 });
     m_list.push_back({ ShelfLife,       "shelf_life",      WEnum::Version_0_1 });
 
     // dimension -------------------------------------------------------------------------------
@@ -82,10 +86,15 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Width,  "width",  WEnum::Version_0_1 });
 
     // document --------------------------------------------------------------------------------
-    m_list.push_back({ Document_id,     "document_id",     WEnum::Version_0_1 });
-    m_list.push_back({ Document_date,   "document_date",   WEnum::Version_0_1 });
-    m_list.push_back({ Document_name,   "document_name",   WEnum::Version_0_1 });
-    m_list.push_back({ Document_header, "document_header", WEnum::Version_0_1 });
+    m_list.push_back({ Document_id,          "document_id",             WEnum::Version_0_1 });
+    m_list.push_back({ Document_date,        "document_date",           WEnum::Version_0_1 });
+    m_list.push_back({ Document_name,        "document_name",           WEnum::Version_0_1 });
+    m_list.push_back({ Document_header,      "document_header",         WEnum::Version_0_1 });
+    m_list.push_back({ Supplier,             "supplier",                WEnum::Version_0_1 });
+    m_list.push_back({ IsStaticCellContains, "is_static_cell_contains", WEnum::Version_0_1 });
+    m_list.push_back({ IsCanChangeCell,      "is_can_change_cell",      WEnum::Version_0_1 });
+    m_list.push_back({ IsTwoVerifyAccepted,  "is_two_verify_accepted",  WEnum::Version_0_1 });
+    m_list.push_back({ IsGeoposition,        "is_geoposition",          WEnum::Version_0_1 });
 
     // document line ---------------------------------------------------------------------------
     m_list.push_back({ Actual,      "actual",      WEnum::Version_0_1 });
@@ -105,11 +114,15 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Quantity_packing, "quantity_packing", WEnum::Version_0_1 });
 
     // employee --------------------------------------------------------------------------------
-    m_list.push_back({ Employee_id,   "employee_id",   WEnum::Version_0_1 });
-    m_list.push_back({ Employee_name, "employee_name", WEnum::Version_0_1 });
-    m_list.push_back({ Password,      "password",      WEnum::Version_0_1 });
-    m_list.push_back({ Provider_id,   "provider_id",   WEnum::Version_0_1 });
-    m_list.push_back({ Provider_name, "provider_name", WEnum::Version_0_1 });
+    m_list.push_back({ Employee_id,            "employee_id",            WEnum::Version_0_1 });
+    m_list.push_back({ Employee_name,          "employee_name",          WEnum::Version_0_1 });
+    m_list.push_back({ Employee_sender_id,     "employee_sender_id",     WEnum::Version_0_1 });
+    m_list.push_back({ Employee_sender_name,   "employee_sender_name",   WEnum::Version_0_1 });
+    m_list.push_back({ Employee_receiver_id,   "employee_receiver_id",   WEnum::Version_0_1 });
+    m_list.push_back({ Employee_receiver_name, "employee_receiver_name", WEnum::Version_0_1 });
+    m_list.push_back({ Password,               "password",               WEnum::Version_0_1 });
+    m_list.push_back({ Provider_id,            "provider_id",            WEnum::Version_0_1 });
+    m_list.push_back({ Provider_name,          "provider_name",          WEnum::Version_0_1 });
 
     // server key ------------------------------------------------------------------------------
     m_list.push_back({ Code,    "code",    WEnum::Version_0_1 });
@@ -167,6 +180,17 @@ QJsonObject WJson::createObject(std::initializer_list<std::pair <WJson::WJson_en
     for (auto it : list)
         WJson::insert(obj, it.first, it.second, version_);
     return obj;
+}
+
+QJsonValue WJson::createValue(WJson::WJson_enum key, const QJsonValue& value_insert, WEnum::Version version_)
+{
+    return QJsonValue(WJson::createObject(key, value_insert, version_));
+}
+
+QJsonValue WJson::createValue(std::initializer_list<std::pair <WJson::WJson_enum, QJsonValue>> list,
+                              WEnum::Version version_)
+{
+    return QJsonValue(WJson::createObject(list, version_));
 }
 
 QString WJson::toString(WJson_enum key, WEnum::Version version_)
