@@ -6,12 +6,16 @@ HandlerTemplate::HandlerTemplate(QObject *parent) : QObject(parent)
 }
 
 bool HandlerTemplate::registrateUrl(QList <WUrl::WUrl_enum> url){
+    // FIXME
     m_list.push_back(url);
+    return true;
 }
 
 bool HandlerTemplate::registrateUrl(std::initializer_list<WUrl::WUrl_enum> url)
 {
+    // FIXME
     registrateUrl(WUrl::compareUrlList(url));
+    return true;
 }
 
 bool HandlerTemplate::isContains(QList<WUrl::WUrl_enum> url)
@@ -29,4 +33,9 @@ bool HandlerTemplate::isContains(QString url, WEnum::Version version)
         if (it == list_)
             return true;
     return false;
+}
+
+QList<QList<WUrl::WUrl_enum> > HandlerTemplate::getList() const
+{
+    return m_list;
 }

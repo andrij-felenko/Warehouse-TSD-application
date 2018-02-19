@@ -7,7 +7,8 @@ DocumentPrototype::DocumentPrototype(QObject *parent) : QObject(parent)
 
 void DocumentPrototype::updateDocumentList(WJsonTemplate* json, WUrl::WUrl_enum key)
 {
-    for (auto it : m_list)
+    int i(0);
+    for (auto it : m_list){
         if (it.key == key){
             bool isFound(false);
             for (auto subIt : json->json().toArray())
@@ -19,16 +20,18 @@ void DocumentPrototype::updateDocumentList(WJsonTemplate* json, WUrl::WUrl_enum 
                     }
             if (not isFound){
                 it.document->deleteLater();
-                // FIXME cant remove, non copy
-//                m_list.removeOne(it);
+                m_list.removeAt(i);
+                i--;
             }
         }
+        i++;
+    }
 }
 
 DocumentBase* DocumentPrototype::getDocument(QString id, WUrl::WUrl_enum key) const
 {
     for (auto it : m_list)
-        if (key == WUrl::___ or key == it.key)
+        if ((key == WUrl::___ and it.document->id() == id) or key == it.key)
             return it.document;
     return nullptr;
 }

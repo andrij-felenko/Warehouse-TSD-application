@@ -17,6 +17,7 @@ public:
     virtual bool registrateUrl(std::initializer_list <WUrl::WUrl_enum> url) final;
     virtual bool isContains(QList <WUrl::WUrl_enum> url) final;
     virtual bool isContains(QString url, WEnum::Version version = WUrl::version()) final;
+    virtual QList <QList <WUrl::WUrl_enum>> getList() const final;
 
 private:
     QList <QList <WUrl::WUrl_enum>> m_list;

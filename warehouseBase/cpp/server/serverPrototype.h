@@ -19,6 +19,9 @@ class ServerPrototype : public QNetworkAccessManager
 public:
     explicit ServerPrototype(QObject *parent = nullptr);
 
+    void request(QString url, QString msg, QJsonValue json = QJsonValue(),
+                 WEnum::Request_priority priority = WEnum::Request_just_info,
+                 QObject* senderObject = nullptr, QString functionName = QString(""));
     void request(QString url, QString msg, QJsonObject json = QJsonObject(),
                  WEnum::Request_priority priority = WEnum::Request_just_info,
                  QObject* senderObject = nullptr, QString functionName = QString(""));

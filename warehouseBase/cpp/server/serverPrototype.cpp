@@ -14,17 +14,8 @@ ServerPrototype::ServerPrototype(QObject *parent) : QNetworkAccessManager(parent
     get(QNetworkRequest(QUrl(Setting::get().server()->domain())));
 }
 
-// from QML
-void ServerPrototype::request(QList<int> url, int version, QString msg, QJsonObject json,
-                              int priority, QObject* senderObject, QString functionName)
-{
-    request(WUrl::compareUrl(url, static_cast <WEnum::Version> (version)), msg, json,
-            static_cast <WEnum::Request_priority> (priority), senderObject, functionName);
-}
-
 // FIXME
-void ServerPrototype::request(QString url, QString msg,
-                              QJsonObject json, WEnum::Request_priority priority,
+void ServerPrototype::request(QString url, QString msg, QJsonValue json, WEnum::Request_priority priority,
                               QObject* senderObject, QString functionName)
 {
     Q_UNUSED(msg)
@@ -57,6 +48,21 @@ void ServerPrototype::request(QString url, QString msg,
     request.setHeader(QNetworkRequest::ContentTypeHeader,
                       QVariant("application/x-www-form-urlencoded"));
     post(request, serverRequest->formRequest());
+}
+
+// from QML
+void ServerPrototype::request(QList<int> url, int version, QString msg, QJsonObject json,
+                              int priority, QObject* senderObject, QString functionName)
+{
+    request(WUrl::compareUrl(url, static_cast <WEnum::Version> (version)), msg, json,
+            static_cast <WEnum::Request_priority> (priority), senderObject, functionName);
+}
+
+void ServerPrototype::request(QString url, QString msg,
+                              QJsonObject json, WEnum::Request_priority priority,
+                              QObject* senderObject, QString functionName)
+{
+    request(url, msg, QJsonValue(json), priority, senderObject, functionName);
 }
 
 ServerHandlerManager* ServerPrototype::requestHandler()

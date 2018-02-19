@@ -18,7 +18,6 @@ QJsonObject LineActual::toJson() const
 {
     auto obj = LinePlan::toJson();
     WJson::insert(obj, WJson::Line_id, m_lineId);
-    WJson::insert(obj, WJson::Is_done, m_isDone);
     WJson::insert(obj, WJson::Employee_id,   m_employeeId);
     WJson::insert(obj, WJson::Employee_name, m_employeeName);
     return obj;
@@ -26,9 +25,6 @@ QJsonObject LineActual::toJson() const
 
 void LineActual::fromJson(const QJsonObject& obj)
 {
-    if (WJson::contains(obj, WJson::Is_done))
-        setIsDone(WJson::get(obj, WJson::Is_done).toBool());
-
     // Line id
     if (WJson::contains(obj, WJson::Line_id))
         setLineId(WJson::get(obj, WJson::Line_id).toString());
@@ -41,14 +37,6 @@ void LineActual::fromJson(const QJsonObject& obj)
         setEmployeeName(WJson::get(obj, WJson::Employee_name).toString());
     else
         updateEmployeeName();
-}
-
-void LineActual::setIsDone(bool isDone)
-{
-    if (m_isDone != isDone){
-        m_isDone = isDone;
-        emit isDoneChanged(m_isDone);
-    }
 }
 
 void LineActual::setLineId(QString lineId)

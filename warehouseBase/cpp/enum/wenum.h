@@ -71,6 +71,15 @@ public:
         Cache_unknown,               ///< Пустой кэш
     }; Q_ENUMS(CacheType)
 
+    enum Sort {
+        SortByAZ = 0xE700,   ///< Сортировка по алфавиту
+        SortByZA,            ///< Сортировку против алфавита
+        SortByNewest,        ///< Сортировка, новые сначала
+        SortByOldest,        ///< Сортировка, старые сначала
+        SortByPushed,        ///< Сортировка по времени добавления
+        SortByPushedReverse, ///< Сортировка по времени убывания
+    }; Q_ENUMS(Sort)
+
     enum ModelItems {
         Model_item = 0xE700, ///< Единица из списка в моделе
     }; Q_ENUMS(ModelItems)

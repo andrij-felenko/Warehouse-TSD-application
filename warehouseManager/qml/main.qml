@@ -17,4 +17,10 @@ Item {
             anchors.fill: parent
         }
     }
+
+    Additional {
+        id: additional
+        anchors.fill: parent
+        z: 1
+    }
 }

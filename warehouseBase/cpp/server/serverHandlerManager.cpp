@@ -1,4 +1,5 @@
 #include "serverHandlerManager.h"
+#include "singleton.h"
 
 ServerHandlerManager::ServerHandlerManager(QObject *parent) : QObject(parent)
 {
@@ -22,11 +23,22 @@ bool ServerHandlerManager::isUrlContains(QString url)
 
 bool ServerHandlerManager::registrate(HandlerTemplate* handler)
 {
+    for (auto it : handler->getList()){
+        if (m_baseHandler->isContains(it))
+            Message::get().setWarningMessage(WUrl::compareUrl(it) + QObject::tr(" не будет обработан."),
+                                             WEnum::Priority_low);
+        for (auto subIt : m_list)
+            if (subIt->isContains(it))
+                Message::get().setWarningMessage(WUrl::compareUrl(it) + QObject::tr(" не будет обработан."),
+                                                 WEnum::Priority_low);
+    }
     m_list.push_back(handler);
-    // FIXME добавить проверку на совпадения ключей
+    return true;
 }
 
 void ServerHandlerManager::sendRequest(QList <WUrl::WUrl_enum> url, WJsonTemplate* json)
 {
-    //
+    Q_UNUSED(url)
+    Q_UNUSED(json)
+    // FIXME я не помню зачем эта функция, забыл и все
 }

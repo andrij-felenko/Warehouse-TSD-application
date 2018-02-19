@@ -132,32 +132,81 @@ void ServerHandler::getStorageUnitList(WJsonTemplate* json)
 
 void ServerHandler::reserveContainer(WJsonTemplate* json)
 {
-    //
+    auto cache = Server::get().cache()->getOne(json->request());
+    if (cache == nullptr)
+        return; //FIXME error
+
+    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
+    if (document == nullptr)
+        return;
+
+    document->acceptedReserveContainer(json, false);
 }
 
 void ServerHandler::unreserveContainer(WJsonTemplate* json)
 {
-    //
+
+    auto cache = Server::get().cache()->getOne(json->request());
+    if (cache == nullptr)
+        return; //FIXME error
+
+    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
+    if (document == nullptr)
+        return;
+
+    document->acceptedReserveContainer(json, false);
 }
 
 void ServerHandler::setReceivingLine(WJsonTemplate* json)
 {
-    //
+    auto cache = Server::get().cache()->getOne(json->request());
+    if (cache == nullptr)
+        return; //FIXME error
+
+    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
+    if (document == nullptr)
+        return;
+
+    document->acceptedSetLine(json);
 }
 
 void ServerHandler::updateReceivingLine(WJsonTemplate* json)
 {
-    //
+    auto cache = Server::get().cache()->getOne(json->request());
+    if (cache == nullptr)
+        return; //FIXME error
+
+    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
+    if (document == nullptr)
+        return;
+
+    document->acceptedUpdateLine(json);
 }
 
 void ServerHandler::removeReceivingLine(WJsonTemplate* json)
 {
-    //
+    auto cache = Server::get().cache()->getOne(json->request());
+    if (cache == nullptr)
+        return; //FIXME error
+
+    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
+    if (document == nullptr)
+        return;
+
+    document->acceptedRemoveLine(json);
 }
 
 void ServerHandler::getReceivingDocument(WJsonTemplate* json)
 {
-    //
+    auto cache = Server::get().cache()->getOne(json->request());
+    if (cache == nullptr)
+        return; //FIXME error
+
+    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
+    if (document == nullptr)
+        return;
+
+    document->writeLines(json->json());
 }
 
 void ServerHandler::getReceivingDocumentList(WJsonTemplate* json)

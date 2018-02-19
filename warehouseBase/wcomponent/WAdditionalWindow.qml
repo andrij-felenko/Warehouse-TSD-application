@@ -1,32 +1,13 @@
 import QtQuick 2.0
 
-WRectangle {
+WPage {
     id: additionalWindow
-    property alias content: contentItem.children
-    property alias title: text.text
+    header.iconLeftVisible: false
+    header.iconLeftSource: ""
+    header.iconRightVisible: true
+    header.iconRightSource: "x_mark"
 
-    WItemIconBorder {
-        id: headerItem
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        height: parent.height / 13
+    signal close()
 
-        iconRightSource: "x_mark"
-        iconRightVisible: true
-        onRightChoosed: additionalWindow.visible = false
-
-        content: WText {
-            id: text
-            anchors.fill: parent
-        }
-    }
-
-    Item {
-        id: contentItem
-        anchors.top: headerItem.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-    }
+    header.onRightChoosed: /* emit */ close()
 }

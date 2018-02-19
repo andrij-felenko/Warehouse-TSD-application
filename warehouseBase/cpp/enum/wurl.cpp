@@ -112,6 +112,14 @@ QString WUrl::compareUrl(QList<int> list, WEnum::Version version_)
     return ret;
 }
 
+QString WUrl::compareUrl(QList<WUrl_enum> list, WEnum::Version version_)
+{
+    QString ret("");
+    for (auto it : list)
+        ret += toString(it, version_);
+    return ret;
+}
+
 QList<WUrl::WUrl_enum> WUrl::compareUrlList(std::initializer_list<WUrl::WUrl_enum> list)
 {
     QList <WUrl::WUrl_enum> url;

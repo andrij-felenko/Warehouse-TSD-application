@@ -11,6 +11,7 @@
 class LinePlan : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool isDone READ isDone WRITE setIsDone RESET resetIsDone NOTIFY isDoneChanged)
     Q_PROPERTY(QString consignmentId READ       consignmentId WRITE setConsignmentId
                                      RESET resetConsignmentId NOTIFY   consignmentIdChanged)
 
@@ -55,6 +56,7 @@ public:
     void fromJson(const QJsonObject& obj);
 
     // READ ----------------------------------------------------------------------------------------
+    bool    isDone()                const { return m_isDone; }
     QString consignmentId()         const { return m_consignmentId; }
     QString nomenclatureId()        const { return m_nomenclatureId; }
     QString qualityId()             const { return m_qualityId; }
@@ -73,6 +75,7 @@ public:
     QString cellSenderName()        const { return m_cellSenderName; }
 
     // RESET ---------------------------------------------------------------------------------------
+    void resetIsDone()              { setIsDone(false); }
     void resetConsignmentId()       { setConsignmentId      (WStatic::guidDefault()); }
     void resetNomenclatureId()      { setNomenclatureId     (WStatic::guidDefault()); }
     void resetQualityId()           { setQualityId          (WStatic::guidDefault()); }
@@ -82,11 +85,13 @@ public:
     void resetContainerSenderId()   { setContainerSenderId  (WStatic::guidDefault()); }
     void resetLineNumber()          { setLineNumber(-1); }
     void resetQuantity()            { setQuantity(0); }
+    void clear()                    { resetAll(); }
 
 protected:
     void resetAll();
 
 signals:
+    void isDoneChanged(bool isDone);
     void consignmentIdChanged(QString consignmentId);
     void nomenclatureIdChanged(QString nomenclatureId);
     void qualityIdChanged(QString qualityId);
@@ -105,6 +110,7 @@ signals:
     void cellSenderNameChanged(QString cellSenderName);
 
 public slots:
+    void setIsDone(bool isDone);
     void setConsignmentId(QString consignmentId);
     void setNomenclatureId(QString nomenclatureId);
     void setQualityId(QString qualityId);
@@ -116,6 +122,7 @@ public slots:
     void setLineNumber(int lineNumber);
 
 private:
+    bool m_isDone;
     QString m_consignmentId;
     QString m_nomenclatureId;
     QString m_qualityId;

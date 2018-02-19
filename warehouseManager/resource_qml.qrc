@@ -9,5 +9,6 @@
         <file>qml/Stack.qml</file>
         <file>qml/Setting.qml</file>
         <file>qml/MenuWindow.qml</file>
+        <file>qml/Additional.qml</file>
     </qresource>
 </RCC>

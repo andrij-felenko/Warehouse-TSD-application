@@ -79,8 +79,23 @@ WPage {
                     id: comboBoxAuth
                     anchors.fill: parent
                     visible: ! textInputAuth.visible
+                    onRightChoosed: additional.push(comboBoxListComponent)
                 }
             ]
+
+            Component {
+                id: comboBoxListComponent
+
+                WAdditionalWindow {
+                    title: "Выбор пользователя"
+                    onClose: additional.pop()
+                    parentItem: additional
+
+                    content: WRectangle {
+                        color: "red"
+                    }
+                }
+            }
         }
 
         WTextInput {

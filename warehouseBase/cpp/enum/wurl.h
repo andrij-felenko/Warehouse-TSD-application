@@ -79,6 +79,7 @@ public slots:
     static QString toString(int key);
     static QString compareUrl(std::initializer_list <WUrl_enum> list, WEnum::Version version_ = version());
     static QString compareUrl(QList <int> list, WEnum::Version version_ = version());
+    static QString compareUrl(QList <WUrl_enum> list, WEnum::Version version_ = version());
     static QList <WUrl_enum> compareUrlList(std::initializer_list<WUrl_enum> list);
     static QList <WUrl_enum> disunite(const QString& url, WEnum::Version version_ = version());
     static bool isEqual(QList <WUrl_enum> url, std::initializer_list <WUrl_enum> list);

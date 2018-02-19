@@ -14,7 +14,7 @@ public:
 signals:
 
 public slots:
-        static QJsonValue empty();
+    static QJsonValue empty();
     static QJsonValue list(QStringList list);
     static QJsonValue date(QDateTime dateTime);
     static QJsonValue tuple(WJson::WJson_enum key, QJsonValue value);

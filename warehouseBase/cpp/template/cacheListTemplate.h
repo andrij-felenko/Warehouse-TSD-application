@@ -56,6 +56,15 @@ public:
         return nullptr;
     }
 
+    /*! \brief getIdList Запрос списка идентификаторов */
+    virtual QStringList getIdList() const final
+    {
+        QStringList list;
+        for (auto it : m_list)
+            list.push_back(it->id());
+        return list;
+    }
+
     /*!
      * \brief Возвращает оидн элемент со списка
      * \param position - позиция в списке

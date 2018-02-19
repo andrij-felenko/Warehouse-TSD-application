@@ -16,19 +16,24 @@ class DocumentBase : public DocumentHeader
 public:
     explicit DocumentBase(WUrl::WUrl_enum documentKey = WUrl::___, QObject *parent = nullptr);
 
+    void writeHeader(QJsonValue value);
+    void writeLines(QJsonValue value);
+
     LineActual* currentActual() const { return m_currentActual; }
     LinePlan*   currentPlan()   const { return m_currentPlan; }
 
-    void acceptedSaveLine  (WJsonTemplate* json);
-    void acceptedCreateLine(WJsonTemplate* json);
+    void acceptedUpdateLine(WJsonTemplate* json);
+    void acceptedSetLine(WJsonTemplate* json);
     void acceptedRemoveLine(WJsonTemplate* json);
+    void acceptedReserveContainer(WJsonTemplate* json, bool sender);
+    void acceptedUnreserveCOntainer(WJsonTemplate* json, bool sender);
 
 public slots:
-    void chooseLine(QString id, QVariantMap map);
-    void chooseNextLine(QVariantMap map);
+    void chooseLine(QString id);
+    bool chooseNextLine(QVariantMap map);
     void createLine(QVariantMap map);
-    void saveLine();
-    void removeLine();
+    void saveLine(QObject* senderObj, QString funcName);
+    void removeLine(QObject* senderObj, QString funcName);
 
 signals:
 

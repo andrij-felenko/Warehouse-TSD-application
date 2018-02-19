@@ -12,7 +12,7 @@ class ServerCacheSingle : public QObject
 public:
     ServerCacheSingle(QObject* sender = nullptr, QString functionName = "",
                       QString url = "", QString id_msg = "",
-                      QJsonObject json = QJsonObject(), QObject *parent = nullptr,
+                      QJsonValue json = QJsonValue(), QObject *parent = nullptr,
                       WEnum::Request_priority priority = WEnum::Request_just_info)
         : QObject(parent), m_sender(sender), m_functionName(functionName), m_id_msg(id_msg),
           m_json(new WJsonTemplate(url, json, this)), m_priority(priority), m_is_accept(false)

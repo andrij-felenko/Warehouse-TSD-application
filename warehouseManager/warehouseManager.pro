@@ -18,9 +18,11 @@ DEPENDPATH  += $$PWD/cpp
 INCLUDEPATH += $$PWD/cpp
 
 HEADERS += \
+    cpp/model.h
 
 SOURCES += \
-    cpp/main.cpp
+    cpp/main.cpp \
+    cpp/model.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../warehouseBase/release/ -lwarehouseBase
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../warehouseBase/debug/ -lwarehouseBase

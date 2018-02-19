@@ -17,7 +17,7 @@ LinePlan::LinePlan(QObject *parent) : QObject(parent)
     resetAll();
 }
 
-LinePlan::LinePlan(const QJsonObject& obj, QObject* parent)
+LinePlan::LinePlan(const QJsonObject& obj, QObject* parent) : LinePlan(parent)
 {
     fromJson(obj);
 }
@@ -25,6 +25,7 @@ LinePlan::LinePlan(const QJsonObject& obj, QObject* parent)
 QJsonObject LinePlan::toJson() const
 {
     return WJson::createObject({
+        std::make_pair(WJson::Is_done, m_isDone),
         std::make_pair(WJson::Quantity, m_quantity),
         std::make_pair(WJson::Line_number, m_lineNumber),
         std::make_pair(WJson::Consignment_id,   m_consignmentId),
@@ -46,6 +47,9 @@ QJsonObject LinePlan::toJson() const
 
 void LinePlan::fromJson(const QJsonObject& obj)
 {
+    if (WJson::contains(obj, WJson::Is_done))
+        setIsDone(WJson::get(obj, WJson::Is_done).toBool());
+
     // Quantity
     if (WJson::contains(obj, WJson::Quantity))
         setQuantity(WJson::get(obj, WJson::Quantity).toInt());
@@ -144,6 +148,14 @@ void LinePlan::setNomenclatureId(QString nomenclatureId)
         m_nomenclatureId = nomenclatureId;
         emit nomenclatureIdChanged(m_nomenclatureId);
         updateNomenclatureName();
+    }
+}
+
+void LinePlan::setIsDone(bool isDone)
+{
+    if (m_isDone != isDone){
+        m_isDone = isDone;
+        emit isDoneChanged(m_isDone);
     }
 }
 

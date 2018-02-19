@@ -6,7 +6,7 @@ WPage {
     backMode: true
     header.iconLeftSource: "account_logout"
 
-    onBack: mainStack.pop()
+    onBack:    mainStack.pop()
     onSetting: mainPage.currentIndex = 1
 
     content: WItem {
@@ -65,22 +65,22 @@ WPage {
         }
 
         Component {
-            id: allottedComponent
+            id: allottedComponent // приемка
             Allotted { parentItem: mainStack }
         }
 
         Component {
-            id: pickingComponent
+            id: pickingComponent // перемещение
             Picking { parentItem: mainStack }
         }
 
         Component {
-            id: purchaseComponent
+            id: purchaseComponent // отгрузка
             Purchase { parentItem: mainStack }
         }
 
         Component {
-            id: receivingComponent
+            id: receivingComponent // приемка
             Receiving { parentItem: mainStack }
         }
     }

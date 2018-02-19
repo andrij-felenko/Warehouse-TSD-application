@@ -9,7 +9,7 @@ WItem {
         anchors.fill: parent
         anchors.leftMargin: 5
         text: ""
-        font.pointSize: parent.height / 3
+        font.pointSize: parent.height > 3 ? parent.height / 3 : 3
         verticalAlignment: Text.AlignVCenter
         wrapMode: Text.WrapAnywhere
         color: "#246396"
