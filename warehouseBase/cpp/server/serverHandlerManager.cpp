@@ -36,9 +36,20 @@ bool ServerHandlerManager::registrate(HandlerTemplate* handler)
     return true;
 }
 
+/*! \brief Принимает запросы от сервера и направляет их в нужный обработчик */
 void ServerHandlerManager::sendRequest(QList <WUrl::WUrl_enum> url, WJsonTemplate* json)
 {
-    Q_UNUSED(url)
-    Q_UNUSED(json)
-    // FIXME я не помню зачем эта функция, забыл и все
+    if (m_baseHandler->isContains(url)){
+        m_baseHandler->handler(url, json);
+        return;
+    }
+
+    for (auto it : m_list)
+        if (it->isContains(url)){
+            it->handler(url, json);
+            return;
+        }
+
+    Message::get().setWarningMessage(WUrl::compareUrl(url) + QObject::tr(" не найдено решение в списке методов"),
+                                     WEnum::Priority_middle);
 }

@@ -25,11 +25,13 @@ private:
     void   reserveContainer(WJsonTemplate* json);
     void unreserveContainer(WJsonTemplate* json);
 
-    void    setReceivingLine(WJsonTemplate* json);
-    void updateReceivingLine(WJsonTemplate* json);
-    void removeReceivingLine(WJsonTemplate* json);
-    void getReceivingDocument(WJsonTemplate* json);
-    void getReceivingDocumentList(WJsonTemplate* json);
+    void    setLine(WJsonTemplate* json);
+    void updateLine(WJsonTemplate* json);
+    void removeLine(WJsonTemplate* json);
+    void getDocument(WJsonTemplate* json);
+    void getDocumentList(WJsonTemplate* json);
+
+    inline bool testJsonDocumentResult(WJsonTemplate* json);
 };
 
 #endif // SERVERHANDLER_H

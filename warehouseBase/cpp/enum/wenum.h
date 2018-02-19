@@ -52,7 +52,7 @@ public:
 
     enum Version {
         Version_none = 0xE500, ///< Без версии
-        Version_0_1,           ///< Версия 0.1 [1.02.2018]
+        Version_1_0,           ///< Версия 1.0 [1.02.2018]
     };
 
     enum CacheType {

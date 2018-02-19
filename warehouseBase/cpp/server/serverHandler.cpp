@@ -15,7 +15,7 @@ ServerHandler::ServerHandler(QObject *parent) : HandlerTemplate(parent)
     registrateUrl({ WUrl::Update, WUrl::Container, WUrl::Cache });
 
     registrateUrl({ WUrl::Get, WUrl::Nomenclature, WUrl::By, WUrl::Id });
-    registrateUrl({ WUrl::Get, WUrl::Nomenclature, WUrl::Cache });
+    registrateUrl({ WUrl::Update, WUrl::Nomenclature, WUrl::Cache });
 
     registrateUrl({ WUrl::Get,    WUrl::Consignment, WUrl::By, WUrl::Nomenclature });
     registrateUrl({ WUrl::Get,    WUrl::Consignment, WUrl::By, WUrl::Id });
@@ -36,16 +36,33 @@ ServerHandler::ServerHandler(QObject *parent) : HandlerTemplate(parent)
 
 bool ServerHandler::handler(QList<WUrl::WUrl_enum> url, WJsonTemplate* json)
 {
-    if (not isContains(url))
+    if (not isContains(url)){
+        Message::get().setWarningMessage(WUrl::compareUrl(url)
+                                         + QObject::tr(" не был обработан, не найден соответствующий метод."),
+                                         WEnum::Priority_middle);
         return false;
+    }
 
-    if (   WUrl::isEqual(url, { WUrl::Get, WUrl::Employee, WUrl::By, WUrl::Id })
-        or WUrl::isEqual(url, { WUrl::Get, WUrl::Employee, WUrl::List }))
+    // VOCABLURARY --------------------------------------------------------------------------------
+    if (WUrl::isEqual(url, { WUrl::Get, WUrl::Employee, WUrl::By, WUrl::Id }))
         getEmployee(json);
+    else if (WUrl::isEqual(url, { WUrl::Get, WUrl::Employee, WUrl::List })){
+        getEmployee(json);
+        Cache::get().employee()->setUpdateDateTime();
+    }
 
-    else if (   WUrl::isEqual(url, { WUrl::Get,    WUrl::Cell, WUrl::By, WUrl::Id })
-             or WUrl::isEqual(url, { WUrl::Get,    WUrl::Cell, WUrl::By, WUrl::Barcode })
-             or WUrl::isEqual(url, { WUrl::Update, WUrl::Cell, WUrl::Cache }))
+    if (url.first() == WUrl::Update and url.at(2) == WUrl::Cache)
+        switch (url.at(1)){
+        case WUrl::Cell: Cache::get().cell()->setUpdateDateTime(); break;
+        case WUrl::Container: Cache::get().container()->setUpdateDateTime(); break;
+        case WUrl::Consignment: Cache::get().consignment()->setUpdateDateTime(); break;
+        case WUrl::Nomenclature: Cache::get().nomenclature()->setUpdateDateTime(); break;
+        default:;
+        }
+
+    if (       WUrl::isEqual(url, { WUrl::Get,    WUrl::Cell, WUrl::By, WUrl::Id })
+            or WUrl::isEqual(url, { WUrl::Get,    WUrl::Cell, WUrl::By, WUrl::Barcode })
+            or WUrl::isEqual(url, { WUrl::Update, WUrl::Cell, WUrl::Cache }))
         getCell(json);
 
     else if (   WUrl::isEqual(url, { WUrl::Get,    WUrl::Container, WUrl::By, WUrl::Barcode })
@@ -53,8 +70,8 @@ bool ServerHandler::handler(QList<WUrl::WUrl_enum> url, WJsonTemplate* json)
              or WUrl::isEqual(url, { WUrl::Update, WUrl::Container, WUrl::Cache }))
         getContainer(json);
 
-    else if (   WUrl::isEqual(url, { WUrl::Get, WUrl::Nomenclature, WUrl::By, WUrl::Id })
-             or WUrl::isEqual(url, { WUrl::Get, WUrl::Nomenclature, WUrl::Cache }))
+    else if (   WUrl::isEqual(url, { WUrl::Get,    WUrl::Nomenclature, WUrl::By, WUrl::Id })
+             or WUrl::isEqual(url, { WUrl::Update, WUrl::Nomenclature, WUrl::Cache }))
         getNomenclature(json);
 
     else if (   WUrl::isEqual(url, { WUrl::Get,    WUrl::Consignment, WUrl::By, WUrl::Nomenclature })
@@ -68,26 +85,28 @@ bool ServerHandler::handler(QList<WUrl::WUrl_enum> url, WJsonTemplate* json)
     else if (WUrl::isEqual(url, { WUrl::Get, WUrl::Storage, WUrl::Unit, WUrl::List }))
         getStorageUnitList(json);
 
+    // RESERVE - UNRESERVE CONTAINER --------------------------------------------------------------
     else if (WUrl::isEqual(url, { WUrl::Reserve, WUrl::Container }))
         reserveContainer(json);
 
     else if (WUrl::isEqual(url, { WUrl::Unreserve, WUrl::Container }))
         unreserveContainer(json);
 
-    else if (WUrl::isEqual(url, { WUrl::Set, WUrl::Receiving, WUrl::Line }))
-        setReceivingLine(json);
+    // DOCUMENT -----------------------------------------------------------------------------------
+    else if (url.length() == 3 and url.at(0) == WUrl::Set and url.at(2) == WUrl::Line)
+        setLine(json);
 
-    else if (WUrl::isEqual(url, { WUrl::Update, WUrl::Receiving, WUrl::Line }))
-        updateReceivingLine(json);
+    else if (url.length() == 3 and url.at(0) == WUrl::Update and url.at(2) == WUrl::Line)
+        updateLine(json);
 
-    else if (WUrl::isEqual(url, { WUrl::Remove, WUrl::Receiving, WUrl::Line }))
-        removeReceivingLine(json);
+    else if (url.length() == 3 and url.at(0) == WUrl::Remove and url.at(2) == WUrl::Line)
+        removeLine(json);
 
-    else if (WUrl::isEqual(url, { WUrl::Get, WUrl::Receiving, WUrl::Document }))
-        getReceivingDocument(json);
+    else if (url.length() == 3 and url.at(0) == WUrl::Get and url.at(2) == WUrl::Document)
+        getDocument(json);
 
-    else if (WUrl::isEqual(url, { WUrl::Get, WUrl::Receiving, WUrl::Document, WUrl::List }))
-        getReceivingDocumentList(json);
+    else if (url.length() == 4 and url.at(0) == WUrl::Get and url.at(2) == WUrl::Document and url.at(3) == WUrl::List)
+        getDocumentList(json);
 
     else
         return false;
@@ -132,84 +151,57 @@ void ServerHandler::getStorageUnitList(WJsonTemplate* json)
 
 void ServerHandler::reserveContainer(WJsonTemplate* json)
 {
-    auto cache = Server::get().cache()->getOne(json->request());
-    if (cache == nullptr)
-        return; //FIXME error
-
-    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
-    if (document == nullptr)
-        return;
-
-    document->acceptedReserveContainer(json, false);
+    if (testJsonDocumentResult(json))
+        Document::get().getDocument(WJson::get(json->json(),
+                                               WJson::Document_id).toString())->acceptedReserveContainer(json, false);
 }
 
 void ServerHandler::unreserveContainer(WJsonTemplate* json)
 {
-
-    auto cache = Server::get().cache()->getOne(json->request());
-    if (cache == nullptr)
-        return; //FIXME error
-
-    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
-    if (document == nullptr)
-        return;
-
-    document->acceptedReserveContainer(json, false);
+    if (testJsonDocumentResult(json))
+        Document::get().getDocument(WJson::get(json->json(),
+                                               WJson::Document_id).toString())->acceptedUnreserveContainer(json, false);
 }
 
-void ServerHandler::setReceivingLine(WJsonTemplate* json)
+void ServerHandler::setLine(WJsonTemplate* json)
 {
-    auto cache = Server::get().cache()->getOne(json->request());
-    if (cache == nullptr)
-        return; //FIXME error
-
-    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
-    if (document == nullptr)
-        return;
-
-    document->acceptedSetLine(json);
+    if (testJsonDocumentResult(json))
+        Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString())->acceptedSetLine(json);
 }
 
-void ServerHandler::updateReceivingLine(WJsonTemplate* json)
+void ServerHandler::updateLine(WJsonTemplate* json)
 {
-    auto cache = Server::get().cache()->getOne(json->request());
-    if (cache == nullptr)
-        return; //FIXME error
-
-    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
-    if (document == nullptr)
-        return;
-
-    document->acceptedUpdateLine(json);
+    if (testJsonDocumentResult(json))
+        Document::get().getDocument(WJson::get(json->json(),
+                                               WJson::Document_id).toString())->acceptedUpdateLine(json);
 }
 
-void ServerHandler::removeReceivingLine(WJsonTemplate* json)
+void ServerHandler::removeLine(WJsonTemplate* json)
 {
-    auto cache = Server::get().cache()->getOne(json->request());
-    if (cache == nullptr)
-        return; //FIXME error
-
-    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
-    if (document == nullptr)
-        return;
-
-    document->acceptedRemoveLine(json);
+    if (testJsonDocumentResult(json))
+        Document::get().getDocument(WJson::get(json->json(),
+                                               WJson::Document_id).toString())->acceptedRemoveLine(json);
 }
 
-void ServerHandler::getReceivingDocument(WJsonTemplate* json)
+void ServerHandler::getDocument(WJsonTemplate* json)
 {
-    auto cache = Server::get().cache()->getOne(json->request());
-    if (cache == nullptr)
-        return; //FIXME error
-
-    auto document = Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString());
-    if (document == nullptr)
-        return;
-
-    document->writeLines(json->json());
+    if (testJsonDocumentResult(json))
+        Document::get().getDocument(WJson::get(json->json(),
+                                               WJson::Document_id).toString())->writeLines(json->json());
 }
 
-void ServerHandler::getReceivingDocumentList(WJsonTemplate* json)
+void ServerHandler::getDocumentList(WJsonTemplate* json)
 {
     Document::get().updateDocumentList(json, WUrl::Receiving);
+}
+
+bool ServerHandler::testJsonDocumentResult(WJsonTemplate* json)
+{
+    auto cache = Server::get().cache()->getOne(json->request());
+    if (cache == nullptr)
+        return false; //FIXME error
+
+    if (Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString()) == nullptr)
+        return false; // FIXME error
+    return true;
 }

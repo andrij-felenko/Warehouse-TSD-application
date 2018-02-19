@@ -349,6 +349,13 @@ public:
         return WStatic::undefined();
     }
 
+    /*! \brief Обновить время полного обновления кэша */
+    virtual void setUpdateDateTime() final
+    {
+        m_dateTime = QDateTime::currentDateTime();
+        saveLocalCache();
+    }
+
 protected:
     /*!
      * \brief Чтение кэша с локального хранилища и загрузка его в операционную память
@@ -361,6 +368,7 @@ protected:
             QDataStream stream(&file);
             QStringList idList;
             removeAll();
+            stream >> m_dateTime;
 
             while (! stream.atEnd()){
                 T* single = new T(this);
@@ -385,6 +393,7 @@ protected:
         QFile file(m_local_dir.absoluteFilePath(m_local_file_name + ".cache"));
         if (file.open(QIODevice::Truncate | QIODevice::WriteOnly)){
             QDataStream stream(&file);
+            stream << m_dateTime;
             for (auto it : m_list)
                 stream << *it;
             file.close();
@@ -397,6 +406,7 @@ private:
     QDir m_local_dir;          ///< Директорию для хранения данных на диске.
     QList <T*> m_list;         ///< Список строк кэша.
     QString m_local_file_name; ///< Наименование кэша.
+    QDateTime m_dateTime;      ///< Время последнего полного обновления
 
     /*!
      * \brief Внутренний метод для добавления элемента

@@ -71,7 +71,7 @@ void DocumentBase::acceptedReserveContainer(WJsonTemplate* json, bool sender)
             it->setEmployeeId(""); // FIXME
 }
 
-void DocumentBase::acceptedUnreserveCOntainer(WJsonTemplate* json, bool sender)
+void DocumentBase::acceptedUnreserveContainer(WJsonTemplate* json, bool sender)
 {
     auto container = WJson::get(json->json(), WJson::Container_id).toString();
     for (auto it : actual)

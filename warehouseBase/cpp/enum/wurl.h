@@ -64,7 +64,7 @@ public:
     }; Q_ENUMS(WUrl_enum)
 
     // static variable
-    static WEnum::Version version () { return     WEnum::Version_0_1; }
+    static WEnum::Version version () { return     WEnum::Version_1_0; }
     static WUrl_enum      errorKey() { return WUrl_enum::___;         }
 
     // static convert method

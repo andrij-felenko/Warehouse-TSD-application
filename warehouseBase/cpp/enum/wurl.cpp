@@ -6,45 +6,45 @@ WUrl _wurl;
 WUrl::WUrl(QObject *parent) : QObject(parent)
 {
     // first word to request -----------------------------------------------------------------------
-    m_list.push_back({ Get,       "get",       WEnum::Version_0_1 });
-    m_list.push_back({ Set,       "set",       WEnum::Version_0_1 });
-    m_list.push_back({ Accept,    "accept",    WEnum::Version_0_1 });
-    m_list.push_back({ Remove,    "remove",    WEnum::Version_0_1 });
-    m_list.push_back({ Update,    "update",    WEnum::Version_0_1 });
-    m_list.push_back({ Reserve,   "reserve",   WEnum::Version_0_1 });
-    m_list.push_back({ Unreserve, "unreserve", WEnum::Version_0_1 });
+    m_list.push_back({ Get,       "get",       WEnum::Version_1_0 });
+    m_list.push_back({ Set,       "set",       WEnum::Version_1_0 });
+    m_list.push_back({ Accept,    "accept",    WEnum::Version_1_0 });
+    m_list.push_back({ Remove,    "remove",    WEnum::Version_1_0 });
+    m_list.push_back({ Update,    "update",    WEnum::Version_1_0 });
+    m_list.push_back({ Reserve,   "reserve",   WEnum::Version_1_0 });
+    m_list.push_back({ Unreserve, "unreserve", WEnum::Version_1_0 });
 
     // type of document ----------------------------------------------------------------------------
-    m_list.push_back({ Allotted,  "Allocated", WEnum::Version_0_1 });
-    m_list.push_back({ Delivery,  "Delivery",  WEnum::Version_0_1 });
-    m_list.push_back({ Inventory, "Inventory", WEnum::Version_0_1 });
-    m_list.push_back({ Picking,   "Picking",   WEnum::Version_0_1 });
-    m_list.push_back({ Purchase,  "Purchase",  WEnum::Version_0_1 });
-    m_list.push_back({ Receiving, "Receiving", WEnum::Version_0_1 });
+    m_list.push_back({ Allotted,  "Allotted",  WEnum::Version_1_0 });
+    m_list.push_back({ Delivery,  "Delivery",  WEnum::Version_1_0 });
+    m_list.push_back({ Inventory, "Inventory", WEnum::Version_1_0 });
+    m_list.push_back({ Picking,   "Picking",   WEnum::Version_1_0 });
+    m_list.push_back({ Purchase,  "Purchase",  WEnum::Version_1_0 });
+    m_list.push_back({ Receiving, "Receiving", WEnum::Version_1_0 });
 
     // optional words ------------------------------------------------------------------------------
-    m_list.push_back({ All,   "All",   WEnum::Version_0_1 });
-    m_list.push_back({ By,    "By",    WEnum::Version_0_1 });
-    m_list.push_back({ Cache, "Cache", WEnum::Version_0_1 });
-    m_list.push_back({ Line,  "Line",  WEnum::Version_0_1 });
-    m_list.push_back({ List,  "List",  WEnum::Version_0_1 });
-    m_list.push_back({ New,   "New",   WEnum::Version_0_1 });
+    m_list.push_back({ All,   "All",   WEnum::Version_1_0 });
+    m_list.push_back({ By,    "By",    WEnum::Version_1_0 });
+    m_list.push_back({ Cache, "Cache", WEnum::Version_1_0 });
+    m_list.push_back({ Line,  "Line",  WEnum::Version_1_0 });
+    m_list.push_back({ List,  "List",  WEnum::Version_1_0 });
+    m_list.push_back({ New,   "New",   WEnum::Version_1_0 });
 
     // other ---------------------------------------------------------------------------------------
-    m_list.push_back({ Barcode,      "Barcode",      WEnum::Version_0_1 });
-    m_list.push_back({ Cell,         "Cell",         WEnum::Version_0_1 });
-    m_list.push_back({ Consignment,  "Consignment",  WEnum::Version_0_1 });
-    m_list.push_back({ Container,    "Container",    WEnum::Version_0_1 });
-    m_list.push_back({ Department,   "Department",   WEnum::Version_0_1 });
-    m_list.push_back({ Document,     "Document",     WEnum::Version_0_1 });
-    m_list.push_back({ Employee,     "Employee",     WEnum::Version_0_1 });
-    m_list.push_back({ Error,        "Error",        WEnum::Version_0_1 });
-    m_list.push_back({ Icon,         "Icon",         WEnum::Version_0_1 });
-    m_list.push_back({ Id,           "Id",           WEnum::Version_0_1 });
-    m_list.push_back({ Image,        "Image",        WEnum::Version_0_1 });
-    m_list.push_back({ Info,         "Info",         WEnum::Version_0_1 });
-    m_list.push_back({ Nomenclature, "Nomenclature", WEnum::Version_0_1 });
-    m_list.push_back({ Transit,      "Transit",      WEnum::Version_0_1 });
+    m_list.push_back({ Barcode,      "Barcode",      WEnum::Version_1_0 });
+    m_list.push_back({ Cell,         "Cell",         WEnum::Version_1_0 });
+    m_list.push_back({ Consignment,  "Consignment",  WEnum::Version_1_0 });
+    m_list.push_back({ Container,    "Container",    WEnum::Version_1_0 });
+    m_list.push_back({ Department,   "Department",   WEnum::Version_1_0 });
+    m_list.push_back({ Document,     "Document",     WEnum::Version_1_0 });
+    m_list.push_back({ Employee,     "Employee",     WEnum::Version_1_0 });
+    m_list.push_back({ Error,        "Error",        WEnum::Version_1_0 });
+    m_list.push_back({ Icon,         "Icon",         WEnum::Version_1_0 });
+    m_list.push_back({ Id,           "Id",           WEnum::Version_1_0 });
+    m_list.push_back({ Image,        "Image",        WEnum::Version_1_0 });
+    m_list.push_back({ Info,         "Info",         WEnum::Version_1_0 });
+    m_list.push_back({ Nomenclature, "Nomenclature", WEnum::Version_1_0 });
+    m_list.push_back({ Transit,      "Transit",      WEnum::Version_1_0 });
 }
 
 WUrl::WUrl_enum WUrl::fromString(QString name, WEnum::Version version_)

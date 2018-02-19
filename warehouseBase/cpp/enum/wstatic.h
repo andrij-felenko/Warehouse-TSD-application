@@ -33,7 +33,7 @@ public slots:
     static QString undefined() { return QObject::tr("Не найден"); }
 
     // version -------------------------------------------------------------------------------------
-    static WEnum::Version version() { return WEnum::Version_0_1; }
+    static WEnum::Version version() { return WEnum::Version_1_0; }
 };
 
 #endif // WSTATIC_H

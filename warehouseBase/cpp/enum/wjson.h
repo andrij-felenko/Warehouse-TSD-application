@@ -153,7 +153,7 @@ public:
 
     }; Q_ENUMS(Json_enum)
 
-    static WEnum::Version version() { return WEnum::Version_0_1; }
+    static WEnum::Version version() { return WEnum::Version_1_0; }
     static bool insert(QJsonObject& obj, WJson_enum key, const QJsonValue& value_insert,
                        WEnum::Version version_ = version());
     QString value(WJson_enum key, QString default_ = WStatic::undefined(),

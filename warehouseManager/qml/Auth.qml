@@ -140,7 +140,7 @@ WPage {
             height: parent.height / 18
             color: "#ffffff"
             wrapMode: Text.WrapAnywhere
-            text: "Warehouse manager v. 0.1"
+            text: "Warehouse manager v. 0.2\nWHLib v. 1.0"
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 8
         }

@@ -26,7 +26,7 @@ public:
     void acceptedSetLine(WJsonTemplate* json);
     void acceptedRemoveLine(WJsonTemplate* json);
     void acceptedReserveContainer(WJsonTemplate* json, bool sender);
-    void acceptedUnreserveCOntainer(WJsonTemplate* json, bool sender);
+    void acceptedUnreserveContainer(WJsonTemplate* json, bool sender);
 
 public slots:
     void chooseLine(QString id);
