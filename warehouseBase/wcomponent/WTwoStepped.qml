@@ -11,7 +11,7 @@ WRectangle {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: sub.text === "" ? parent.height : parent.height * 0.6
+        height: sub.text === "" ? parent.height : parent.height * 0.8
     }
 
     WText {
@@ -19,6 +19,6 @@ WRectangle {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: parent.height * 0.4
+        height: parent.height * 0.6
     }
 }

@@ -11,15 +11,16 @@ public:
     explicit ModelPrototype(QObject *parent = nullptr);
 
     bool registrate(QString key, QObject* model, bool insert_anywhat = true);
-    bool remove_model(QObject* obj);
-    bool remove_model(QString key);
+    bool removeModel(QObject* obj);
+    bool removeModel(QString key);
+
+public slots:
+    QObject* getModel(QString key);
 
 private:
     QMap <QString /*key*/, QObject* /*model*/> model_map;
     QQmlEngine* engine;
-
-public slots:
-    QObject* get_model(QString key);
+    QObject* nullObject;
 };
 
 #endif // MODELPROTOTYPE_H

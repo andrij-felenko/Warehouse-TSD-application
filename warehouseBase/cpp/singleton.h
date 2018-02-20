@@ -9,9 +9,12 @@
 #include "model/modelPrototype.h"
 #include "server/serverPrototype.h"
 #include "setting/settingPrototype.h"
+#include "view/currentUser.h"
 
 /*! \brief Singleton обьект для работы с кэшем */
 class Cache : public TemplateSingleton <CachePrototype> {};
+
+class User : public TemplateSingleton <CurrentUser> {};
 
 /*! \brief Singleton обьект управления документами */
 class Document : public TemplateSingleton <DocumentPrototype> {};

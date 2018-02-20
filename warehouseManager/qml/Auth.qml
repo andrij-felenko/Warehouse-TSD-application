@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import "qrc:/wcomponent"
+import WEnum 1.0
 
 WPage {
     id: auth
@@ -20,11 +21,11 @@ WPage {
 
         Image {
             id: logo_item
-            width: parent.width * 0.6
+            width: parent.width * 0.4
             fillMode: Image.PreserveAspectFit
-            x: parent.width * 0.2
+            x: parent.width * 0.3
             y: 20
-            source: "qrc:/icon/haiku.png"
+            source: "qrc:/icon/cheese.png"
 
             MouseArea {
                 anchors.fill: parent
@@ -71,30 +72,28 @@ WPage {
                     anchors.fill: parent
                     font.pixelSize: height * 0.4
                     verticalAlignment: Text.AlignVCenter
+                    onVisibleChanged: if (visible) text = User.current.name
                     clip: true
-                    onAccepted: password_input.input.focus = true
+                    visible: false
+                    onAccepted: {
+                        User.setUserInput(text)
+                        password_input.input.focus = true
+                    }
                 },
 
                 WComboBox {
                     id: comboBoxAuth
                     anchors.fill: parent
                     visible: ! textInputAuth.visible
-                    onRightChoosed: additional.push(comboBoxListComponent)
+                    onOpenList: {
+                        WHModel.employeeList(true)
+                        additional.push(comboBoxListComponent)
+                    }
                 }
             ]
 
-            Component {
+            EmployeeList {
                 id: comboBoxListComponent
-
-                WAdditionalWindow {
-                    title: "Выбор пользователя"
-                    onClose: additional.pop()
-                    parentItem: additional
-
-                    content: WRectangle {
-                        color: "red"
-                    }
-                }
             }
         }
 
@@ -140,7 +139,7 @@ WPage {
             height: parent.height / 18
             color: "#ffffff"
             wrapMode: Text.WrapAnywhere
-            text: "Warehouse manager v. 0.2\nWHLib v. 1.0"
+            text: WApp.appName + " v. " + WApp.version + "\nWHLib v. 1.0"
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 8
         }

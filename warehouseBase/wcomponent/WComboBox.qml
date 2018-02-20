@@ -13,5 +13,8 @@ WItemIconBorder {
 
     content: WText {
         id: text
+        anchors.fill: parent
+        clickMode: true
+        onClicked: /* emit */ combobox.openList()
     }
 }

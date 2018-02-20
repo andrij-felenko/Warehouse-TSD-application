@@ -39,14 +39,18 @@ bool ServerHandlerManager::registrate(HandlerTemplate* handler)
 /*! \brief Принимает запросы от сервера и направляет их в нужный обработчик */
 void ServerHandlerManager::sendRequest(QList <WUrl::WUrl_enum> url, WJsonTemplate* json)
 {
+    qDebug() << json;
+    qDebug() << url << WUrl::compareUrl(url);
     if (m_baseHandler->isContains(url)){
         m_baseHandler->handler(url, json);
+        qDebug() << json;
         return;
     }
 
     for (auto it : m_list)
         if (it->isContains(url)){
             it->handler(url, json);
+            qDebug() << json;
             return;
         }
 

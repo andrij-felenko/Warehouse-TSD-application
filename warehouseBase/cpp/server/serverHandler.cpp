@@ -27,11 +27,30 @@ ServerHandler::ServerHandler(QObject *parent) : HandlerTemplate(parent)
     registrateUrl({ WUrl::Reserve,   WUrl::Container });
     registrateUrl({ WUrl::Unreserve, WUrl::Container });
 
-    registrateUrl({ WUrl::Set,    WUrl::Receiving, WUrl::Line });
+    registrateUrl({ WUrl::Set, WUrl::Allotted,  WUrl::Line });
+    registrateUrl({ WUrl::Set, WUrl::Picking,   WUrl::Line });
+    registrateUrl({ WUrl::Set, WUrl::Purchase,  WUrl::Line });
+    registrateUrl({ WUrl::Set, WUrl::Receiving, WUrl::Line });
+
+    registrateUrl({ WUrl::Update, WUrl::Allotted,  WUrl::Line });
+    registrateUrl({ WUrl::Update, WUrl::Picking,   WUrl::Line });
+    registrateUrl({ WUrl::Update, WUrl::Purchase,  WUrl::Line });
     registrateUrl({ WUrl::Update, WUrl::Receiving, WUrl::Line });
+
+    registrateUrl({ WUrl::Remove, WUrl::Allotted,  WUrl::Line });
+    registrateUrl({ WUrl::Remove, WUrl::Picking,   WUrl::Line });
+    registrateUrl({ WUrl::Remove, WUrl::Purchase,  WUrl::Line });
     registrateUrl({ WUrl::Remove, WUrl::Receiving, WUrl::Line });
-    registrateUrl({ WUrl::Get,    WUrl::Receiving, WUrl::Document });
-    registrateUrl({ WUrl::Get,    WUrl::Receiving, WUrl::Document, WUrl::List });
+
+    registrateUrl({ WUrl::Get, WUrl::Allotted,  WUrl::Document });
+    registrateUrl({ WUrl::Get, WUrl::Picking,   WUrl::Document });
+    registrateUrl({ WUrl::Get, WUrl::Purchase,  WUrl::Document });
+    registrateUrl({ WUrl::Get, WUrl::Receiving, WUrl::Document });
+
+    registrateUrl({ WUrl::Get, WUrl::Allotted,  WUrl::Document, WUrl::List });
+    registrateUrl({ WUrl::Get, WUrl::Picking,   WUrl::Document, WUrl::List });
+    registrateUrl({ WUrl::Get, WUrl::Purchase,  WUrl::Document, WUrl::List });
+    registrateUrl({ WUrl::Get, WUrl::Receiving, WUrl::Document, WUrl::List });
 }
 
 bool ServerHandler::handler(QList<WUrl::WUrl_enum> url, WJsonTemplate* json)
@@ -47,6 +66,7 @@ bool ServerHandler::handler(QList<WUrl::WUrl_enum> url, WJsonTemplate* json)
     if (WUrl::isEqual(url, { WUrl::Get, WUrl::Employee, WUrl::By, WUrl::Id }))
         getEmployee(json);
     else if (WUrl::isEqual(url, { WUrl::Get, WUrl::Employee, WUrl::List })){
+        qDebug() << "WEEEEEE";
         getEmployee(json);
         Cache::get().employee()->setUpdateDateTime();
     }
@@ -197,11 +217,18 @@ void ServerHandler::getDocumentList(WJsonTemplate* json)
 
 bool ServerHandler::testJsonDocumentResult(WJsonTemplate* json)
 {
-    auto cache = Server::get().cache()->getOne(json->request());
-    if (cache == nullptr)
-        return false; //FIXME error
+    if (Server::get().cache()->getOne(json->request()) == nullptr){
+        Message::get().setWarningMessage("Url: " + json->url() + "\nЗапрос " + json->request()
+                                         + QObject::tr(" не удалось найти в кеше."),
+                                         WEnum::Priority_middle);
+        return false;
+    }
 
-    if (Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString()) == nullptr)
-        return false; // FIXME error
+    if (Document::get().getDocument(WJson::get(json->json(), WJson::Document_id).toString()) == nullptr){
+        Message::get().setWarningMessage(QObject::tr("Error: ") + QObject::tr(" не найден document_id."),
+                                         WEnum::Priority_middle);
+        return false;
+    }
+
     return true;
 }

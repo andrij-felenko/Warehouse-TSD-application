@@ -1,19 +1,21 @@
 #include "modelPrototype.h"
 #include "singleton.h"
 #include "view/view.h"
+#include "modelCacheList.h"
 
 ModelPrototype::ModelPrototype(QObject *parent)
     : QObject(parent)
 {
+    nullObject = new QObject(this);
     engine = static_cast <View*> (parent)->engine();
 }
 
-QObject* ModelPrototype::get_model(QString key)
+QObject* ModelPrototype::getModel(QString key)
 {
     if (model_map.contains(key))
-            return model_map[key];
+        return model_map[key];
     else
-        return new QObject(nullptr);
+        return nullObject;
 }
 
 bool ModelPrototype::registrate(QString key, QObject* model, bool insert_anywhat)
@@ -27,18 +29,17 @@ bool ModelPrototype::registrate(QString key, QObject* model, bool insert_anywhat
     engine->setObjectOwnership(model, QQmlEngine::CppOwnership);
     model_map.insert(key, model);
     return true;
-
 }
 
-bool ModelPrototype::remove_model(QObject* obj)
+bool ModelPrototype::removeModel(QObject* obj)
 {
     QString key = model_map.key(obj, "null");
     if (key != "null")
-        return remove_model(key);
+        return removeModel(key);
     return false;
 }
 
-bool ModelPrototype::remove_model(QString key)
+bool ModelPrototype::removeModel(QString key)
 {
     if (model_map.contains(key)){
         model_map.value(key)->deleteLater();

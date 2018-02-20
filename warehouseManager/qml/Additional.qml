@@ -7,9 +7,5 @@ StackView {
     initialItem: rect
     visible: currentItem !== rect
 
-    WAdditionalWindow {
-        id: rect
-        color: "#CCCCCC"
-//        onClose: stack.visible = false
-    }
+    WItem { id: rect }
 }

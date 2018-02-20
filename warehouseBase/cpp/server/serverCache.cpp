@@ -28,7 +28,7 @@ ServerCacheSingle* ServerCache::getOne(QString id)
         if (not it->isAccept())
             if (it->json()->request() == id or it->id_msg() == id)
                 return it;
-    return new ServerCacheSingle();
+    return nullptr;
 }
 
 void ServerCache::trySendServerCache()

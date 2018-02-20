@@ -19,7 +19,6 @@ public:
     void load(const QUrl& url);
 
 public slots:
-    void quit();
     bool barcode_mode();
 
 signals:

@@ -88,6 +88,11 @@ void ServerPrototype::handler(QNetworkReply *reply)
 {
     QString url = reply->request().url().toString();
     url = url.rightRef(url.length() - Setting::get().server()->domain().length()).toString();
+
+    // start request has empty url, and thats why we there skip it
+    if (url.isEmpty())
+        return;
+
     if (not m_serverHandler->isUrlContains(url)){
         Message::get().setErrorMessage(QObject::tr("Не найден обработчик на метод ") + url);
         return; // FIXME remove from temp cache

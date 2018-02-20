@@ -81,7 +81,10 @@ public:
     }; Q_ENUMS(Sort)
 
     enum ModelItems {
-        Model_item = 0xE700, ///< Единица из списка в моделе
+        Model_item = Qt::DisplayRole, ///< Единица из списка в моделе
+        Model_id = Qt::UserRole,
+        Model_name,
+        Model_barcode,
     }; Q_ENUMS(ModelItems)
 };
 

@@ -6,16 +6,6 @@ View::View() : isLoad(false)
 }
 
 /*!
- * \brief View::quit - закрывает приложение
- * \details Метод вызываеться с qml части, и вызывает системный вызов. \code qApp->quit(); \endcode
- */
-void View::quit()
-{
-    qDebug() << "try quit";
-    qApp->quit();
-}
-
-/*!
  * \brief View::load - производит загрузку интерфейса, если он еще не загружен.
  */
 void View::load(const QUrl& url)

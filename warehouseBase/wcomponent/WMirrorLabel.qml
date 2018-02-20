@@ -19,17 +19,19 @@ WRectangle {
     onHeightChanged: _private.reHeight()
     onWidthChanged:  _private.reWidth()
 
-    Text {
+    WText {
         id: left
-        verticalAlignment: Text.AlignVCenter
+        anchors.fill: parent
+        textItem.verticalAlignment: Text.AlignVCenter
 
         onTextChanged: _private.reSize()
     }
 
-    Text {
+    WText {
         id: right
-        horizontalAlignment: Text.AlignRight
-        verticalAlignment: Text.AlignVCenter
+        anchors.fill: parent
+        textItem.horizontalAlignment: Text.AlignRight
+        textItem.verticalAlignment: Text.AlignVCenter
 
         onTextChanged: _private.reSize()
     }

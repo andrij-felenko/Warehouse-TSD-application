@@ -140,6 +140,12 @@ QList<WUrl::WUrl_enum> WUrl::disunite(const QString& url, WEnum::Version version
             value.clear();
             value += url[i];
         }
+        else if (i + 1 == url.length()){
+            value += url[i];
+            auto key = fromString(value, version_);
+            if (key != errorKey())
+                list.push_back(key);
+        }
         else
             value += url[i];
     }

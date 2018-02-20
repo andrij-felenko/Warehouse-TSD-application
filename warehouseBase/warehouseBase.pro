@@ -56,9 +56,10 @@ SOURCES += \
     cpp/document/line/linePlan.cpp \
     cpp/document/line/lineActual.cpp \
     cpp/document/base/documentHeader.cpp \
-    cpp/model/modelCacheList.cpp \
     cpp/document/base/documentBase.cpp \
-    cpp/document/documentPrototype.cpp
+    cpp/document/documentPrototype.cpp \
+    cpp/view/currentUser.cpp \
+    cpp/model/modelDocumentList.cpp
 
 HEADERS += \
     cpp/enum/wenum.h \
@@ -100,7 +101,9 @@ HEADERS += \
     cpp/model/modelCacheList.h \
     cpp/document/base/documentBase.h \
     cpp/wclass/wtuple.h \
-    cpp/document/documentPrototype.h
+    cpp/document/documentPrototype.h \
+    cpp/view/currentUser.h \
+    cpp/model/modelDocumentList.h
 
 DISTFILES += \
     jsonAPI.pdf \

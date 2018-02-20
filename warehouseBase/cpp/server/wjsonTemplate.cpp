@@ -97,7 +97,7 @@ QDebug WJsonTemplate::parse(QDebug d, int deep, QString key, QJsonValue value)
         for (QString keyIt : value.toObject().keys()){
             WJsonTemplate::parse(d, deep + 1, keyIt, value.toObject().value(keyIt));
         }
-        d << "}" << "\n";
+        d << QString(deep * 4, ' ').append(" }") << "\n";
     }
     else if (value.isBool())
         d << (value.toBool() ? "true" : "false") << "\n";

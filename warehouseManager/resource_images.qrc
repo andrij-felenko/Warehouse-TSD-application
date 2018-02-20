@@ -1,3 +1,5 @@
 <RCC>
-    <qresource prefix="/icon"/>
+    <qresource prefix="/icon">
+        <file>cheese.png</file>
+    </qresource>
 </RCC>

@@ -21,6 +21,7 @@ public:
     void fromJson(const QJsonObject& obj);
 
     bool isCoincide(QString password);
+    void clear();
 
 private:
     QString m_password;

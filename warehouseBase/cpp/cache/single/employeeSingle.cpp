@@ -26,3 +26,8 @@ bool EmployeeSingle::isCoincide(QString password)
     QString hashPassword(QCryptographicHash::hash(password.toLocal8Bit(), QCryptographicHash::Md5).toHex());
     return hashPassword == m_password or password == m_password;
 }
+
+void EmployeeSingle::clear()
+{
+    resetAll();
+}

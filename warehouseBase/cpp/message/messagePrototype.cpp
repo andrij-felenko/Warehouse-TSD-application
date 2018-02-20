@@ -1,4 +1,5 @@
 #include "messagePrototype.h"
+#include "QDebug"
 
 MessagePrototype::MessagePrototype(QObject *parent) : QObject(parent)
 {
@@ -15,6 +16,7 @@ MessageSingle*MessagePrototype::MsgCurrent() const
 
 QString MessagePrototype::setMessage(QString text, WEnum::Msg_type msgType, WEnum::Priority priority, int time_ms)
 {
+    qDebug() << "Message: " << text;
     auto msg = new MessageSingle(text, msgType, priority,time_ms, this);
     m_list.push_back(msg);
     update();
