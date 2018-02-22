@@ -11,8 +11,8 @@ QT += qml
 QT += quick
 QT -= widgets
 
-TARGET = warehouseBase
 TEMPLATE = lib
+TARGET = warehouseBase
 
 DEFINES += WAREHOUSEBASE_LIBRARY
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -29,82 +29,81 @@ RESOURCES += \
     qml.qrc
 
 SOURCES += \
-    cpp/warehouseBase.cpp \
-    cpp/barcode/barcodeprototype.cpp \
     cpp/enum/wjson.cpp \
     cpp/enum/wurl.cpp \
-    cpp/model/modelPrototype.cpp \
-    cpp/view/view.cpp \
-    cpp/cache/cachePrototype.cpp \
-    cpp/cache/single/cacheSingle.cpp \
-    cpp/server/requestGenerate.cpp \
-    cpp/server/serverCache.cpp \
-    cpp/server/serverPrototype.cpp \
-    cpp/setting/settingPrototype.cpp \
-    cpp/setting/settingServer.cpp \
-    cpp/message/messagePrototype.cpp \
-    cpp/server/wjsonTemplate.cpp \
-    cpp/cache/single/consignmentSingle.cpp \
-    cpp/cache/single/containerSingle.cpp \
-    cpp/cache/single/nomenclatureSingle.cpp \
-    cpp/cache/single/cellSingle.cpp \
-    cpp/cache/single/qualitySingle.cpp \
-    cpp/server/handlerTemplate.cpp \
-    cpp/server/serverHandlerManager.cpp \
-    cpp/server/serverHandler.cpp \
-    cpp/cache/single/employeeSingle.cpp \
-    cpp/document/line/linePlan.cpp \
-    cpp/document/line/lineActual.cpp \
-    cpp/document/base/documentHeader.cpp \
-    cpp/document/base/documentBase.cpp \
-    cpp/document/documentPrototype.cpp \
-    cpp/view/currentUser.cpp \
-    cpp/model/modelDocumentList.cpp
+    cpp/barcode/wBarcodePrototype.cpp \
+    cpp/cache/single/wCacheSingle.cpp \
+    cpp/cache/single/wCellSingle.cpp \
+    cpp/cache/single/wConsignmentSingle.cpp \
+    cpp/cache/single/wEmployeeSingle.cpp \
+    cpp/cache/single/wQualitySingle.cpp \
+    cpp/cache/single/wContainerSingle.cpp \
+    cpp/cache/single/wNomenclatureSingle.cpp \
+    cpp/cache/wCachePrototype.cpp \
+    cpp/document/base/wDocumentBase.cpp \
+    cpp/document/base/wDocumentHeader.cpp \
+    cpp/document/line/wLineActual.cpp \
+    cpp/document/line/wLinePlan.cpp \
+    cpp/document/wDocumentPrototype.cpp \
+    cpp/message/wMessagePrototype.cpp \
+    cpp/model/wModelDocumentList.cpp \
+    cpp/model/wModelPrototype.cpp \
+    cpp/server/wHandlerTemplate.cpp \
+    cpp/server/wRequestGenerate.cpp \
+    cpp/server/wJsonTemplate.cpp \
+    cpp/server/wServerCache.cpp \
+    cpp/server/wServerHandler.cpp \
+    cpp/server/wServerHandlerManager.cpp \
+    cpp/server/wServerPrototype.cpp \
+    cpp/wBase.cpp \
+    cpp/setting/wSettingPrototype.cpp \
+    cpp/setting/wSettingServer.cpp \
+    cpp/view/wView.cpp \
+    cpp/view/wCurrentUser.cpp
 
 HEADERS += \
     cpp/enum/wenum.h \
     cpp/enum/wjson.h \
     cpp/enum/wstatic.h \
     cpp/enum/wurl.h \
-    cpp/warehouseBase.h \
-    cpp/warehousebase_global.h \
-    cpp/singleton.h \
-    cpp/barcode/barcodeprototype.h \
-    cpp/model/modelPrototype.h \
-    cpp/template/cacheListTemplate.h \
-    cpp/template/templateSingleton.h \
-    cpp/view/view.h \
-    cpp/cache/cachePrototype.h \
-    cpp/cache/list/cacheListObject.h \
-    cpp/cache/single/cacheSingle.h \
-    cpp/server/requestGenerate.h \
-    cpp/server/serverCache.h \
-    cpp/server/serverCacheSingle.h \
-    cpp/server/serverPrototype.h \
-    cpp/setting/settingPrototype.h \
-    cpp/setting/settingServer.h \
-    cpp/message/messagePrototype.h \
-    cpp/message/messageSingle.h \
-    cpp/server/wjsonTemplate.h \
-    cpp/cache/single/containerSingle.h \
-    cpp/cache/single/consignmentSingle.h \
-    cpp/cache/single/nomenclatureSingle.h \
-    cpp/cache/single/cellSingle.h \
-    cpp/cache/single/qualitySingle.h \
-    cpp/server/handlerTemplate.h \
-    cpp/server/serverHandlerManager.h \
-    cpp/server/serverHandler.h \
-    cpp/cache/single/employeeSingle.h \
-    cpp/document/line/linePlan.h \
-    cpp/document/line/lineActual.h \
-    cpp/document/base/documentHeader.h \
-    cpp/model/modelCacheList.h \
-    cpp/document/base/documentBase.h \
-    cpp/wclass/wtuple.h \
-    cpp/document/documentPrototype.h \
-    cpp/view/currentUser.h \
-    cpp/model/modelDocumentList.h
+    cpp/document/base/wDocumentBase.h \
+    cpp/document/base/wDocumentHeader.h \
+    cpp/document/wDocumentPrototype.h \
+    cpp/document/line/wLineActual.h \
+    cpp/document/line/wLinePlan.h \
+    cpp/message/wMessagePrototype.h \
+    cpp/message/wMessageSingle.h \
+    cpp/model/wModelCacheList.h \
+    cpp/model/wModelDocumentList.h \
+    cpp/model/wModelPrototype.h \
+    cpp/server/wHandlerTemplate.h \
+    cpp/server/wJsonTemplate.h \
+    cpp/server/wServerPrototype.h \
+    cpp/server/wServerHandlerManager.h \
+    cpp/server/wServerHandler.h \
+    cpp/server/wServerCacheSingle.h \
+    cpp/server/wServerCache.h \
+    cpp/server/wRequestGenerate.h \
+    cpp/setting/wSettingPrototype.h \
+    cpp/setting/wSettingServer.h \
+    cpp/template/wCacheListTemplate.h \
+    cpp/template/wTemplateSingleton.h \
+    cpp/view/wView.h \
+    cpp/wBase.h \
+    cpp/wBase_global.h \
+    cpp/wSingleton.h \
+    cpp/wclass/wTuple.h \
+    cpp/barcode/wBarcodePrototype.h \
+    cpp/cache/list/wCacheListObject.h \
+    cpp/cache/wCachePrototype.h \
+    cpp/cache/single/wCacheSingle.h \
+    cpp/cache/single/wCellSingle.h \
+    cpp/cache/single/wConsignmentSingle.h \
+    cpp/cache/single/wContainerSingle.h \
+    cpp/cache/single/wEmployeeSingle.h \
+    cpp/cache/single/wNomenclatureSingle.h \
+    cpp/cache/single/wQualitySingle.h \
+    cpp/view/wCurrentUser.h
 
 DISTFILES += \
     jsonAPI.pdf \
-    wcomponent/WItemIconBorder.qml

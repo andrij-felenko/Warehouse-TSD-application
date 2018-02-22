@@ -47,6 +47,13 @@ WUrl::WUrl(QObject *parent) : QObject(parent)
     m_list.push_back({ Transit,      "Transit",      WEnum::Version_1_0 });
 }
 
+WUrl::WUrl_enum WUrl::fromInt(int key)
+{
+    if (not _wurl.contains(static_cast <WUrl_enum> (key)))
+        return WUrl_enum::___;
+    return static_cast <WUrl_enum> (key);
+}
+
 WUrl::WUrl_enum WUrl::fromString(QString name, WEnum::Version version_)
 {
     return _wurl.p_fromString(name, version_);
@@ -55,6 +62,11 @@ WUrl::WUrl_enum WUrl::fromString(QString name, WEnum::Version version_)
 QString WUrl::toString(WUrl::WUrl_enum key, WEnum::Version version_)
 {
     return _wurl.p_toString(key, version_);
+}
+
+QString WUrl::toString(int key, WEnum::Version version_)
+{
+    return _wurl.p_toString(static_cast <WUrl::WUrl_enum> (key), version_);
 }
 
 WUrl::WUrl_enum WUrl::p_fromString(QString name, WEnum::Version version_)
@@ -94,6 +106,14 @@ QString WUrl::p_toString(WUrl::WUrl_enum key, WEnum::Version version_)
     if (lastSuitableVersion != WEnum::Version_none)
         return value;
     return WStatic::undefined();
+}
+
+bool WUrl::contains(WUrl::WUrl_enum key)
+{
+    for (auto it : m_list)
+        if (it.key == key)
+            return true;
+    return false;
 }
 
 QString WUrl::compareUrl(std::initializer_list<WUrl_enum> list, WEnum::Version version_)

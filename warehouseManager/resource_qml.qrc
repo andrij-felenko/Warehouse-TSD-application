@@ -11,5 +11,6 @@
         <file>qml/MenuWindow.qml</file>
         <file>qml/Additional.qml</file>
         <file>qml/EmployeeList.qml</file>
+        <file>qml/ReceivingDocumentList.qml</file>
     </qresource>
 </RCC>

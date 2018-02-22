@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import "qrc:/wcomponent"
+import WUrl 1.0
 
 WPage {
     title: "Меню"
@@ -22,7 +23,10 @@ WPage {
 
             text: "Приемка"
             clickMode: true
-            onClicked: mainStack.push(receivingComponent)
+            onClicked: {
+                WHModel.documentList(WUrl.Receiving, true)
+                mainStack.push(receivingComponent)
+            }
         }
 
         WIconButton {

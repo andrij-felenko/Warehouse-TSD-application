@@ -1,5 +1,5 @@
-#include "singleton.h"
-#include "warehouseBase.h"
+#include "wSingleton.h"
+#include "wBase.h"
 #include "whmodel.h"
 
 #include "testhandler.h"
@@ -8,16 +8,21 @@ int main(int argc, char** argv)
 {
     QGuiApplication app(argc, argv);
 
-    WarehouseBase* module = new WarehouseBase;
+    WBase* module = new WBase(&app);
     module->registrateApp("0.2", "Warehouse Manager", "WHTech", "http://wh-tech.com.ua");
     module->init();
     module->registrateTypes();
     module->setContextProperty("WHModel", new WHModel(module));
-    Message::get().setShowingPriority(WEnum::Priority_high | WEnum::Priority_middle);
+    WMessage::get().setShowingPriority(WEnum::Priority_high | WEnum::Priority_middle);
 
+
+    qmlRegisterType <WUrl>  ("WUrl",  1, 0, "WUrl");
     module->loadQML(QUrl("qrc:/qml/qml/main.qml"));
     module->start();
+
+    // tests json sender from sender
 //    testVocabulary();
+    testDocumentReceivingList();
 
     return app.exec();
 }

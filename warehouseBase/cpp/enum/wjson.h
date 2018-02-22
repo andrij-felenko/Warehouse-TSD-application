@@ -13,6 +13,7 @@ extern WJson _json;
 
 class WJson : public QObject
 {
+    Q_OBJECT
 public:
     explicit WJson(QObject* parent = nullptr);
 
@@ -104,6 +105,7 @@ public:
         Document_name,        ///< Наименование документа (или его номер в строковом виде)
         Document_header,      ///< Общая информация про документа (его шапка)
         Supplier,             ///< Поставщик
+        Status,               ///< Статус документа
         IsStaticCellContains, ///< Есть ли указанная ячейка для документа (например приемка)
         IsCanChangeCell,      ///< Возможность смены ячейки
         IsTwoVerifyAccepted,  ///< Есть ли двойная верификация
@@ -114,7 +116,6 @@ public:
         Line_id,         ///< Идентификатор строки
         Line_number,     ///< Порядковый номер строки на выполнение
         Plan,            ///< Плановые строки
-        Status,          ///< Статус документа
         Transit,         ///< Транзитные строки
         // is
         Is_done = 0xA410, ///< Выполен или нет?

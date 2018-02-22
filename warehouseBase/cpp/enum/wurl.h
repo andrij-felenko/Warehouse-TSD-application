@@ -11,6 +11,7 @@ extern WUrl _wurl;
 
 class WUrl : public QObject
 {
+    Q_OBJECT
 public:
     explicit WUrl(QObject* parent = nullptr);
 
@@ -68,15 +69,17 @@ public:
     static WUrl_enum      errorKey() { return WUrl_enum::___;         }
 
     // static convert method
+    static WUrl_enum fromInt(int key);
     static WUrl_enum fromString(QString name, WEnum::Version version_ = version());
     static QString    toString(WUrl_enum key, WEnum::Version version_ = version());
 
     // non static method
     WUrl_enum p_fromString(QString name, WEnum::Version version_ = version());
     QString    p_toString(WUrl_enum key, WEnum::Version version_ = version());
+    bool contains(WUrl_enum key);
 
 public slots:
-    static QString toString(int key);
+    static QString toString(int key, WEnum::Version version_ = version());
     static QString compareUrl(std::initializer_list <WUrl_enum> list, WEnum::Version version_ = version());
     static QString compareUrl(QList <int> list, WEnum::Version version_ = version());
     static QString compareUrl(QList <WUrl_enum> list, WEnum::Version version_ = version());

@@ -32,6 +32,7 @@ Component {
                     clickMode: true
                     onClicked: {
                         User.setUserList(m_item.id)
+                        password_input.text = ""
                         additionalEmployeeList.close()
                     }
                 }

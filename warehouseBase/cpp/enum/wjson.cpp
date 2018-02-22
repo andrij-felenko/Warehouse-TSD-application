@@ -91,6 +91,7 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Document_name,        "document_name",           WEnum::Version_1_0 });
     m_list.push_back({ Document_header,      "document_header",         WEnum::Version_1_0 });
     m_list.push_back({ Supplier,             "supplier",                WEnum::Version_1_0 });
+    m_list.push_back({ Status,               "status",                  WEnum::Version_1_0 });
     m_list.push_back({ IsStaticCellContains, "is_static_cell_contains", WEnum::Version_1_0 });
     m_list.push_back({ IsCanChangeCell,      "is_can_change_cell",      WEnum::Version_1_0 });
     m_list.push_back({ IsTwoVerifyAccepted,  "is_two_verify_accepted",  WEnum::Version_1_0 });
@@ -101,7 +102,6 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Line_id,     "line_id",     WEnum::Version_1_0 });
     m_list.push_back({ Line_number, "line_number", WEnum::Version_1_0 });
     m_list.push_back({ Plan,        "plan",        WEnum::Version_1_0 });
-    m_list.push_back({ Status,      "status",      WEnum::Version_1_0 });
     m_list.push_back({ Transit,     "transit",     WEnum::Version_1_0 });
     // is
     m_list.push_back({ Is_done,    "is_done",    WEnum::Version_1_0 });

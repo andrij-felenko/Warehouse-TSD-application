@@ -8,7 +8,8 @@ StackView {
 
     Auth {
         id: auth
-        onAuthorization: mainStack.push(menu)
+        onAuthorization: if (User.tryAuthorization(password))
+                             mainStack.push(menu)
         onSetting: mainPage.currentIndex = 1
     }
 

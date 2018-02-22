@@ -39,6 +39,7 @@ WRectangle {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         width: height
+        parentItem: parent
         visible: iconRightSource !== "" && iconRightVisible
         onIconClicked: /* emit */ itemIconBorder.rightChoosed()
     }

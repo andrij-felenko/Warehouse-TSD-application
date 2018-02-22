@@ -1,7 +1,9 @@
 #ifndef WENUM_H
 #define WENUM_H
 
+#include <QtCore/QByteArray>
 #include <QtCore/QObject>
+#include <QtCore/QHash>
 
 /*! \brief Клас перечислений что используються в проэкте */
 class WEnum : public QObject
@@ -80,12 +82,29 @@ public:
         SortByPushedReverse, ///< Сортировка по времени убывания
     }; Q_ENUMS(Sort)
 
+    enum DocumentStatus {
+        Document_created = 0xE800, ///< Документ создан
+        Document_inWorking,        ///< Документ в работе
+        Document_accepted,         ///< Документ выполнен
+        Document_done,             ///< Документ подтвержден и закрыт
+    }; Q_ENUMS(DocumentStatus)
+
     enum ModelItems {
         Model_item = Qt::DisplayRole, ///< Единица из списка в моделе
-        Model_id = Qt::UserRole,
+        Model_id   = Qt::UserRole,
         Model_name,
         Model_barcode,
     }; Q_ENUMS(ModelItems)
+
+    static QHash <int, QByteArray> getModelHash()
+    {
+        QHash <int, QByteArray> hash;
+        hash[Model_barcode] = "m_barcode";
+        hash[Model_id]      = "m_id";
+        hash[Model_item]    = "m_item";
+        hash[Model_name]    = "m_name";
+        return hash;
+    }
 };
 
 #endif // WENUM_H

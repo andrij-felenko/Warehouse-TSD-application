@@ -1,6 +1,6 @@
 import QtQuick 2.9
 import "qrc:/wcomponent"
-import WEnum 1.0
+import WUrl 1.0
 
 WPage {
     id: auth
@@ -9,7 +9,7 @@ WPage {
     titleItem.textItem.horizontalAlignment: Text.AlignHCenter
     title: "Авторизация"
 
-    signal authorization()
+    signal authorization(string password)
 
     content: WRectangle {
         anchors.fill: parent
@@ -61,8 +61,8 @@ WPage {
 
             iconLeftSource: "businessman"
             iconLeftVisible: true
-            iconRightSource: textInputAuth.visible ? "text" : "list"
-            iconRightVisible: true
+            iconRightSource: "" // textInputAuth.visible ? "text" : "list"
+            iconRightVisible: false // true
             onRightChoosed: textInputAuth.visible = ! textInputAuth.visible
             contentBorder: textInputAuth.visible ? contentBorderDefault : 0
 
@@ -88,6 +88,7 @@ WPage {
                     onOpenList: {
                         WHModel.employeeList(true)
                         additional.push(comboBoxListComponent)
+                        console.log(WUrl.Receiving, " pp")
                     }
                 }
             ]
@@ -128,7 +129,10 @@ WPage {
 
             text: qsTr("Войти")
 //            iconSource: "add_user_2"
-            onClicked: /* emit */ auth.authorization()
+            onClicked: {
+                /* emit */ auth.authorization(password_input.text)
+                password_input.text = ""
+            }
         }
 
         Text {
