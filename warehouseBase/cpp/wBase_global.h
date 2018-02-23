@@ -1,5 +1,5 @@
-#ifndef WAREHOUSEBASE_GLOBAL_H
-#define WAREHOUSEBASE_GLOBAL_H
+#ifndef WWAREHOUSEBASE_GLOBAL_H
+#define WWAREHOUSEBASE_GLOBAL_H
 
 #include <QtCore/qglobal.h>
 

@@ -1,5 +1,5 @@
-#ifndef CACHELISTOBJECT_H
-#define CACHELISTOBJECT_H
+#ifndef WCACHELISTOBJECT_H
+#define WCACHELISTOBJECT_H
 
 #include <QtCore/QObject>
 

@@ -29,8 +29,6 @@ RESOURCES += \
     qml.qrc
 
 SOURCES += \
-    cpp/enum/wjson.cpp \
-    cpp/enum/wurl.cpp \
     cpp/barcode/wBarcodePrototype.cpp \
     cpp/cache/single/wCacheSingle.cpp \
     cpp/cache/single/wCellSingle.cpp \
@@ -59,13 +57,12 @@ SOURCES += \
     cpp/setting/wSettingPrototype.cpp \
     cpp/setting/wSettingServer.cpp \
     cpp/view/wView.cpp \
-    cpp/view/wCurrentUser.cpp
+    cpp/view/wCurrentUser.cpp \
+    cpp/enum/wEnum.cpp \
+    cpp/enum/wJson.cpp \
+    cpp/enum/wUrl.cpp
 
 HEADERS += \
-    cpp/enum/wenum.h \
-    cpp/enum/wjson.h \
-    cpp/enum/wstatic.h \
-    cpp/enum/wurl.h \
     cpp/document/base/wDocumentBase.h \
     cpp/document/base/wDocumentHeader.h \
     cpp/document/wDocumentPrototype.h \
@@ -103,7 +100,11 @@ HEADERS += \
     cpp/cache/single/wEmployeeSingle.h \
     cpp/cache/single/wNomenclatureSingle.h \
     cpp/cache/single/wQualitySingle.h \
-    cpp/view/wCurrentUser.h
+    cpp/view/wCurrentUser.h \
+    cpp/enum/wUrl.h \
+    cpp/enum/wStatic.h \
+    cpp/enum/wJson.h \
+    cpp/enum/wEnum.h
 
 DISTFILES += \
     jsonAPI.pdf \

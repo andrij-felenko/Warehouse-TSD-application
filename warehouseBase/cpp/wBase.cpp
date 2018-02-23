@@ -4,7 +4,7 @@
 
 #include "wBase.h"
 #include "wSingleton.h"
-#include "enum/wurl.h"
+#include "enum/wUrl.h"
 
 WBase::WBase(QObject* parent) : QObject(parent)
 {
@@ -44,6 +44,7 @@ void WBase::registrateTypes()
     root->setContextProperty("WSetting", WSetting::registrate());
     root->setContextProperty("WMsg",     WMessage::registrate());
     root->setContextProperty("WUser",    WUser::registrate());
+    root->setContextProperty("WStatic",  new WStatic(this));
 
 //    qmlRegisterType <MessageSingle> ("MsgSingle", 0, 1, "MsgSingle");
     WCache  ::get().registerType();

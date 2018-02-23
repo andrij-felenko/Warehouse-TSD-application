@@ -1,13 +1,13 @@
-#ifndef CONSIGNMENTSINGLE_H
-#define CONSIGNMENTSINGLE_H
+#ifndef WCONSIGNMENTSINGLE_H
+#define WCONSIGNMENTSINGLE_H
 
 #include <QtCore/QDataStream>
 #include <QtCore/QJsonObject>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
-#include "enum/wjson.h"
-#include "enum/wstatic.h"
+#include "enum/wJson.h"
+#include "enum/wStatic.h"
 #include "wCacheSingle.h"
 
 class WConsignmentSingle : public WCacheSingle

@@ -19,23 +19,19 @@ QHash<int, QByteArray> WModelDocumentList::roleNames() const
 
 QVariant WModelDocumentList::data(const QModelIndex& index, int role) const
 {
-    qDebug() << 1;
     if (index.row() > m_lastLength and index.row() < 0)
         return QVariant();
 
-    qDebug() << 2;
     auto document = WDocument::get().getDocument(key, index.row());
     if (document->id() == WStatic::guidDefault())
         return QVariant();
 
-    qDebug() << 3;
     switch(static_cast <WEnum::ModelItems> (role)) {
     case WEnum::Model_item: return QVariant::fromValue(document);
     case WEnum::Model_id: return document->id();
     case WEnum::Model_name: return document->name();
     default:;
     }
-    qDebug() << 4;
     return QVariant();
 }
 

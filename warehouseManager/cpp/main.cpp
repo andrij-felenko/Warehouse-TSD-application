@@ -2,7 +2,7 @@
 #include "wBase.h"
 #include "model.h"
 
-#include "testhandler.h"
+#include "testHandler.h"
 
 int main(int argc, char** argv)
 {

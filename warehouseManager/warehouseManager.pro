@@ -18,8 +18,8 @@ DEPENDPATH  += $$PWD/cpp
 INCLUDEPATH += $$PWD/cpp
 
 HEADERS += \
-    cpp/testhandler.h \
-    cpp/model.h
+    cpp/model.h \
+    cpp/testHandler.h
 
 SOURCES += \
     cpp/main.cpp \

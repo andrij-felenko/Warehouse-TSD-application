@@ -1,5 +1,5 @@
-#ifndef TESTHANDLER_H
-#define TESTHANDLER_H
+#ifndef WTESTHANDLER_H
+#define WTESTHANDLER_H
 
 #include "wSingleton.h"
 #include "server/wRequestGenerate.h"
@@ -24,11 +24,12 @@ void testVocabulary()
 void testDocumentReceivingList()
 {
     QJsonArray array;
-    for (int i = 0; i < 2; i++){
+    for (int i = 0; i < 20; i++){
         WDocumentHeader header;
         header.setId(WStatic::guidCreate());
         header.setName("name:" + header.id().left(6));
         header.setSupplier("supplier:" + header.id().right(3));
+        header.setStatus(static_cast <WEnum::DocumentStatus> (+WEnum::Document_created + rand()%4));
         array.push_back(header.toJson());
     }
     auto *req = new WJsonTemplate(WUrl::compareUrl({ WUrl::Get, WUrl::Receiving, WUrl::Document, WUrl::List }),

@@ -1,5 +1,5 @@
-#ifndef CURRENTUSER_H
-#define CURRENTUSER_H
+#ifndef WCURRENTUSER_H
+#define WCURRENTUSER_H
 
 #include <QtCore/QObject>
 #include <QtCore/qglobal.h>

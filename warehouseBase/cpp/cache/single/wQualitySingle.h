@@ -1,13 +1,13 @@
-#ifndef QUALITYSINGLE_H
-#define QUALITYSINGLE_H
+#ifndef WQUALITYSINGLE_H
+#define WQUALITYSINGLE_H
 
 #include <QtCore/QDataStream>
 #include <QtCore/QJsonObject>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
-#include "enum/wjson.h"
-#include "enum/wstatic.h"
+#include "enum/wJson.h"
+#include "enum/wStatic.h"
 #include "wCacheSingle.h"
 
 class WQualitySingle : public WCacheSingle

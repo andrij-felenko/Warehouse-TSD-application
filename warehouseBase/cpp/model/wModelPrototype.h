@@ -1,5 +1,5 @@
-#ifndef MODELPROTOTYPE_H
-#define MODELPROTOTYPE_H
+#ifndef WMODELPROTOTYPE_H
+#define WMODELPROTOTYPE_H
 
 #include <QtCore/QObject>
 #include <QtQml/QQmlEngine>

@@ -1,4 +1,4 @@
-#include "wjson.h"
+#include "wJson.h"
 
 WJson _wjson;
 

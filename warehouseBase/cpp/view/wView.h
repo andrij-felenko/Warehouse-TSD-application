@@ -1,5 +1,5 @@
-#ifndef VIEW_H
-#define VIEW_H
+#ifndef WVIEW_H
+#define WVIEW_H
 
 #include <QtGui/QGuiApplication>
 #include <QtCore/QEvent>

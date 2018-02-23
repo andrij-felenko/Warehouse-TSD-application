@@ -1,4 +1,4 @@
-#include "wurl.h"
+#include "wUrl.h"
 #include <QDebug>
 
 WUrl _wurl;

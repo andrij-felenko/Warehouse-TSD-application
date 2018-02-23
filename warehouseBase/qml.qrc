@@ -12,5 +12,7 @@
         <file>wcomponent/WTwoStepped.qml</file>
         <file>wcomponent/WText.qml</file>
         <file>wcomponent/WAdditionalWindow.qml</file>
+        <file>wcomponent/WDocumentHeader.qml</file>
+        <file>wcomponent/WDocumentList.qml</file>
     </qresource>
 </RCC>

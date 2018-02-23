@@ -1,13 +1,13 @@
-#ifndef NOMENCLATURESINGLE_H
-#define NOMENCLATURESINGLE_H
+#ifndef WNOMENCLATURESINGLE_H
+#define WNOMENCLATURESINGLE_H
 
 #include <QtCore/QDataStream>
 #include <QtCore/QJsonObject>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
-#include "enum/wjson.h"
-#include "enum/wstatic.h"
+#include "enum/wJson.h"
+#include "enum/wStatic.h"
 #include "wCacheSingle.h"
 
 class WNomenclatureSingle : public WCacheSingle

@@ -1,5 +1,5 @@
-#ifndef CACHELIST_TEMPLATE_H
-#define CACHELIST_TEMPLATE_H
+#ifndef WCACHELIST_TEMPLATE_H
+#define WCACHELIST_TEMPLATE_H
 
 #include <QtCore/QDataStream>
 #include <QtCore/QDir>
@@ -10,7 +10,7 @@
 #include <QtCore/QString>
 
 #include "cache/list/wCacheListObject.h"
-#include "enum/wjson.h"
+#include "enum/wJson.h"
 
 /*!
  * \brief Шаблон для класов списков кэша.

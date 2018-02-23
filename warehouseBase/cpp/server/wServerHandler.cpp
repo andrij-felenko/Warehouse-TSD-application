@@ -66,7 +66,6 @@ bool WServerHandler::handler(QList<WUrl::WUrl_enum> url, WJsonTemplate* json)
     if (WUrl::isEqual(url, { WUrl::Get, WUrl::Employee, WUrl::By, WUrl::Id }))
         getEmployee(json);
     else if (WUrl::isEqual(url, { WUrl::Get, WUrl::Employee, WUrl::List })){
-        qDebug() << "WEEEEEE";
         getEmployee(json);
         WCache::get().employee()->setUpdateDateTime();
     }

@@ -1,5 +1,5 @@
-#ifndef DOCUMENTBASE_H
-#define DOCUMENTBASE_H
+#ifndef WDOCUMENTBASE_H
+#define WDOCUMENTBASE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QVariantMap>

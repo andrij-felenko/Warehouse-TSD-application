@@ -1,5 +1,5 @@
-#ifndef TEMPLATESINGLETON_H
-#define TEMPLATESINGLETON_H
+#ifndef WTEMPLATESINGLETON_H
+#define WTEMPLATESINGLETON_H
 
 #include <stdlib.h>
 #include <QtCore/QObject>

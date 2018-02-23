@@ -1,5 +1,5 @@
-#ifndef WENUM_H
-#define WENUM_H
+#ifndef WWENUM_H
+#define WWENUM_H
 
 #include <QtCore/QByteArray>
 #include <QtCore/QObject>
@@ -96,15 +96,9 @@ public:
         Model_barcode,
     }; Q_ENUMS(ModelItems)
 
-    static QHash <int, QByteArray> getModelHash()
-    {
-        QHash <int, QByteArray> hash;
-        hash[Model_barcode] = "m_barcode";
-        hash[Model_id]      = "m_id";
-        hash[Model_item]    = "m_item";
-        hash[Model_name]    = "m_name";
-        return hash;
-    }
+public slots:
+    static QHash <int, QByteArray> getModelHash();
+//    static QString statusToString(WEnum::DocumentStatus status);
 };
 
 #endif // WENUM_H

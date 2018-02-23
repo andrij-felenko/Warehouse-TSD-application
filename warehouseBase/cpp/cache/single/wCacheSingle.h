@@ -1,5 +1,5 @@
-#ifndef CACHESINGLE_H
-#define CACHESINGLE_H
+#ifndef WCACHESINGLE_H
+#define WCACHESINGLE_H
 
 #include <QtCore/QDataStream>
 #include <QtCore/QJsonObject>

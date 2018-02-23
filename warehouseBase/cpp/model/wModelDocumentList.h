@@ -1,9 +1,9 @@
-#ifndef MODELDOCUMENTLIST_H
-#define MODELDOCUMENTLIST_H
+#ifndef WMODELDOCUMENTLIST_H
+#define WMODELDOCUMENTLIST_H
 
 #include <QtCore/QObject>
 #include <QtCore/QAbstractListModel>
-#include "enum/wurl.h"
+#include "enum/wUrl.h"
 
 class WModelDocumentList : public QAbstractListModel
 {

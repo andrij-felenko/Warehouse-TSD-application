@@ -1,5 +1,5 @@
-#ifndef SERVERHANDLER_H
-#define SERVERHANDLER_H
+#ifndef WSERVERHANDLER_H
+#define WSERVERHANDLER_H
 
 #include <QtCore/QObject>
 #include <QtCore/qglobal.h>

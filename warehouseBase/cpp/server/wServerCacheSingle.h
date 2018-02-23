@@ -1,10 +1,10 @@
-#ifndef SERVER_CACHE_SINGLE_H
-#define SERVER_CACHE_SINGLE_H
+#ifndef WSERVER_CACHE_SINGLE_H
+#define WSERVER_CACHE_SINGLE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QJsonDocument>
 #include <QtCore/QDateTime>
-#include "enum/wenum.h"
+#include "enum/wEnum.h"
 #include "wJsonTemplate.h"
 
 class WServerCacheSingle : public QObject

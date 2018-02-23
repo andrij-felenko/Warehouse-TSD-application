@@ -1,5 +1,5 @@
-#ifndef SERVERHANDLERMANAGER_H
-#define SERVERHANDLERMANAGER_H
+#ifndef WSERVERHANDLERMANAGER_H
+#define WSERVERHANDLERMANAGER_H
 
 #include <QtCore/QObject>
 #include "wHandlerTemplate.h"

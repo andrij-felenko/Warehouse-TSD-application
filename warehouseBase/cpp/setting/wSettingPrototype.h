@@ -1,5 +1,5 @@
-#ifndef SETTINGS_PROTOTYPE_H
-#define SETTINGS_PROTOTYPE_H
+#ifndef WSETTINGS_PROTOTYPE_H
+#define WSETTINGS_PROTOTYPE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QUrl>

@@ -1,12 +1,12 @@
-#ifndef DOCUMENTMANAGER_H
-#define DOCUMENTMANAGER_H
+#ifndef WDOCUMENTMANAGER_H
+#define WDOCUMENTMANAGER_H
 
 #include <QtCore/QObject>
 #include <QtCore/QJsonArray>
-#include "enum/wenum.h"
-#include "enum/wjson.h"
-#include "enum/wstatic.h"
-#include "enum/wurl.h"
+#include "enum/wEnum.h"
+#include "enum/wJson.h"
+#include "enum/wStatic.h"
+#include "enum/wUrl.h"
 #include "document/base/wDocumentBase.h"
 
 class WDocumentPrototype : public QObject

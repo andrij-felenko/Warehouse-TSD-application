@@ -1,12 +1,12 @@
-#ifndef WJSON_H
-#define WJSON_H
+#ifndef WWJSON_H
+#define WWJSON_H
 
 #include <QtCore/QJsonObject>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 
-#include "wenum.h"
-#include "wstatic.h"
+#include "wEnum.h"
+#include "wStatic.h"
 
 class WJson;
 extern WJson _json;

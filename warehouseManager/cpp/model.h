@@ -1,5 +1,5 @@
-#ifndef WHMODEL_H
-#define WHMODEL_H
+#ifndef WWHMODEL_H
+#define WWHMODEL_H
 
 #include <QtCore/QObject>
 #include <QtCore/qglobal.h>

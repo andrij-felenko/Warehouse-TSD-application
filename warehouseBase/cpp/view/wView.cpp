@@ -14,7 +14,7 @@ void WView::load(const QUrl& url)
         return;
 
     setSource(url);
-#ifndef Q_OS_ANDROID
+#ifndef WQ_OS_ANDROID
     this->resize(350, 550);
 #endif
     this->show();

@@ -8,6 +8,8 @@ WRectangle {
 
     property alias textLeft:   left.text
     property alias textRight: right.text
+    property alias leftItem: left
+    property alias rightItem: right
 
     property int textSpacing: 5
     property int textMargin: 5

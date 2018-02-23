@@ -9,12 +9,19 @@ StackView {
     property var parentItem: parent
 
     // список документов приемки
-    ReceivingDocumentList {
+    WDocumentList {
         id: receivingDocumentList
         backMode: true
         parentItem: receivingStack.parentItem
         subTitle: "список документов"
         title: "Приемка"
+        model: WModel.getModel("ReceivingDocumentList")
+
+        onBack: {
+            Model.documentList(WUrl.Receiving, false)
+            mainStack.pop()
+        }
+        onSetting: mainPage.currentIndex = 1
     }
 }
 

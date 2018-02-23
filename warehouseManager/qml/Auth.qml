@@ -88,7 +88,6 @@ WPage {
                     onOpenList: {
                         Model.employeeList(true)
                         additional.push(comboBoxListComponent)
-                        console.log(WUrl.Receiving, " pp")
                     }
                 }
             ]

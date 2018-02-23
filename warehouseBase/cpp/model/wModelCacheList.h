@@ -1,10 +1,10 @@
-#ifndef MODELCACHELIST_H
-#define MODELCACHELIST_H
+#ifndef WMODELCACHELIST_H
+#define WMODELCACHELIST_H
 
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QObject>
-#include "enum/wenum.h"
-#include "enum/wstatic.h"
+#include "enum/wEnum.h"
+#include "enum/wStatic.h"
 #include "cache/single/wCacheSingle.h"
 #include "template/wCacheListTemplate.h"
 #include "QDebug"

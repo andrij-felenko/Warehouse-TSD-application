@@ -1,5 +1,5 @@
-#ifndef SERVERPROTOTYPE_H
-#define SERVERPROTOTYPE_H
+#ifndef WSERVERPROTOTYPE_H
+#define WSERVERPROTOTYPE_H
 
 #include <QtCore/QJsonDocument>
 #include <QtCore/QObject>
@@ -7,9 +7,9 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 
-#include "enum/wurl.h"
-#include "enum/wenum.h"
-#include "enum/wjson.h"
+#include "enum/wUrl.h"
+#include "enum/wEnum.h"
+#include "enum/wJson.h"
 #include "wServerCache.h"
 #include "wServerHandlerManager.h"
 

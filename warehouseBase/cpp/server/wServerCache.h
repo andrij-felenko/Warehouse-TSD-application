@@ -1,5 +1,5 @@
-#ifndef SERVER_CACHE_H
-#define SERVER_CACHE_H
+#ifndef WSERVER_CACHE_H
+#define WSERVER_CACHE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QTimer>

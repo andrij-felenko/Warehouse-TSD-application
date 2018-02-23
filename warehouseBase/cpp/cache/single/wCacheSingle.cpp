@@ -1,6 +1,6 @@
 #include "wCacheSingle.h"
-#include "enum/wjson.h"
-#include "enum/wstatic.h"
+#include "enum/wJson.h"
+#include "enum/wStatic.h"
 
 /*!
  * \brief По умолчанию.

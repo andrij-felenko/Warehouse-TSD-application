@@ -1,13 +1,13 @@
-#ifndef CELLSINGLE_H
-#define CELLSINGLE_H
+#ifndef WCELLSINGLE_H
+#define WCELLSINGLE_H
 
 #include <QtCore/QDataStream>
 #include <QtCore/QJsonObject>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
-#include "enum/wjson.h"
-#include "enum/wstatic.h"
+#include "enum/wJson.h"
+#include "enum/wStatic.h"
 #include "wCacheSingle.h"
 
 class WCellSingle : public WCacheSingle

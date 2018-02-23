@@ -1,10 +1,10 @@
-#ifndef HANDLERTEMPLATE_H
-#define HANDLERTEMPLATE_H
+#ifndef WHANDLERTEMPLATE_H
+#define WHANDLERTEMPLATE_H
 
 #include <QtCore/QObject>
 #include <QtCore/qglobal.h>
 #include "wJsonTemplate.h"
-#include "enum/wurl.h"
+#include "enum/wUrl.h"
 
 class WHandlerTemplate : public QObject
 {

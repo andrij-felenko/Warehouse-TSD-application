@@ -1,10 +1,10 @@
-#ifndef WURL_H
-#define WURL_H
+#ifndef WWURL_H
+#define WWURL_H
 
 #include <QtCore/QMap>
 #include <QtCore/QObject>
-#include "wenum.h"
-#include "wstatic.h"
+#include "wEnum.h"
+#include "wStatic.h"
 
 class WUrl;
 extern WUrl _wurl;

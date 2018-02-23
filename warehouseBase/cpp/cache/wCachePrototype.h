@@ -1,5 +1,5 @@
-#ifndef CACHEPROTOTYPE_H
-#define CACHEPROTOTYPE_H
+#ifndef WCACHEPROTOTYPE_H
+#define WCACHEPROTOTYPE_H
 
 #include <QtCore/QDir>
 #include <QtCore/QObject>

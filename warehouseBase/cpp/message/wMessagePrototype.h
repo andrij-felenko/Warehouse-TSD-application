@@ -1,8 +1,8 @@
-#ifndef MESSAGEPROTOTYPE_H
-#define MESSAGEPROTOTYPE_H
+#ifndef WMESSAGEPROTOTYPE_H
+#define WMESSAGEPROTOTYPE_H
 
 #include <QtCore/QObject>
-#include "enum/wenum.h"
+#include "enum/wEnum.h"
 #include "wMessageSingle.h"
 
 class WMessagePrototype : public QObject

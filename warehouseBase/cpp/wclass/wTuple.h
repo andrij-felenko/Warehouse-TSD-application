@@ -1,11 +1,11 @@
-#ifndef WTUPLE_H
-#define WTUPLE_H
+#ifndef WWTUPLE_H
+#define WWTUPLE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include "enum/wenum.h"
-#include "enum/wstatic.h"
-#include "enum/wjson.h"
+#include "enum/wEnum.h"
+#include "enum/wStatic.h"
+#include "enum/wJson.h"
 
 class WTuple : public QObject
 {

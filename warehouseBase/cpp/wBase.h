@@ -1,5 +1,5 @@
-#ifndef WAREHOUSEBASE_H
-#define WAREHOUSEBASE_H
+#ifndef WWAREHOUSEBASE_H
+#define WWAREHOUSEBASE_H
 
 #include "wBase_global.h"
 #include "view/wView.h"

@@ -34,7 +34,7 @@ QJsonObject WDocumentHeader::toJson() const
             std::make_pair(WJson::Employee_receiver_name, m_employeeReceiverName),
             std::make_pair(WJson::Employee_sender_id, m_employeeSenderId),
             std::make_pair(WJson::Employee_sender_name, m_employeeSenderName),
-            std::make_pair(WJson::Status, static_cast <int> (m_status) + +WEnum::Document_created)
+            std::make_pair(WJson::Status, static_cast <int> (m_status) - +WEnum::Document_created)
     });
     WJson::insert(obj, WJson::Cell_id_list, QJsonValue(array));
     return obj;

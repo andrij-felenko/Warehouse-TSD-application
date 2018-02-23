@@ -1,11 +1,11 @@
-#ifndef WJSONTEMPLATE_H
-#define WJSONTEMPLATE_H
+#ifndef WWJSONTEMPLATE_H
+#define WWJSONTEMPLATE_H
 
 #include <QtCore/QDebug>
 #include <QtCore/QObject>
-#include "enum/wjson.h"
-#include "enum/wstatic.h"
-#include "enum/wurl.h"
+#include "enum/wJson.h"
+#include "enum/wStatic.h"
+#include "enum/wUrl.h"
 #include <utility>
 
 class WJsonTemplate : public QObject

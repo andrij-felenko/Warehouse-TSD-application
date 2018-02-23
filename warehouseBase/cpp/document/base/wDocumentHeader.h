@@ -1,13 +1,13 @@
-#ifndef DOCUMENTHEADER_H
-#define DOCUMENTHEADER_H
+#ifndef WDOCUMENTHEADER_H
+#define WDOCUMENTHEADER_H
 
 #include <QtCore/QJsonObject>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
-#include "enum/wenum.h"
-#include "enum/wjson.h"
-#include "enum/wstatic.h"
+#include "enum/wEnum.h"
+#include "enum/wJson.h"
+#include "enum/wStatic.h"
 
 class WDocumentHeader : public QObject
 {

@@ -1,9 +1,9 @@
-#ifndef MESSAGESINGLE_H
-#define MESSAGESINGLE_H
+#ifndef WMESSAGESINGLE_H
+#define WMESSAGESINGLE_H
 
 #include <QtCore/QTimer>
-#include "enum/wenum.h"
-#include "enum/wstatic.h"
+#include "enum/wEnum.h"
+#include "enum/wStatic.h"
 
 class WMessageSingle : public QObject
 {

@@ -1,5 +1,5 @@
-#ifndef SETTING_SERVER_H
-#define SETTING_SERVER_H
+#ifndef WSETTING_SERVER_H
+#define WSETTING_SERVER_H
 
 #include <QtCore/QObject>
 #include <QtCore/QSettings>

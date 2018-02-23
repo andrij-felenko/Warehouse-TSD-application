@@ -1,5 +1,5 @@
-#ifndef LINEACTUAL_H
-#define LINEACTUAL_H
+#ifndef WLINEACTUAL_H
+#define WLINEACTUAL_H
 
 #include <QtCore/QObject>
 #include <QtCore/qglobal.h>

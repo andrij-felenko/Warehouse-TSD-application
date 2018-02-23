@@ -1,9 +1,9 @@
-#ifndef REQUESTGENERATE_H
-#define REQUESTGENERATE_H
+#ifndef WREQUESTGENERATE_H
+#define WREQUESTGENERATE_H
 
 #include <QtCore/QObject>
-#include "enum/wjson.h"
-#include "enum/wurl.h"
+#include "enum/wJson.h"
+#include "enum/wUrl.h"
 
 class WRequestGenerate : public QObject
 {

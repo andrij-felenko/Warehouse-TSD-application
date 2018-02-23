@@ -1,6 +1,6 @@
 #include "model.h"
 #include "wSingleton.h"
-#include "enum/wurl.h"
+#include "enum/wUrl.h"
 #include "model/wModelCacheList.h"
 #include "model/wModelDocumentList.h"
 
@@ -20,10 +20,9 @@ void Model::employeeList(bool visible)
 
 void Model::documentList(int key, bool visible)
 {
-    qDebug() << key << (+WUrl::Receiving);
     QString model(WUrl::toString(static_cast <WUrl::WUrl_enum>(key)).append("DocumentList"));
     if (visible)
-        qDebug() << model << WModel::get().registrate(model, new WModelDocumentList(WUrl::fromInt(key), this));
+        WModel::get().registrate(model, new WModelDocumentList(WUrl::fromInt(key), this));
     else
         WModel::get().removeModel(model);
 }

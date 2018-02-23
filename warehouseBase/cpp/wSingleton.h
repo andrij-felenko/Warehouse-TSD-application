@@ -1,5 +1,5 @@
-#ifndef SINGLETON_H
-#define SINGLETON_H
+#ifndef WSINGLETON_H
+#define WSINGLETON_H
 
 #include "template/wTemplateSingleton.h"
 
