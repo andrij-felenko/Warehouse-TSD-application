@@ -12,5 +12,6 @@
         <file>qml/Additional.qml</file>
         <file>qml/EmployeeList.qml</file>
         <file>qml/ReceivingDocumentList.qml</file>
+        <file>qml/Msg.qml</file>
     </qresource>
 </RCC>

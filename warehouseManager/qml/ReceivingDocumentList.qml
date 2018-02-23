@@ -7,7 +7,7 @@ import WDocument 1.0
 WPage {
     id: receivingDocumentList
     onBack: {
-        WHModel.documentList(WUrl.Receiving, false)
+        Model.documentList(WUrl.Receiving, false)
         mainStack.pop()
     }
     onSetting: mainPage.currentIndex = 1
@@ -15,7 +15,6 @@ WPage {
         id: rectChooseReceivingDocumentList
         anchors.fill: parent
         color: receivingDocumentList.color
-        onWidthChanged: console.log(receivingDocumentListView.count)
         
         ListView {
             id: receivingDocumentListView
@@ -23,17 +22,19 @@ WPage {
             anchors.fill: parent
             spacing: 3
             
-            delegate: WMirrorLabel {
+            delegate: WRectangle{
                 property WHeader item: m_item
 
-                color: "#BBCCDD"
-                height: rectChooseReceivingDocumentList.height / 13
-                width: parent.width
-                textLeft: item === null ? "" : item.name
-                clickMode: true
-                onClicked: {}
+                WMirrorLabel {
+                    color: "#BBCCDD"
+                    height: rectChooseReceivingDocumentList.height / 13
+                    width: parent.width
+                    textLeft: item === null ? "" : item.name
+                    clickMode: true
+                    onClicked: {}
+                }
             }
-            model: Model.getModel("ReceivingDocumentList")
+            model: WModel.getModel("ReceivingDocumentList")
         }
     }
 }

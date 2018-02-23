@@ -1,15 +1,15 @@
-#include "whmodel.h"
+#include "model.h"
 #include "wSingleton.h"
 #include "enum/wurl.h"
 #include "model/wModelCacheList.h"
 #include "model/wModelDocumentList.h"
 
-WHModel::WHModel(QObject *parent) : QObject(parent)
+Model::Model(QObject *parent) : QObject(parent)
 {
     //
 }
 
-void WHModel::employeeList(bool visible)
+void Model::employeeList(bool visible)
 {
     typedef WModelCacheList <WCacheListTemplate <WEmployeeSingle>> ModelCache;
     if (visible)
@@ -18,7 +18,7 @@ void WHModel::employeeList(bool visible)
         WModel::get().removeModel("employeeList");
 }
 
-void WHModel::documentList(int key, bool visible)
+void Model::documentList(int key, bool visible)
 {
     qDebug() << key << (+WUrl::Receiving);
     QString model(WUrl::toString(static_cast <WUrl::WUrl_enum>(key)).append("DocumentList"));

@@ -1,6 +1,6 @@
 #include "wSingleton.h"
 #include "wBase.h"
-#include "whmodel.h"
+#include "model.h"
 
 #include "testhandler.h"
 
@@ -12,11 +12,11 @@ int main(int argc, char** argv)
     module->registrateApp("0.2", "Warehouse Manager", "WHTech", "http://wh-tech.com.ua");
     module->init();
     module->registrateTypes();
-    module->setContextProperty("WHModel", new WHModel(module));
-    WMessage::get().setShowingPriority(WEnum::Priority_high | WEnum::Priority_middle);
+    module->setContextProperty("Model", new Model(module));
+    WMessage::get().setShowingPriority(WEnum::Priority_high | WEnum::Priority_middle_above);
 
 
-    qmlRegisterType <WUrl>  ("WUrl",  1, 0, "WUrl");
+    qmlRegisterType <WUrl> ("WUrl", 1, 0, "WUrl");
     module->loadQML(QUrl("qrc:/qml/qml/main.qml"));
     module->start();
 

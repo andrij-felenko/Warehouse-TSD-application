@@ -23,4 +23,10 @@ Item {
         anchors.fill: parent
         z: 1
     }
+
+    Msg {
+        id: msg
+        anchors.fill: parent
+        z: 2
+    }
 }

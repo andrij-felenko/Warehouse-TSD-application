@@ -38,11 +38,12 @@ void WBase::registrateTypes()
 {
     QQmlContext* root = m_view->rootContext();
     root->setContextProperty("WApp",    this);
-    root->setContextProperty("Cache",   WCache::registrate());
-    root->setContextProperty("Model",   WModel::registrate());
-    root->setContextProperty("Server",  WServer::registrate());
-    root->setContextProperty("Setting", WSetting::registrate());
-    root->setContextProperty("User",    WUser::registrate());
+    root->setContextProperty("WCache",   WCache::registrate());
+    root->setContextProperty("WModel",   WModel::registrate());
+    root->setContextProperty("WServer",  WServer::registrate());
+    root->setContextProperty("WSetting", WSetting::registrate());
+    root->setContextProperty("WMsg",     WMessage::registrate());
+    root->setContextProperty("WUser",    WUser::registrate());
 
 //    qmlRegisterType <MessageSingle> ("MsgSingle", 0, 1, "MsgSingle");
     WCache  ::get().registerType();

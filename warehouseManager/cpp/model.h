@@ -4,11 +4,11 @@
 #include <QtCore/QObject>
 #include <QtCore/qglobal.h>
 
-class WHModel : public QObject
+class Model : public QObject
 {
     Q_OBJECT
 public:
-    explicit WHModel(QObject *parent = nullptr);
+    explicit Model(QObject *parent = nullptr);
 
 signals:
 

@@ -3,21 +3,20 @@
 
 WMessagePrototype::WMessagePrototype(QObject *parent) : QObject(parent)
 {
-    m_MsgEmpty = new WMessageSingle("", WEnum::Msg_complete, WEnum::Priority_low, 0, this);
-    m_MsgCurrent = m_MsgEmpty;
+    m_current = new WMessageSingle("", WEnum::Msg_complete, WEnum::Priority_low, 0, this);
     setShowingPriority(WEnum::Priority_high | WEnum::Priority_low | WEnum::Priority_middle
                        | WEnum::Priority_middle_above | WEnum::Priority_middle_bellow);
 }
 
-WMessageSingle* WMessagePrototype::MsgCurrent() const
+WMessageSingle* WMessagePrototype::current() const
 {
-    return m_MsgCurrent;
+    return m_current;
 }
 
 QString WMessagePrototype::setMessage(QString text, WEnum::Msg_type msgType, WEnum::Priority priority, int time_ms)
 {
     qDebug() << "Message: " << text;
-    auto msg = new WMessageSingle(text, msgType, priority,time_ms, this);
+    auto msg = new WMessageSingle(text, msgType, priority, time_ms, this);
     m_list.push_back(msg);
     update();
 
@@ -46,12 +45,14 @@ bool WMessagePrototype::removeMessage(QString msg_id_text)
     for (auto it : m_list)
         if (it->id() == msg_id_text){
             auto ret = m_list.removeOne(it);
+            it->deleteLater();
             update();
             return ret;
         }
     for (auto it : m_list)
         if (it->text() == msg_id_text){
             auto ret = m_list.removeOne(it);
+            it->deleteLater();
             update();
             return ret;
         }
@@ -88,11 +89,20 @@ void WMessagePrototype::setMessage(QString str, int msgType, int priority, int t
 
 void WMessagePrototype::removeMessage()
 {
-    removeMessage(m_MsgCurrent->id());
+    removeMessage(m_current->id());
 }
 
-// FIXME
 void WMessagePrototype::update()
 {
-    //
+    WMessageSingle* currentMsg = new WMessageSingle;
+    for (auto it : m_list)
+        if (it->status() != WEnum::Msg_close)
+            if (currentMsg->priority() <= it->priority())
+                if (m_showPriority.contains(it->priority()))
+                    if (currentMsg->dateTimeCreate() >= it->dateTimeCreate())
+                        if (m_current != it)
+                            currentMsg->copy(it);
+
+    m_current->copy(currentMsg);
+    currentMsg->deleteLater();
 }

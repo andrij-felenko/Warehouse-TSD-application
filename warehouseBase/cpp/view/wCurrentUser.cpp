@@ -25,11 +25,15 @@ bool WCurrentUser::tryAuthorization(QString password)
 {
     auto single = WCache::get().employee()->getOne(m_current->id());
     if (single == nullptr){
-        WMessage::get().setErrorMessage(QObject::tr("Login not found"));
+        WMessage::get().setErrorMessage(QObject::tr("Login not found."));
+        return false;
+    }
+    if (password.isEmpty()){
+        WMessage::get().setErrorMessage(QObject::tr("Password must present."));
         return false;
     }
     if (not single->isCoincide(password)){
-        WMessage::get().setErrorMessage(QObject::tr("Password incorrect"));
+        WMessage::get().setErrorMessage(QObject::tr("Password incorrect."));
         return false;
     }
     return true;

@@ -8,17 +8,17 @@
 class WMessagePrototype : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(WMessageSingle* MsgCurrent READ MsgCurrent NOTIFY MsgCurrentChanged)
+    Q_PROPERTY(WMessageSingle* current READ current NOTIFY currentChanged)
 
 public:
     explicit WMessagePrototype(QObject *parent = nullptr);
 
-    WMessageSingle* MsgCurrent() const;
+    WMessageSingle* current() const;
     QString setMessage(QString text, WEnum::Msg_type msgType,
                        WEnum::Priority priority, int time_ms = 0);
     QString setWarningMessage(QString text, WEnum::Priority priority);
     bool removeMessage(QString msg_id_text);
-    void setShowingPriority(int priority);
+    void setShowingPriority(int priority);    
 
 public slots:
     QString setErrorMessage(QString text);
@@ -27,13 +27,12 @@ public slots:
     void removeMessage();
 
 signals:
-    void MsgCurrentChanged(WMessageSingle* MsgCurrent);
+    void currentChanged(WMessageSingle* current);
 
 private:
     QList <WMessageSingle*> m_list;
     QList <WEnum::Priority> m_showPriority;
-    WMessageSingle* m_MsgCurrent;
-    WMessageSingle* m_MsgEmpty;
+    WMessageSingle* m_current;
 
     void update();
 };

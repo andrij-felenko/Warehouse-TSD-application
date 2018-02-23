@@ -9,8 +9,8 @@ Component {
         id: additionalEmployeeList
         title: "Выбор пользователя"
         onClose: {
-            comboBoxAuth.current_text = User.current.name
-            WHModel.employeeList(false)
+            comboBoxAuth.current_text = WUser.current.name
+            Model.employeeList(false)
             additional.pop()
         }
         parentItem: additional
@@ -25,18 +25,18 @@ Component {
                 spacing: 3
                 
                 delegate: WMirrorLabel {
-                    color: User.current.name === m_item.name ? "#999999" : "#CCCCCC"
+                    color: WUser.current.name === m_item.name ? "#999999" : "#CCCCCC"
                     height: rectChooseEmployee.height / 13
                     width: parent.width
                     textLeft: m_item.name
                     clickMode: true
                     onClicked: {
-                        User.setUserList(m_item.id)
+                        WUser.setUserList(m_item.id)
                         password_input.text = ""
                         additionalEmployeeList.close()
                     }
                 }
-                model: Model.getModel("employeeList")
+                model: WModel.getModel("employeeList")
             }
         }
     }

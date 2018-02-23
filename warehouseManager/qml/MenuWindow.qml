@@ -24,7 +24,7 @@ WPage {
             text: "Приемка"
             clickMode: true
             onClicked: {
-                WHModel.documentList(WUrl.Receiving, true)
+                Model.documentList(WUrl.Receiving, true)
                 mainStack.push(receivingComponent)
             }
         }
