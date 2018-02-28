@@ -115,6 +115,37 @@ QStringList WDocumentBase::getCacheList(WJson::WJson_enum type)
     return list;
 }
 
+QStringList WDocumentBase::getCacheListByParameters(WEnum::LineType type, WJson::WJson_enum key, QVariantMap map)
+{
+    QStringList list;
+
+    if (type == WEnum::LineActual or WEnum::LineAll)
+        for (auto it : actual){
+            bool isConcordia(true);
+            for (auto itMap = map.begin(); itMap != map.end() and isConcordia; ++itMap)
+                isConcordia = it->isConcordiaLineByParameter(static_cast <WJson::WJson_enum> (itMap.value().toInt()),
+                                                             itMap.key());
+            if (isConcordia)
+                list.push_back(it->getVariableByJsonKey(key));
+            }
+
+    if (type == WEnum::LinePlan or WEnum::LineAll)
+        for (auto it : plan){
+            bool isConcordia(true);
+            for (auto itMap = map.begin(); itMap != map.end() and isConcordia; ++itMap)
+                isConcordia = it->isConcordiaLineByParameter(static_cast <WJson::WJson_enum> (itMap.value().toInt()),
+                                                             itMap.key());
+            if (isConcordia)
+                list.push_back(it->getVariableByJsonKey(key));
+            }
+
+    list.removeDuplicates();
+    list.removeOne(WStatic::guidNull());
+    list.removeOne(WStatic::guidDefault());
+
+    return list;
+}
+
 void WDocumentBase::chooseLine(QString id)
 {
     for (auto it : actual)

@@ -29,6 +29,7 @@ public:
     void acceptedUnreserveContainer(WJsonTemplate* json, bool sender);
 
     QStringList getCacheList(WJson::WJson_enum type);
+    QStringList getCacheListByParameters(WEnum::LineType type, WJson::WJson_enum key, QVariantMap map = QVariantMap());
 
 public slots:
     void chooseLine(QString id);

@@ -121,6 +121,58 @@ void WLinePlan::fromJson(const QJsonObject& obj)
         updateCellSenderName();
 }
 
+QString WLinePlan::getVariableByJsonKey(WJson::WJson_enum key) const
+{
+    switch (key) {
+    case WJson::Container_receiver_id: return m_containerReceiverId;
+    case WJson::Container_sender_id: return m_containerSenderId;
+    case WJson::Cell_receiver_id: return m_cellReceiverId;
+    case WJson::Cell_sender_id: return m_cellSenderId;
+    case WJson::Consignment_id: return m_consignmentId;
+    case WJson::Quality_id: return m_qualityId;
+    case WJson::Nomenclature_id: return m_nomenclatureId;
+    default:;
+    }
+    return WStatic::guidDefault();
+}
+
+bool WLinePlan::isConcordiaLineByParameter(WJson::WJson_enum key, QString id)
+{
+    switch (key) {
+    case WJson::Container_receiver_id:
+        if (m_containerReceiverId != id)
+            return false;
+        break;
+    case WJson::Container_sender_id:
+        if (m_containerSenderId != id)
+            return false;
+        break;
+    case WJson::Cell_receiver_id:
+        if (m_cellReceiverId != id)
+            return false;
+        break;
+    case WJson::Cell_sender_id:
+        if (m_cellSenderId != id)
+            return false;
+        break;
+    case WJson::Consignment_id:
+        if (m_consignmentId != id)
+            return false;
+        break;
+    case WJson::Quality_id:
+        if (m_qualityId != id)
+            return false;
+        break;
+    case WJson::Nomenclature_id:
+        if (m_nomenclatureId != id)
+            return false;
+        break;
+    default:
+        return false;
+    }
+    return true;
+}
+
 void WLinePlan::resetAll()
 {
     resetCellReceiverId();

@@ -57,7 +57,7 @@ public:
     explicit WDocumentHeader(QObject *parent = nullptr);
     WDocumentHeader(const QJsonObject& obj, QObject *parent = nullptr);
 
-    // JSON ----------------------------------------------------------------------------------------
+    // JSON ---------------------------------------------------------------------------------------
     QJsonObject toJson() const;
     void fromJson(const QJsonObject& obj);
 

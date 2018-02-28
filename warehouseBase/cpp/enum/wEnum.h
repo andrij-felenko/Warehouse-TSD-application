@@ -96,6 +96,13 @@ public:
         Model_barcode,
     }; Q_ENUMS(ModelItems)
 
+    enum LineType {
+        LineActual = 0xE900, ///< Актуальные строки
+        LinePlan,            ///< Плановые строки
+        LineDone,            ///< Все выполненные строки
+        LineAll,             ///< Все строки
+    }; Q_ENUMS(LineType)
+
 public slots:
     static QHash <int, QByteArray> getModelHash();
 //    static QString statusToString(WEnum::DocumentStatus status);

@@ -51,11 +51,15 @@ public:
     explicit WLinePlan(QObject *parent = nullptr);
      WLinePlan(const QJsonObject& obj, QObject *parent = nullptr);
 
-    // JSON ----------------------------------------------------------------------------------------
+    // JSON ---------------------------------------------------------------------------------------
     QJsonObject toJson() const;
     void fromJson(const QJsonObject& obj);
 
-    // READ ----------------------------------------------------------------------------------------
+    // ANALIZE LINE FUNCTION ----------------------------------------------------------------------
+    QString getVariableByJsonKey(WJson::WJson_enum key) const;
+    bool isConcordiaLineByParameter(WJson::WJson_enum key, QString id);
+
+    // READ ---------------------------------------------------------------------------------------
     bool    isDone()                const { return m_isDone; }
     QString consignmentId()         const { return m_consignmentId; }
     QString nomenclatureId()        const { return m_nomenclatureId; }
@@ -74,7 +78,7 @@ public:
     QString cellReceiverName()      const { return m_cellReceiverName; }
     QString cellSenderName()        const { return m_cellSenderName; }
 
-    // RESET ---------------------------------------------------------------------------------------
+    // RESET --------------------------------------------------------------------------------------
     void resetIsDone()              { setIsDone(false); }
     void resetConsignmentId()       { setConsignmentId      (WStatic::guidDefault()); }
     void resetNomenclatureId()      { setNomenclatureId     (WStatic::guidDefault()); }

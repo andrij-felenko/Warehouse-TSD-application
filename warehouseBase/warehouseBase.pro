@@ -60,7 +60,8 @@ SOURCES += \
     cpp/view/wCurrentUser.cpp \
     cpp/enum/wEnum.cpp \
     cpp/enum/wJson.cpp \
-    cpp/enum/wUrl.cpp
+    cpp/enum/wUrl.cpp \
+    cpp/model/wModelContainerList.cpp
 
 HEADERS += \
     cpp/document/base/wDocumentBase.h \
@@ -104,7 +105,8 @@ HEADERS += \
     cpp/enum/wUrl.h \
     cpp/enum/wStatic.h \
     cpp/enum/wJson.h \
-    cpp/enum/wEnum.h
+    cpp/enum/wEnum.h \
+    cpp/model/wModelContainerList.h
 
 DISTFILES += \
     jsonAPI.pdf \
