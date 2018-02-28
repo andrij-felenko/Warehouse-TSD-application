@@ -5,6 +5,7 @@
 #include "wBase.h"
 #include "wSingleton.h"
 #include "enum/wUrl.h"
+#include "server/wRequestGenerate.h"
 
 WBase::WBase(QObject* parent) : QObject(parent)
 {
@@ -12,8 +13,8 @@ WBase::WBase(QObject* parent) : QObject(parent)
     WSetting ::instance(this);
 
     qmlRegisterType <WEnum> ("WEnum", 1, 0, "WEnum");
-    qmlRegisterType <WJson> ("WJson", 1, 0, "WJson");
-    qmlRegisterType <WUrl>  ("WUrl",  1, 0, "WUrl");
+    qmlRegisterType <WJson> ("WJsonEnum", 1, 0, "WJsonEnum");
+    qmlRegisterType <WUrl>  ("WUrlEnum",  1, 0, "WUrlEnum");
 
     qmlRegisterType <WDocumentBase>   ("WDocument", 1, 0, "WDocument");
     qmlRegisterType <WDocumentHeader> ("WDocument", 1, 0, "WHeader");
@@ -47,7 +48,10 @@ void WBase::registrateTypes()
     root->setContextProperty("WSetting", WSetting::registrate());
     root->setContextProperty("WMessage", WMessage::registrate());
     root->setContextProperty("WUser",    WUser::registrate());
-    root->setContextProperty("WStatic",  new WStatic(this));
+    root->setContextProperty("WStatic",    new WStatic(this));
+    root->setContextProperty("WJson",      new WJson(this));
+    root->setContextProperty("WUrl",       new WUrl(this));
+    root->setContextProperty("WRequestor", new WRequestGenerate(this));
 
 //    qmlRegisterType <MessageSingle> ("MsgSingle", 0, 1, "MsgSingle");
     WSetting::get().registerType();

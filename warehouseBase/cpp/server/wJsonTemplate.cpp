@@ -4,7 +4,8 @@
 WJsonTemplate::WJsonTemplate(QObject *parent)
     : QObject(parent),
       m_request(WStatic::guidCreate()), m_url(""), m_employee_id(WStatic::idCreate()),// FIXME
-      m_json(QJsonObject()), m_dTime(QDateTime::currentDateTime())
+      m_json(QJsonObject()), m_dTime(QDateTime::currentDateTime()),
+      m_error(-1), m_answer(false), m_text(QString(""))
 {
     //
 }
@@ -43,10 +44,23 @@ QJsonDocument WJsonTemplate::toJsonDocument(WEnum::Version version) const
     return QJsonDocument(obj);
 }
 
-std::pair <bool, QString> WJsonTemplate::fromJsonDocument(QJsonDocument document, WEnum::Version version_)
+std::pair <bool, QString> WJsonTemplate::fromJsonDocument(QJsonDocument document, bool isAnswer,
+                                                          WEnum::Version version_)
 {
-    if (not WJson::contains(document.object(), WJson::Meta, version_))
+    auto obj = document.object();
+    if (not WJson::contains(obj, WJson::Meta, version_))
         return std::make_pair(false, QObject::tr("Meta field not found"));
+
+    if (isAnswer){
+        if (not WJson::contains(obj, WJson::Answer, version_))
+            return std::make_pair(false, "Answer field not found");
+
+        if (not WJson::contains(obj, WJson::Error, version_))
+            return std::make_pair(false, "Error field not found");
+
+        if (not WJson::contains(obj, WJson::Text, version_))
+            return std::make_pair(false, "Text field not found");
+    }
 
     QJsonObject metaData = WJson::get(document.object(), WJson::Meta, version_).toObject();
     if (not WJson::contains(metaData, WJson::Request, version_))
@@ -61,6 +75,12 @@ std::pair <bool, QString> WJsonTemplate::fromJsonDocument(QJsonDocument document
     m_request     = WJson::get(metaData, WJson::Request,     version_).toString();
     m_url         = WJson::get(metaData, WJson::Url,         version_).toString();
     m_json        = WJson::get(metaData, WJson::Data,        version_).toObject();
+
+    if (isAnswer){
+        m_answer = WJson::get(obj, WJson::Answer, version_).toBool();
+        m_error = WJson::get(obj, WJson::Error, version_).toInt();
+        m_text = WJson::get(obj, WJson::Text, version_).toString();
+    }
 
     return std::make_pair(true, QString());
 }

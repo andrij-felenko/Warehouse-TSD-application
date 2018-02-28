@@ -1,7 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import "qrc:/wcomponent"
-import WUrl 1.0
 import WDocument 1.0
 import WEnum 1.0
 
@@ -24,7 +23,6 @@ WRectangle {
     }
     
     height: column.implicitHeight
-    onClicked: {}
     
     Column {
         id: column

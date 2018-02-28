@@ -90,6 +90,7 @@ public slots:
     static QList <WUrl_enum> compareUrlList(std::initializer_list<WUrl_enum> list);
     static QList <WUrl_enum> disunite(const QString& url, WEnum::Version version_ = version());
     static bool isEqual(QList <WUrl_enum> url, std::initializer_list <WUrl_enum> list);
+    static int versionToInt();
 
 private:
     struct WUrl_single {

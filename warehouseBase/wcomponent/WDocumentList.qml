@@ -1,9 +1,10 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import "qrc:/wcomponent"
-import WUrl 1.0
 import WDocument 1.0
 import WEnum 1.0
+import WUrlEnum 1.0
+import WJsonEnum 1.0
 
 WPage {
     id: documentList
@@ -14,8 +15,10 @@ WPage {
 
     property alias model: documentListView.model
     property alias addDocumentMode: addDocumentItem.visible
+    property int documentKey: WUrlEnum.___
 
     signal openSetting()
+    signal openDocument(string id)
 
     header.onRightChoosed: /* emit */ documentList.openSetting()
 
@@ -35,6 +38,11 @@ WPage {
                 clickMode: true
                 width: parent.width
                 heightItem: documentList.height / 18
+
+                onClicked: WServer.request([WUrlEnum.Get, documentKey, WUrlEnum.Document], WUrl.versionToInt(),
+                                           qsTr("Загрузка строк документа"),
+                                           WRequestor.tuple(WJsonEnum.Document_id, item.id),
+                                           WEnum.Request_must_server, private_, "getDocumentAnswer")
             }
         }
 
@@ -46,5 +54,13 @@ WPage {
             iconSource: "plus_8"
             opacity: 0.8
         }
+    }
+
+    Item {
+        id: private_
+         function getDocumentAnswer(answer, id){
+             if (answer)
+                 /* emit */ documentList.openDocument(id)
+         }
     }
 }

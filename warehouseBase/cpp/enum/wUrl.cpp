@@ -186,3 +186,8 @@ bool WUrl::isEqual(QList<WUrl::WUrl_enum> url, std::initializer_list<WUrl::WUrl_
 {
     return url == compareUrlList(list);
 }
+
+int WUrl::versionToInt()
+{
+    return static_cast <int> (_wurl.version());
+}

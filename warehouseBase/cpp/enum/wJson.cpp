@@ -125,6 +125,7 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Provider_name,          "provider_name",          WEnum::Version_1_0 });
 
     // server key ------------------------------------------------------------------------------
+    m_list.push_back({ Answer,  "answer",  WEnum::Version_1_0 });
     m_list.push_back({ Code,    "code",    WEnum::Version_1_0 });
     m_list.push_back({ Data,    "data",    WEnum::Version_1_0 });
     m_list.push_back({ Error,   "error",   WEnum::Version_1_0 });

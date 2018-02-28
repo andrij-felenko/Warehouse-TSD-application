@@ -100,9 +100,10 @@ void WServerPrototype::handler(QNetworkReply *reply)
 
     // test request for standart
     WJsonTemplate* json = new WJsonTemplate(this);
-    auto resultTestRequest = json->fromJsonDocument(QJsonDocument::fromJson(reply->readAll()));
+    auto resultTestRequest = json->fromJsonDocument(QJsonDocument::fromJson(reply->readAll()), true);
     if (not resultTestRequest.first){
         WMessage::get().setErrorMessage(resultTestRequest.second);
+        json->deleteLater();
         return;
     }
 

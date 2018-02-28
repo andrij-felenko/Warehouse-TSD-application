@@ -1,7 +1,7 @@
 import QtQuick 2.9
 import "qrc:/wcomponent"
-import WUrl 1.0
 import WDocument 1.0
+import WUrlEnum 1.0
 
 WPage {
     title: "Меню"
@@ -25,8 +25,8 @@ WPage {
             text: "Приемка"
             clickMode: true
             onClicked: {
-                WDocList.requestDocumentList(WUrl.Receiving)
-                Model.documentList(WUrl.Receiving, true)
+                WDocList.requestDocumentList(WUrlEnum.Receiving)
+                Model.documentList(WUrlEnum.Receiving, true)
                 mainStack.push(receivingComponent)
             }
         }

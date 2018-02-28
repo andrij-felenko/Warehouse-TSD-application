@@ -28,9 +28,9 @@ QJsonValue WRequestGenerate::date(QDateTime dateTime)
                               dateTime.toString(WSetting::get().server()->dateFormat()));
 }
 
-QJsonValue WRequestGenerate::tuple(WJson::WJson_enum key, QJsonValue value)
+QJsonValue WRequestGenerate::tuple(int key, QJsonValue value)
 {
-    return WJson::createValue(key, value);
+    return WJson::createValue(static_cast <WJson::WJson_enum> (key), value);
 }
 
 QJsonValue WRequestGenerate::reserveContainer(QString container, QString document)

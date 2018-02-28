@@ -1,7 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import "qrc:/wcomponent"
-import WUrl 1.0
+import WUrlEnum 1.0
 
 StackView {
     id: receivingStack
@@ -14,14 +14,16 @@ StackView {
         backMode: true
         subTitle: "список документов"
         title: "Приемка"
+        documentKey: WUrlEnum.Receiving
         model: WModel.getModel("ReceivingDocumentList")
-        header.onRight2Choosed: WDocList.requestDocumentList(WUrl.Receiving)
+        header.onRight2Choosed: WDocList.requestDocumentList(WUrlEnum.Receiving)
 
+        header.onRightChoosed: mainPage.currentIndex = 1 // FIXME
         onBack: {
-            Model.documentList(WUrl.Receiving, false)
+            Model.documentList(WUrlEnum.Receiving, false)
             mainStack.pop()
         }
-        header.onRightChoosed: mainPage.currentIndex = 1
+        onOpenDocument: console.log("open document") // FIXME
     }
 }
 

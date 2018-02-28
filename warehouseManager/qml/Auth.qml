@@ -1,6 +1,5 @@
 import QtQuick 2.9
 import "qrc:/wcomponent"
-import WUrl 1.0
 
 WPage {
     id: auth
