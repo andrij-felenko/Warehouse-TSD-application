@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Controls 2.2
 import "qrc:/wcomponent"
 import WUrlEnum 1.0
+import WJsonEnum 1.0
 
 StackView {
     id: receivingStack
@@ -23,7 +24,15 @@ StackView {
             Model.documentList(WUrlEnum.Receiving, false)
             mainStack.pop()
         }
-        onOpenDocument: console.log("open document") // FIXME
+        onOpenDocument: {
+            Model.cacheDocList("receiving", true, id, WJsonEnum.Container_receiver_id)
+            mainStack.push(receivingContainerList)
+        }
+    }
+
+    Component {
+        id: receivingContainerList
+        ReceivingContainerList {  }
     }
 }
 

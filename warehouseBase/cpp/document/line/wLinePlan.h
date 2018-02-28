@@ -57,7 +57,7 @@ public:
 
     // ANALIZE LINE FUNCTION ----------------------------------------------------------------------
     QString getVariableByJsonKey(WJson::WJson_enum key) const;
-    bool isConcordiaLineByParameter(WJson::WJson_enum key, QString id);
+    bool isConcordiaLineByParameter(QVariantMap map);
 
     // READ ---------------------------------------------------------------------------------------
     bool    isDone()                const { return m_isDone; }

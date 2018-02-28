@@ -42,6 +42,7 @@ public:
     WCacheListTemplate <WCacheSingle>*        storage_type() const { return m_storage_type; }
 
     void pushCacheToQueque(WUrl::WUrl_enum key, QStringList list);
+    WCacheSingle* getOne(QString id, WJson::WJson_enum key);
 
 private:
     inline void createLocalDir();

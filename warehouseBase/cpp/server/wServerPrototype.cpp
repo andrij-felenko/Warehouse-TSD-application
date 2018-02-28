@@ -86,6 +86,7 @@ void WServerPrototype::authentificate(QNetworkReply *reply, QAuthenticator *auth
 // FIXME work with server cache
 void WServerPrototype::handler(QNetworkReply *reply)
 {
+    qDebug() << QJsonDocument::fromJson(reply->readAll());
     QString url = reply->request().url().toString();
     url = url.rightRef(url.length() - WSetting::get().server()->domain().length()).toString();
 

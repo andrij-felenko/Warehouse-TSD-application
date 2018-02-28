@@ -75,6 +75,11 @@ QString WCacheSingle::barcode() const
     return m_barcode;
 }
 
+bool WCacheSingle::isEmpty() const
+{
+    return m_id == WStatic::guidDefault();
+}
+
 /*! \brief Сброс всех параметров на значения по умолчанию */
 void WCacheSingle::resetAll()
 {

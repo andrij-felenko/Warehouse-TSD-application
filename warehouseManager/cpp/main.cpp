@@ -24,9 +24,9 @@ int main(int argc, char** argv)
     module->start();
 
     // tests json sender from sender
-    if (WCache::get().employee()->length() == 0)
-        testVocabulary();
-    testDocumentReceivingList();
+//    if (WCache::get().employee()->length() == 0)
+//        testVocabulary();
+//    testDocumentReceivingList();
 
     return app.exec();
 }

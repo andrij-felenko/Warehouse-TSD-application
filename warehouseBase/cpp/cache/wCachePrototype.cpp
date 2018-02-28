@@ -42,6 +42,37 @@ void WCachePrototype::pushCacheToQueque(WUrl::WUrl_enum key, QStringList list)
             }
 }
 
+WCacheSingle* WCachePrototype::getOne(QString id, WJson::WJson_enum key)
+{
+    switch (key) {
+    case WJson::Cell_id:
+    case WJson::Cell_receiver_id:
+    case WJson::Cell_sender_id:
+        return m_cell->getOne(id);
+    case WJson::Consignment:
+    case WJson::Consignment_id:
+        return m_consignment->getOne(id);
+    case WJson::Container_id:
+    case WJson::Container_receiver_id:
+    case WJson::Container_sender_id:
+        return m_container->getOne(id);
+    case WJson::Employee_id:
+        return m_employee->getOne(id);
+    case WJson::ModelTypeId:
+        return m_model_type->getOne(id);
+    case WJson::Nomenclature_id:
+        return m_nomenclature->getOne(id);
+    case WJson::Quality_id:
+        return m_quality->getOne(id);
+//    case WJson::Warehouse_id:
+//    case WJson::Warehouse_receiver_id:
+//    case WJson::Warehouse_sender_id:
+//        return m_ware
+    default:;
+    }
+    return nullptr;
+}
+
 /*! \brief Создание папки для хранений кэша на диске. */
 void WCachePrototype::createLocalDir()
 {

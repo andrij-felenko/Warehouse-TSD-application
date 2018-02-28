@@ -136,39 +136,41 @@ QString WLinePlan::getVariableByJsonKey(WJson::WJson_enum key) const
     return WStatic::guidDefault();
 }
 
-bool WLinePlan::isConcordiaLineByParameter(WJson::WJson_enum key, QString id)
+bool WLinePlan::isConcordiaLineByParameter(QVariantMap map)
 {
-    switch (key) {
-    case WJson::Container_receiver_id:
-        if (m_containerReceiverId != id)
+    for (auto it = map.begin(); it != map.end(); ++it){
+        switch (static_cast <WJson::WJson_enum> (it.value().toInt())) {
+        case WJson::Container_receiver_id:
+            if (m_containerReceiverId != it.key())
+                return false;
+            break;
+        case WJson::Container_sender_id:
+            if (m_containerSenderId != it.key())
+                return false;
+            break;
+        case WJson::Cell_receiver_id:
+            if (m_cellReceiverId != it.key())
+                return false;
+            break;
+        case WJson::Cell_sender_id:
+            if (m_cellSenderId != it.key())
+                return false;
+            break;
+        case WJson::Consignment_id:
+            if (m_consignmentId != it.key())
+                return false;
+            break;
+        case WJson::Quality_id:
+            if (m_qualityId != it.key())
+                return false;
+            break;
+        case WJson::Nomenclature_id:
+            if (m_nomenclatureId != it.key())
+                return false;
+            break;
+        default:
             return false;
-        break;
-    case WJson::Container_sender_id:
-        if (m_containerSenderId != id)
-            return false;
-        break;
-    case WJson::Cell_receiver_id:
-        if (m_cellReceiverId != id)
-            return false;
-        break;
-    case WJson::Cell_sender_id:
-        if (m_cellSenderId != id)
-            return false;
-        break;
-    case WJson::Consignment_id:
-        if (m_consignmentId != id)
-            return false;
-        break;
-    case WJson::Quality_id:
-        if (m_qualityId != id)
-            return false;
-        break;
-    case WJson::Nomenclature_id:
-        if (m_nomenclatureId != id)
-            return false;
-        break;
-    default:
-        return false;
+        }
     }
     return true;
 }

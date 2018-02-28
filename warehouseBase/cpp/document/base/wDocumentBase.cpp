@@ -120,30 +120,36 @@ QStringList WDocumentBase::getCacheListByParameters(WEnum::LineType type, WJson:
     QStringList list;
 
     if (type == WEnum::LineActual or WEnum::LineAll)
-        for (auto it : actual){
-            bool isConcordia(true);
-            for (auto itMap = map.begin(); itMap != map.end() and isConcordia; ++itMap)
-                isConcordia = it->isConcordiaLineByParameter(static_cast <WJson::WJson_enum> (itMap.value().toInt()),
-                                                             itMap.key());
-            if (isConcordia)
+        for (auto it : actual)
+            if (it->isConcordiaLineByParameter(map))
                 list.push_back(it->getVariableByJsonKey(key));
-            }
 
     if (type == WEnum::LinePlan or WEnum::LineAll)
-        for (auto it : plan){
-            bool isConcordia(true);
-            for (auto itMap = map.begin(); itMap != map.end() and isConcordia; ++itMap)
-                isConcordia = it->isConcordiaLineByParameter(static_cast <WJson::WJson_enum> (itMap.value().toInt()),
-                                                             itMap.key());
-            if (isConcordia)
+        for (auto it : plan)
+            if (it->isConcordiaLineByParameter(map))
                 list.push_back(it->getVariableByJsonKey(key));
-            }
 
     list.removeDuplicates();
     list.removeOne(WStatic::guidNull());
     list.removeOne(WStatic::guidDefault());
 
     return list;
+}
+
+int WDocumentBase::getQuantity(WEnum::LineType type, QVariantMap map)
+{
+    int quantity(0);
+    if (type == WEnum::LineActual){
+        for (auto it : actual)
+            if (it->isConcordiaLineByParameter(map))
+                quantity += it->quantity();
+    }
+    else if (type == WEnum::LinePlan){
+        for (auto it : plan)
+            if (it->isConcordiaLineByParameter(map))
+                quantity += it->quantity();
+    }
+    return quantity;
 }
 
 void WDocumentBase::chooseLine(QString id)

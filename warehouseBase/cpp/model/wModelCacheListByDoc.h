@@ -1,5 +1,5 @@
-#ifndef WMODELCONTAINERLIST_H
-#define WMODELCONTAINERLIST_H
+#ifndef WMODELCACHELISTBYDOC_H
+#define WMODELCACHELISTBYDOC_H
 
 #include <QtCore/QObject>
 #include <QtCore/QAbstractListModel>
@@ -7,29 +7,31 @@
 #include "document/base/wDocumentBase.h"
 #include "cache/single/wContainerSingle.h"
 
-class WModelContainerList : public QAbstractListModel
+class WModelCacheListByDoc : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit WModelContainerList(WDocumentBase *document, QObject *parent = nullptr);
+    explicit WModelCacheListByDoc(WDocumentBase *document, WJson::WJson_enum jsonKey, QVariantMap map = QVariantMap(),
+                                  QObject *parent = nullptr);
 
     QHash <int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;
+    void setSort(WEnum::Sort sort);
 
 public slots:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     bool containsId(QString id);
     bool containsBarcode(QString barcode);
+    WDocumentBase* document();
 
 private:
     WDocumentBase *m_document;
     WEnum::Sort m_sort;
-    QStringList m_containerList;
+    WJson::WJson_enum m_jsonKey;
+    QVariantMap m_map;
+    QStringList m_list;
 
     void updateDocument();
-    void insertCache(QStringList list);
-    void updateCache(QStringList list);
-    void removeCache(QStringList list);
 };
 
-#endif // WMODELCONTAINERLIST_H
+#endif // WMODELCACHELISTBYDOC_H

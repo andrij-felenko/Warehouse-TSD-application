@@ -30,6 +30,7 @@ public:
 
     QStringList getCacheList(WJson::WJson_enum type);
     QStringList getCacheListByParameters(WEnum::LineType type, WJson::WJson_enum key, QVariantMap map = QVariantMap());
+    int getQuantity(WEnum::LineType type, QVariantMap map);
 
 public slots:
     void chooseLine(QString id);

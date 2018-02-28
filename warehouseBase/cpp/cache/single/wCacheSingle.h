@@ -30,6 +30,7 @@ public:
     QString id() const;
     QString name() const;
     QString barcode() const;
+    bool isEmpty() const;
 
     // RESET ---------------------------------------------------------------------------------------
     void resetBarcode();

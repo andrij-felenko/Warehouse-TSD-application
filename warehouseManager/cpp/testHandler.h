@@ -8,7 +8,7 @@
 void testVocabulary()
 {
     QJsonArray array;
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < 6; i++){
         QString id(WStatic::guidCreate());
         QJsonObject obj;
         WJson::insert(obj, WJson::Id, id);
