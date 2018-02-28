@@ -30,6 +30,11 @@ QString WMessagePrototype::setWarningMessage(QString text, WEnum::Priority prior
     return setMessage(text, WEnum::Msg_warning, priority);
 }
 
+QString WMessagePrototype::setInformationMessage(QString text)
+{
+    return setMessage(text, WEnum::Msg_progress, WEnum::Priority_low, 1500);
+}
+
 QString WMessagePrototype::setErrorMessage(QString text)
 {
     return setMessage(text, WEnum::Msg_error, WEnum::Priority_high);
@@ -90,6 +95,7 @@ void WMessagePrototype::setMessage(QString str, int msgType, int priority, int t
 void WMessagePrototype::removeMessage()
 {
     removeMessage(m_current->id());
+    qDebug() << "Msg last: " << m_list.length();
 }
 
 void WMessagePrototype::update()

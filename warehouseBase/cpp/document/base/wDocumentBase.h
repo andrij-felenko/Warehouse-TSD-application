@@ -28,6 +28,8 @@ public:
     void acceptedReserveContainer(WJsonTemplate* json, bool sender);
     void acceptedUnreserveContainer(WJsonTemplate* json, bool sender);
 
+    QStringList getCacheList(WJson::WJson_enum type);
+
 public slots:
     void chooseLine(QString id);
     bool chooseNextLine(QVariantMap map);
@@ -36,6 +38,7 @@ public slots:
     void removeLine(QObject* senderObj, QString funcName);
 
 signals:
+    void documentLineUpdate(WDocumentBase* document);
 
 protected:
     QList <WLineActual*> actual;

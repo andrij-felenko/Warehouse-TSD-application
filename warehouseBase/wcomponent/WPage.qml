@@ -7,7 +7,7 @@ WRectangle {
     property alias  content: item.children
     property alias    title: steppedText.title
     property alias subTitle: steppedText.subTitle
-    property alias titleItem: steppedText.titleItem
+    property alias    titleItem: steppedText.titleItem
     property alias subTitleItem: steppedText.subTitleItem
     property alias header: headerPage
     border.width: 0
@@ -15,7 +15,6 @@ WRectangle {
 
     signal back()
     signal menu()
-    signal setting()
 
     WItemIconBorder {
         id: headerPage
@@ -23,13 +22,11 @@ WRectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         height:  parent.height / 13
+        color: "#999999"
 
         iconLeftSource: backMode ? "arrow_left_89" : "menu_4"
         iconLeftVisible: true
-        iconRightSource: "settings_3"
-        iconRightVisible: true
 
-        onRightChoosed: /* emit */ page.setting()
         onLeftChoosed: page.backMode ? /* emit */ page.back() : /* emit */ page.menu()
 
         content: WTwoStepped {

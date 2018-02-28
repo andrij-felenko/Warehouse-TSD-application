@@ -24,13 +24,13 @@ void WServerPrototype::request(QString url, QString msg, QJsonValue json, WEnum:
     QString id_msg;
     switch (priority){
     case WEnum::Request_can_cache:
-        id_msg = WMessage::get().setMessage(msg, WEnum::Msg_progress, WEnum::Priority_middle);
-        break;
-    case WEnum::Request_just_info:
         id_msg = WMessage::get().setMessage(msg, WEnum::Msg_progress, WEnum::Priority_middle_bellow);
         break;
+    case WEnum::Request_just_info:
+        id_msg = WMessage::get().setInformationMessage(msg);
+        break;
     case WEnum::Request_must_server:
-        id_msg = WMessage::get().setMessage(msg, WEnum::Msg_progress, WEnum::Priority_middle_above);
+        id_msg = WMessage::get().setMessage(msg, WEnum::Msg_progress, WEnum::Priority_middle);
         break;
     default:;
     }
@@ -106,6 +106,7 @@ void WServerPrototype::handler(QNetworkReply *reply)
         return;
     }
 
+    qDebug() << "Return request from server: " << url << "\n" << json;
     m_serverHandler->sendRequest(WUrl::disunite(url), json);
     json->deleteLater();
 }

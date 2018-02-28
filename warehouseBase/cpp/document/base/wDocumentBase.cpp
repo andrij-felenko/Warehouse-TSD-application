@@ -30,6 +30,8 @@ void WDocumentBase::writeLines(QJsonValue value)
         plan.push_back(new WLinePlan(it.toObject(), this));
     for (auto it : WJson::get(obj, WJson::Actual).toArray())
         actual.push_back(new WLineActual(it.toObject(), this));
+
+    emit documentLineUpdate(this);
 }
 
 void WDocumentBase::acceptedUpdateLine(WJsonTemplate* json)
@@ -78,6 +80,39 @@ void WDocumentBase::acceptedUnreserveContainer(WJsonTemplate* json, bool sender)
         if ((not sender and it->containerReceiverId() == container)
                 or (sender and it->containerSenderId() == container))
             it->resetEmployeeId();
+}
+
+QStringList WDocumentBase::getCacheList(WJson::WJson_enum type)
+{
+    QStringList list;
+
+    for (auto it : actual)
+        switch (type){
+        case WJson::Cell_id:
+            list.push_back(it->cellReceiverId());
+            list.push_back(it->cellSenderId());
+            break;
+        case WJson::Consignment_id:
+            list.push_back(it->consignmentId());
+            break;
+        case WJson::Container_id:
+            list.push_back(it->containerReceiverId());
+            list.push_back(it->containerSenderId());
+            break;
+        case WJson::Nomenclature_id:
+            list.push_back(it->nomenclatureId());
+            break;
+        default:;
+        }
+
+    if (type == WJson::Cell_id)
+        list.append(cellIdList());
+
+    list.removeDuplicates();
+    list.removeOne(WStatic::guidDefault());
+    list.removeOne(WStatic::guidNull());
+
+    return list;
 }
 
 void WDocumentBase::chooseLine(QString id)

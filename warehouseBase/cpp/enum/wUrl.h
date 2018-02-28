@@ -54,10 +54,12 @@ public:
         Id,               ///< Идентификатор
         Image,            ///< Изображение
         Info,             ///< Информация
+        Model,            ///< ModelType - можель учета
         Nomenclature,     ///< Номенклатура
         Quality,          ///< Качество
         Storage,          ///< StorageUnit - Единица хранения
         Transit,          ///< Транзитный товар
+        Type,             ///< Тип
         Unit,             ///< Единица чего либо
 
         // error url
@@ -73,10 +75,12 @@ public:
     static WUrl_enum fromString(QString name, WEnum::Version version_ = version());
     static QString    toString(WUrl_enum key, WEnum::Version version_ = version());
 
+    static bool contains(WUrl_enum key);
+
     // non static method
     WUrl_enum p_fromString(QString name, WEnum::Version version_ = version());
     QString    p_toString(WUrl_enum key, WEnum::Version version_ = version());
-    bool contains(WUrl_enum key);
+    bool m_contains(WUrl_enum key);
 
 public slots:
     static QString toString(int key, WEnum::Version version_ = version());

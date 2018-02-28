@@ -8,7 +8,7 @@
 void testVocabulary()
 {
     QJsonArray array;
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < 3; i++){
         QString id(WStatic::guidCreate());
         QJsonObject obj;
         WJson::insert(obj, WJson::Id, id);
@@ -24,7 +24,7 @@ void testVocabulary()
 void testDocumentReceivingList()
 {
     QJsonArray array;
-    for (int i = 0; i < 20; i++){
+    for (int i = 0; i < 12; i++){
         WDocumentHeader header;
         header.setId(WStatic::guidCreate());
         header.setName("name:" + header.id().left(6));

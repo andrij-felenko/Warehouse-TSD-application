@@ -12,16 +12,16 @@ StackView {
     WDocumentList {
         id: receivingDocumentList
         backMode: true
-        parentItem: receivingStack.parentItem
         subTitle: "список документов"
         title: "Приемка"
         model: WModel.getModel("ReceivingDocumentList")
+        header.onRight2Choosed: WDocList.requestDocumentList(WUrl.Receiving)
 
         onBack: {
             Model.documentList(WUrl.Receiving, false)
             mainStack.pop()
         }
-        onSetting: mainPage.currentIndex = 1
+        header.onRightChoosed: mainPage.currentIndex = 1
     }
 }
 

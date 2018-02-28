@@ -31,7 +31,9 @@ public:
     WCacheListTemplate(const QDir &dir, QString name, QObject *parent = nullptr)
         : WCacheListObject(parent),
           m_local_dir(dir),
-          m_local_file_name(name){
+          m_local_file_name(name),
+          m_dateTime(WStatic::dateTimeNull())
+    {
         readLocalCache();
     }
 
@@ -40,6 +42,9 @@ public:
 
     /*! \brief Возвращает количество элементов в списке */
     virtual int count() const final { return m_list.count(); }
+
+    /*! \brief Время последнего обновления кэша */
+    virtual QDateTime dateTime() final { return m_dateTime; }
 
     /*!
      * \brief Возвращает один елемент со списка.

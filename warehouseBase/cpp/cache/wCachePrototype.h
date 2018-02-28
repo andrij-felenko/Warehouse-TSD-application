@@ -3,6 +3,7 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QObject>
+#include <QtCore/QTimer>
 #include <QtQml/QQmlEngine>
 
 #include "single/wCacheSingle.h"
@@ -13,6 +14,7 @@
 #include "single/wNomenclatureSingle.h"
 #include "single/wQualitySingle.h"
 #include "template/wCacheListTemplate.h"
+#include "enum/wUrl.h"
 
 ///< Общий клас для управления всем кэшем.
 class WCachePrototype : public QObject
@@ -30,8 +32,6 @@ class WCachePrototype : public QObject
 public:
     explicit WCachePrototype(QObject *parent = nullptr);
 
-    void registerType();
-
     WCacheListTemplate <WCellSingle>*         cell()         const { return m_cell; }
     WCacheListTemplate <WConsignmentSingle>*  consignment()  const { return m_consignment; }
     WCacheListTemplate <WContainerSingle>*    container()    const { return m_container; }
@@ -41,9 +41,17 @@ public:
     WCacheListTemplate <WQualitySingle>*      quality()      const { return m_quality; }
     WCacheListTemplate <WCacheSingle>*        storage_type() const { return m_storage_type; }
 
+    void pushCacheToQueque(WUrl::WUrl_enum key, QStringList list);
+
 private:
     inline void createLocalDir();
-    QDir local_dir; ///< Директория для хранения кэша.
+    inline void updateCacheByKey(WUrl::WUrl_enum key);
+    void updateCache();
+    void updateAllCache();
+    QDir m_local_dir; ///< Директория для хранения кэша.
+    QTimer *m_allCacheTimer;  ///< Таймер автоматического обновления кэша.
+    QTimer *m_quequeTimer;
+    QHash <WUrl::WUrl_enum, QString> m_cacheUpdateList;
 
     WCacheListTemplate <WCellSingle>* m_cell;
     WCacheListTemplate <WConsignmentSingle>* m_consignment;

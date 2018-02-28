@@ -1,4 +1,6 @@
 #include "wDocumentPrototype.h"
+#include "wSingleton.h"
+#include "server/wRequestGenerate.h"
 
 WDocumentPrototype::WDocumentPrototype(QObject *parent) : QObject(parent)
 {
@@ -7,7 +9,6 @@ WDocumentPrototype::WDocumentPrototype(QObject *parent) : QObject(parent)
 
 void WDocumentPrototype::updateDocumentList(WJsonTemplate* json, WUrl::WUrl_enum key)
 {
-    qDebug() << WUrl::toString(key) << key << m_list.count();
     int i(0);
     QJsonArray array(json->json().toArray());
     for (auto it : m_list){
@@ -17,6 +18,7 @@ void WDocumentPrototype::updateDocumentList(WJsonTemplate* json, WUrl::WUrl_enum
                 if (WJson::contains(subIt, WJson::Id))
                     if (it.document->id() == WJson::get(subIt, WJson::Id).toString()){
                         it.document->writeHeader(subIt);
+                        updateDocumentVocabulary(it.document);
                         isFound = true;
                         break;
                     }
@@ -33,9 +35,12 @@ void WDocumentPrototype::updateDocumentList(WJsonTemplate* json, WUrl::WUrl_enum
             if (not containsId(key, WJson::get(it, WJson::Id).toString())){
                 auto document = new WDocumentBase(key, this);
                 document->writeHeader(it);
+                updateDocumentVocabulary(document);
                 m_list.push_back(DocItem { key, document });
+                QObject::connect(document, &WDocumentBase::documentLineUpdate,
+                                 this, &WDocumentPrototype::updateDocumentVocabulary);
             }
-    qDebug() << WUrl::toString(key) << key << m_list.count();
+
     emit documentListUpdate(key);
 }
 
@@ -79,4 +84,23 @@ bool WDocumentPrototype::containsId(WUrl::WUrl_enum key, QString id) const
             if (it.document->id() == id)
                 return true;
     return false;
+}
+
+void WDocumentPrototype::requestDocumentList(int key)
+{
+    WUrl::WUrl_enum urlKey = static_cast <WUrl::WUrl_enum> (key);
+    if (not WUrl::contains(urlKey)){
+        WMessage::get().setErrorMessage(QObject::tr("Не удалось найти ключ в списке url: ") + QString::number(key));
+        return;
+    }
+    WServer::get().request(WUrl::compareUrl({ WUrl::Get, urlKey, WUrl::Document, WUrl::List }),
+                           QObject::tr("Запрос списка документов."), WRequestGenerate::empty());
+}
+
+void WDocumentPrototype::updateDocumentVocabulary(WDocumentBase* document)
+{
+    WCache::get().pushCacheToQueque(WUrl::Cell,         document->getCacheList(WJson::Cell_id));
+    WCache::get().pushCacheToQueque(WUrl::Consignment,  document->getCacheList(WJson::Consignment_id));
+    WCache::get().pushCacheToQueque(WUrl::Container,    document->getCacheList(WJson::Container_id));
+    WCache::get().pushCacheToQueque(WUrl::Nomenclature, document->getCacheList(WJson::Nomenclature_id));
 }

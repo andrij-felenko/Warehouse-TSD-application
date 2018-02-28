@@ -10,11 +10,11 @@ StackView {
         id: auth
         onAuthorization: if (WUser.tryAuthorization(password))
                              mainStack.push(menu)
-        onSetting: mainPage.currentIndex = 1
+        header.onRightChoosed: mainPage.currentIndex = 1
     }
 
     Component {
         id: menu
-        MenuWindow { parentItem: mainStack }
+        MenuWindow {  }
     }
 }

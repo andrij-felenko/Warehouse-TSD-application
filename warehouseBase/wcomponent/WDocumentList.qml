@@ -7,8 +7,17 @@ import WEnum 1.0
 
 WPage {
     id: documentList
+    header.iconRight2Visible: true
+    header.iconRight2Source: "sinchronize"
+    header.iconRightVisible: true
+    header.iconRightSource: "settings_3"
 
     property alias model: documentListView.model
+    property alias addDocumentMode: addDocumentItem.visible
+
+    signal openSetting()
+
+    header.onRightChoosed: /* emit */ documentList.openSetting()
 
     content: WRectangle {
         id: rectChooseDocumentList
@@ -27,6 +36,15 @@ WPage {
                 width: parent.width
                 heightItem: documentList.height / 18
             }
+        }
+
+        WCircleIcon {
+            id: addDocumentItem
+            border.color: "#003319"
+            visible: false
+            color: "#FFFFFF"
+            iconSource: "plus_8"
+            opacity: 0.8
         }
     }
 }

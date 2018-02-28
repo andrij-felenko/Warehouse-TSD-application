@@ -2,6 +2,7 @@
 #define WWJSON_H
 
 #include <QtCore/QJsonObject>
+#include <QtCore/QJsonArray>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 
@@ -177,6 +178,7 @@ public:
     static QJsonValue get(const QJsonValue& value, WJson_enum key, WEnum::Version version_ = version());
     static bool  contains(const QJsonObject& obj,  WJson_enum key, WEnum::Version version_ = version());
     static bool  contains(const QJsonValue& value, WJson_enum key, WEnum::Version version_ = version());
+    static QJsonArray fromStringList(QStringList list);
 
 public slots:
     static QString toString(int key, int version_ = version());

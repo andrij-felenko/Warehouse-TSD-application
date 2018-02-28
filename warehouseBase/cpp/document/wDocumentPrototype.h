@@ -21,6 +21,9 @@ public:
     virtual int getDocumentLengthByKey(WUrl::WUrl_enum key) const final;
     virtual bool containsId(WUrl::WUrl_enum key, QString id) const final;
 
+public slots:
+    void requestDocumentList(int key);
+
 signals:
     void documentListUpdate(WUrl::WUrl_enum key);
 
@@ -32,6 +35,8 @@ private:
 
     WDocumentBase* m_empty;
     QList <DocItem> m_list;
+
+    void updateDocumentVocabulary(WDocumentBase* document);
 };
 
 #endif // DOCUMENTMANAGER_H

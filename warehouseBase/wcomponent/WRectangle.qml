@@ -3,21 +3,23 @@ import QtQuick 2.9
 Rectangle {
     id: rectangle
 
+    property alias wborder: _wborder
     property alias clickInterval: timer.interval
     property bool clickMode: false
     property bool clickVisible: true
-    property var parentItem: parent
 
-    anchors.topMargin:    anchors.top    === parentItem.top    ? parentItem.border.width : 0
-    anchors.leftMargin:   anchors.left   === parentItem.left   ? parentItem.border.width : 0
-    anchors.rightMargin:  anchors.right  === parentItem.right  ? parentItem.border.width : 0
-    anchors.bottomMargin: anchors.bottom === parentItem.bottom ? parentItem.border.width : 0
+    anchors.topMargin: _wborder.btop ? _wborder.sizeV : 0
+    anchors.leftMargin: _wborder.bleft ? _wborder.sizeH : 0
+    anchors.rightMargin: _wborder.bright ? _wborder.sizeH : 0
+    anchors.bottomMargin: _wborder.bbottom ? _wborder.sizeV : 0
 
     signal open()
     signal hide()
     signal clicked()
 
     onVisibleChanged: visible ? /* emit */ open() : /* enum */ hide()
+
+    WBorder { id: _wborder }
 
     MouseArea {
         id: mouseArea

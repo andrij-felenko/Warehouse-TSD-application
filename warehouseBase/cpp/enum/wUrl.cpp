@@ -43,8 +43,13 @@ WUrl::WUrl(QObject *parent) : QObject(parent)
     m_list.push_back({ Id,           "Id",           WEnum::Version_1_0 });
     m_list.push_back({ Image,        "Image",        WEnum::Version_1_0 });
     m_list.push_back({ Info,         "Info",         WEnum::Version_1_0 });
+    m_list.push_back({ Model,        "Model",        WEnum::Version_1_0 });
     m_list.push_back({ Nomenclature, "Nomenclature", WEnum::Version_1_0 });
+    m_list.push_back({ Quality,      "Quality",      WEnum::Version_1_0 });
+    m_list.push_back({ Storage,      "Storage",      WEnum::Version_1_0 });
     m_list.push_back({ Transit,      "Transit",      WEnum::Version_1_0 });
+    m_list.push_back({ Type,         "Type",         WEnum::Version_1_0 });
+    m_list.push_back({ Unit,         "Unit",         WEnum::Version_1_0 });
 }
 
 WUrl::WUrl_enum WUrl::fromInt(int key)
@@ -109,6 +114,11 @@ QString WUrl::p_toString(WUrl::WUrl_enum key, WEnum::Version version_)
 }
 
 bool WUrl::contains(WUrl::WUrl_enum key)
+{
+    return _wurl.m_contains(key);
+}
+
+bool WUrl::m_contains(WUrl::WUrl_enum key)
 {
     for (auto it : m_list)
         if (it.key == key)

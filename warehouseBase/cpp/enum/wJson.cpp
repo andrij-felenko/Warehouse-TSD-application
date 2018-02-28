@@ -223,6 +223,14 @@ bool WJson::contains(const QJsonValue& value, WJson_enum key, WEnum::Version ver
     return WJson::contains(value.toObject(), key, version_);
 }
 
+QJsonArray WJson::fromStringList(QStringList list)
+{
+    QJsonArray array;
+    for (auto it : list)
+        array.push_back(it);
+    return array;
+}
+
 bool WJson::insert(QJsonObject& obj, WJson_enum key, const QJsonValue& value_insert,
                   WEnum::Version version_)
 {

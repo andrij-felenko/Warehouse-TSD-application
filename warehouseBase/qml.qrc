@@ -14,5 +14,9 @@
         <file>wcomponent/WAdditionalWindow.qml</file>
         <file>wcomponent/WDocumentHeader.qml</file>
         <file>wcomponent/WDocumentList.qml</file>
+        <file>wcomponent/WEmployeeList.qml</file>
+        <file>wcomponent/WMsg.qml</file>
+        <file>wcomponent/WBorder.qml</file>
+        <file>wcomponent/WCircleIcon.qml</file>
     </qresource>
 </RCC>

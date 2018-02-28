@@ -11,6 +11,7 @@ WItemIconBorder {
     content: TextInput {
         id: textInput_
         anchors.fill: parent
+        anchors.leftMargin: height / 6
         font.pixelSize: height * 0.4
         verticalAlignment: Text.AlignVCenter
         clip: true

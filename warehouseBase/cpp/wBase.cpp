@@ -9,6 +9,7 @@
 WBase::WBase(QObject* parent) : QObject(parent)
 {
     m_view = new WView;
+    WSetting ::instance(this);
 
     qmlRegisterType <WEnum> ("WEnum", 1, 0, "WEnum");
     qmlRegisterType <WJson> ("WJson", 1, 0, "WJson");
@@ -16,6 +17,7 @@ WBase::WBase(QObject* parent) : QObject(parent)
 
     qmlRegisterType <WDocumentBase>   ("WDocument", 1, 0, "WDocument");
     qmlRegisterType <WDocumentHeader> ("WDocument", 1, 0, "WHeader");
+    qmlRegisterType <WDocumentPrototype> ("WDocument", 1, 0, "WDocumentList");
 
     qmlRegisterType <WLineActual> ("WLine", 1, 0, "WLineActual");
     qmlRegisterType <WLinePlan>   ("WLine", 1, 0, "WLinePlan");
@@ -37,17 +39,17 @@ void WBase::registrateApp(QString version, QString appName, QString orgName, QSt
 void WBase::registrateTypes()
 {
     QQmlContext* root = m_view->rootContext();
-    root->setContextProperty("WApp",    this);
+    root->setContextProperty("WApp",     this);
     root->setContextProperty("WCache",   WCache::registrate());
+    root->setContextProperty("WDocList", WDocument::registrate());
     root->setContextProperty("WModel",   WModel::registrate());
     root->setContextProperty("WServer",  WServer::registrate());
     root->setContextProperty("WSetting", WSetting::registrate());
-    root->setContextProperty("WMsg",     WMessage::registrate());
+    root->setContextProperty("WMessage", WMessage::registrate());
     root->setContextProperty("WUser",    WUser::registrate());
     root->setContextProperty("WStatic",  new WStatic(this));
 
 //    qmlRegisterType <MessageSingle> ("MsgSingle", 0, 1, "MsgSingle");
-    WCache  ::get().registerType();
     WSetting::get().registerType();
 }
 
@@ -64,12 +66,11 @@ QGuiApplication* WBase::app()
 
 void WBase::init()
 {
-    WSetting ::instance(this);
     WMessage ::instance(this);
     WServer  ::instance(this);
     WCache   ::instance(this);
-    WDocument::instance(this);
     WUser    ::instance(this);
+    WDocument::instance(this);
     WModel   ::instance(m_view);
 }
 

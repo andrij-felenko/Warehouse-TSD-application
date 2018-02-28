@@ -1,14 +1,15 @@
 import QtQuick 2.9
 import "qrc:/wcomponent"
 import WUrl 1.0
+import WDocument 1.0
 
 WPage {
     title: "Меню"
     backMode: true
     header.iconLeftSource: "account_logout"
 
-    onBack:    mainStack.pop()
-    onSetting: mainPage.currentIndex = 1
+    onBack: mainStack.pop()
+    header.onRightChoosed: mainPage.currentIndex = 1
 
     content: WItem {
         anchors.fill: parent
@@ -24,6 +25,7 @@ WPage {
             text: "Приемка"
             clickMode: true
             onClicked: {
+                WDocList.requestDocumentList(WUrl.Receiving)
                 Model.documentList(WUrl.Receiving, true)
                 mainStack.push(receivingComponent)
             }
@@ -70,22 +72,22 @@ WPage {
 
         Component {
             id: allottedComponent // приемка
-            Allotted { parentItem: mainStack }
+            Allotted {  }
         }
 
         Component {
             id: pickingComponent // перемещение
-            Picking { parentItem: mainStack }
+            Picking {  }
         }
 
         Component {
             id: purchaseComponent // отгрузка
-            Purchase { parentItem: mainStack }
+            Purchase {  }
         }
 
         Component {
             id: receivingComponent // приемка
-            Receiving { parentItem: mainStack }
+            Receiving {  }
         }
     }
 }

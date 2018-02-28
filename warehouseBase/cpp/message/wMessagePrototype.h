@@ -17,6 +17,7 @@ public:
     QString setMessage(QString text, WEnum::Msg_type msgType,
                        WEnum::Priority priority, int time_ms = 0);
     QString setWarningMessage(QString text, WEnum::Priority priority);
+    QString setInformationMessage(QString text);
     bool removeMessage(QString msg_id_text);
     void setShowingPriority(int priority);    
 

@@ -6,8 +6,10 @@ WPage {
     id: auth
     header.iconLeftSource: "power_4"
     header.onLeftChoosed: WApp.quit()
+    header.iconRightVisible: true
+    header.iconRightSource: "settings_3"
     titleItem.textItem.horizontalAlignment: Text.AlignHCenter
-    title: "Авторизация"
+    title: qsTr("Авторизация")
 
     signal authorization(string password)
 
@@ -64,7 +66,8 @@ WPage {
             iconRightSource: "" // textInputAuth.visible ? "text" : "list"
             iconRightVisible: false // true
             onRightChoosed: textInputAuth.visible = ! textInputAuth.visible
-            contentBorder: textInputAuth.visible ? contentBorderDefault : 0
+//            wborder.sizeH: textInputAuth.visible ? contentBorderDefault : 0
+//            wborder.sizeV: wborder.sizeH
 
             content: [
                 TextInput {
@@ -92,8 +95,12 @@ WPage {
                 }
             ]
 
-            EmployeeList {
+            Component {
                 id: comboBoxListComponent
+
+                WEmployeeList {
+                    id: additionalEmployeeList
+                }
             }
         }
 
@@ -142,7 +149,7 @@ WPage {
             height: parent.height / 18
             color: "#ffffff"
             wrapMode: Text.WrapAnywhere
-            text: WApp.appName + " v. " + WApp.version + "\nWHLib v. 1.0"
+            text: WApp.appName + " v. " + WApp.version + "\n" + "WHLib v. 1.0"
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 8
         }
@@ -157,7 +164,7 @@ WPage {
 
             color: "#ffffff"
             wrapMode: Text.WrapAnywhere
-            text: "\n© Andrij Felenko"
+            text: "\n© " + qsTr("Andrij Felenko")
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
             font.pointSize: 6

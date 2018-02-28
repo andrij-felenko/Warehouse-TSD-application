@@ -7,13 +7,9 @@ WSettingServer::WSettingServer(QObject *parent) : QObject(parent), settings()
 
     if (settings.contains("defaultName"))
         m_defaultName = settings.value("defaultName").toString();
-    else
-        resetDefaultName();
 
     if (settings.contains("defaultPassword"))
         m_defaultPassword = settings.value("defaultPassword").toString();
-    else
-        resetDefaultPassword();
 
     if (settings.contains("defaultDateFormat"))
         m_defaultDateFormat = settings.value("defaultDateFormat").toString();
@@ -42,13 +38,9 @@ WSettingServer::WSettingServer(QObject *parent) : QObject(parent), settings()
 
     if (settings.contains("defaultWorkingDomain"))
         m_defaultWorkingDomain  = settings.value("defaultWorkingDomain").toString();
-    else
-        resetDefaultWorkingDomain();
 
     if (settings.contains("defaultTestingDomain"))
         m_defaultTestingDomain  = settings.value("defaultTestingDomain").toString();
-    else
-        resetDefaultTestingDomain();
 
     m_domain     = settings.value("domain",     defaultWorkingDomain()).toString();
     m_name       = settings.value("name",       defaultName()).toString();
@@ -61,20 +53,18 @@ WSettingServer::WSettingServer(QObject *parent) : QObject(parent), settings()
     m_workingDomain   = settings.value("workingDomain",   defaultWorkingDomain()).toString();
     m_testingDomain   = settings.value("testingDomain",   defaultTestingDomain()).toString();
     settings.endGroup();
+
+    setDomain(testingDomain());
 }
 
 void WSettingServer::resetAll()
 {
     resetDateFormat();
     resetDefaultDateFormat();
-    resetDefaultName();
     resetDefaultOfflineTimeout();
     resetDefaultOnlineTimeout();
-    resetDefaultPassword();
     resetDefaultRequestTimeout();
-    resetDefaultTestingDomain();
     resetDefaultUpdatePriority();
-    resetDefaultWorkingDomain();
     resetDomain();
     resetName();
     resetOfflineTimeout();

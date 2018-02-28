@@ -4,6 +4,6 @@ import "qrc:/wcomponent"
 WPage {
     backMode: true
     onBack: mainStack.pop()
-    onSetting: mainPage.currentIndex = 1
+    header.onRightChoosed: mainPage.currentIndex = 1
     title: "Отбор"
 }

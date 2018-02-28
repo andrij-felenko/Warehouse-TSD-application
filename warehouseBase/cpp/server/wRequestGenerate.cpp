@@ -21,6 +21,9 @@ QJsonValue WRequestGenerate::empty()
 
 QJsonValue WRequestGenerate::date(QDateTime dateTime)
 {
+    qDebug() << dateTime.toString(WSetting::get().server()->dateFormat())
+             << dateTime
+             << WSetting::get().server()->dateFormat();
     return WJson::createValue(WJson::Date_time,
                               dateTime.toString(WSetting::get().server()->dateFormat()));
 }

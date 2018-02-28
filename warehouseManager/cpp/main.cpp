@@ -9,19 +9,23 @@ int main(int argc, char** argv)
     QGuiApplication app(argc, argv);
 
     WBase* module = new WBase(&app);
-    module->registrateApp("0.2", "Warehouse Manager", "WHTech", "http://wh-tech.com.ua");
+    module->registrateApp("0.2", "Lefromazh warehouse manager", "Lefromazh", "http://wh-tech.com.ua");
+    WSetting::get().server()->setDefaultWorkingDomain("");
+    WSetting::get().server()->setDefaultTestingDomain("http://138.201.225.55/leformazh/hs/tcd-http/");
+    WSetting::get().server()->setDefaultName("Admin");
+    WSetting::get().server()->setDefaultPassword("WMS#2016");
+
     module->init();
     module->registrateTypes();
     module->setContextProperty("Model", new Model(module));
-    WMessage::get().setShowingPriority(WEnum::Priority_high | WEnum::Priority_middle_above);
+    WMessage::get().setShowingPriority(WEnum::Priority_high);
 
-
-    qmlRegisterType <WUrl> ("WUrl", 1, 0, "WUrl");
     module->loadQML(QUrl("qrc:/qml/qml/main.qml"));
     module->start();
 
     // tests json sender from sender
-//    testVocabulary();
+    if (WCache::get().employee()->length() == 0)
+        testVocabulary();
     testDocumentReceivingList();
 
     return app.exec();

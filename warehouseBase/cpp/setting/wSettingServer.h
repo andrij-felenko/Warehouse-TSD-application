@@ -39,17 +39,14 @@ class WSettingServer : public QObject
     Q_PROPERTY(QString testingDomain READ       testingDomain WRITE setTestingDomain
                                      RESET resetTestingDomain NOTIFY   testingDomainChanged)
 
-    Q_PROPERTY(QString defaultWorkingDomain READ       defaultWorkingDomain WRITE setDefaultWorkingDomain
-                                            RESET resetDefaultWorkingDomain NOTIFY   defaultWorkingDomainChanged)
+    Q_PROPERTY(QString defaultWorkingDomain READ defaultWorkingDomain WRITE setDefaultWorkingDomain
+                                                                      NOTIFY   defaultWorkingDomainChanged)
 
-    Q_PROPERTY(QString defaultTestingDomain READ       defaultTestingDomain WRITE setDefaultTestingDomain
-                                            RESET resetDefaultTestingDomain NOTIFY   defaultTestingDomainChanged)
+    Q_PROPERTY(QString defaultTestingDomain READ defaultTestingDomain WRITE setDefaultTestingDomain
+                                                                      NOTIFY   defaultTestingDomainChanged)
 
-    Q_PROPERTY(QString defaultName READ       defaultName WRITE setDefaultName
-                                   RESET resetDefaultName NOTIFY   defaultNameChanged)
-
-    Q_PROPERTY(QString defaultPassword READ       defaultPassword WRITE setDefaultPassword
-                                       RESET resetDefaultPassword NOTIFY   defaultPasswordChanged)
+    Q_PROPERTY(QString defaultName READ defaultName WRITE setDefaultName NOTIFY defaultNameChanged)
+    Q_PROPERTY(QString defaultPassword READ defaultPassword WRITE setDefaultPassword NOTIFY defaultPasswordChanged)
 
     Q_PROPERTY(QString defaultDateFormat READ       defaultDateFormat WRITE setDefaultDateFormat
                                          RESET resetDefaultDateFormat NOTIFY   defaultDateFormatChanged)
@@ -103,10 +100,6 @@ public:
     void resetWorkingDomain()  { setWorkingDomain(defaultWorkingDomain()); }
     void resetTestingDomain()  { setTestingDomain(defaultTestingDomain()); }
 
-    void resetDefaultWorkingDomain()  { setDefaultWorkingDomain("https://wms.eridon.ua:7443/wms/hs/tcd-http/"); }
-    void resetDefaultTestingDomain()  { setDefaultTestingDomain("http://138.201.225.55/eridon/hs/tcd-http/"); }
-    void resetDefaultName()           { setDefaultName         ("Admin"); }
-    void resetDefaultPassword()       { setDefaultPassword     ("WMS#2016"); }
     void resetDefaultDateFormat()     { setDefaultDateFormat   ("yyyyMMddhhmmss"); }
     void resetDefaultOnlineTimeout()  { setDefaultOnlineTimeout (30); }
     void resetDefaultOfflineTimeout() { setDefaultOfflineTimeout(30); }

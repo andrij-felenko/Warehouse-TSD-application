@@ -24,8 +24,7 @@ Item {
         z: 1
     }
 
-    Msg {
-        id: msg
+    WMsg {
         anchors.fill: parent
         z: 2
     }
