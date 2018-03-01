@@ -3,54 +3,60 @@
 
 WServerHandler::WServerHandler(QObject *parent) : WHandlerTemplate(parent)
 {
-    registrateUrl({ WUrl::Get, WUrl::Employee, WUrl::By, WUrl::Id });
-    registrateUrl({ WUrl::Get, WUrl::Employee, WUrl::List });
+    registrateUrl({ WUrl::Get, WUrl::Employee, WUrl::By, WUrl::Id }, WEnum::Request_must_server);
+    registrateUrl({ WUrl::Get, WUrl::Employee, WUrl::List },         WEnum::Request_must_server);
 
-    registrateUrl({ WUrl::Get,    WUrl::Cell, WUrl::By, WUrl::Id });
-    registrateUrl({ WUrl::Get,    WUrl::Cell, WUrl::By, WUrl::Barcode });
-    registrateUrl({ WUrl::Update, WUrl::Cell, WUrl::Cache });
+    registrateUrl({ WUrl::Get,    WUrl::Cell, WUrl::By, WUrl::Id },      WEnum::Request_can_ignore);
+    registrateUrl({ WUrl::Get,    WUrl::Cell, WUrl::By, WUrl::Barcode }, WEnum::Request_must_server);
+    registrateUrl({ WUrl::Update, WUrl::Cell, WUrl::Cache },             WEnum::Request_can_ignore);
 
-    registrateUrl({ WUrl::Get,    WUrl::Container, WUrl::By, WUrl::Barcode });
-    registrateUrl({ WUrl::Get,    WUrl::Container, WUrl::By, WUrl::Id });
-    registrateUrl({ WUrl::Update, WUrl::Container, WUrl::Cache });
+    registrateUrl({ WUrl::Get,    WUrl::Container, WUrl::By, WUrl::Barcode }, WEnum::Request_must_server);
+    registrateUrl({ WUrl::Get,    WUrl::Container, WUrl::By, WUrl::Id },      WEnum::Request_can_ignore);
+    registrateUrl({ WUrl::Update, WUrl::Container, WUrl::Cache },             WEnum::Request_can_ignore);
 
-    registrateUrl({ WUrl::Get, WUrl::Nomenclature, WUrl::By, WUrl::Id });
-    registrateUrl({ WUrl::Update, WUrl::Nomenclature, WUrl::Cache });
+    registrateUrl({ WUrl::Get,    WUrl::Nomenclature, WUrl::By, WUrl::Id }, WEnum::Request_can_ignore);
+    registrateUrl({ WUrl::Update, WUrl::Nomenclature, WUrl::Cache },        WEnum::Request_can_ignore);
 
-    registrateUrl({ WUrl::Get,    WUrl::Consignment, WUrl::By, WUrl::Nomenclature });
-    registrateUrl({ WUrl::Get,    WUrl::Consignment, WUrl::By, WUrl::Id });
-    registrateUrl({ WUrl::Update, WUrl::Consignment, WUrl::Cache });
+    registrateUrl({ WUrl::Get,    WUrl::Supplier, WUrl::By, WUrl::Id }, WEnum::Request_can_ignore);
+    registrateUrl({ WUrl::Update, WUrl::Supplier, WUrl::Cache },        WEnum::Request_can_ignore);
 
-    registrateUrl({ WUrl::Get, WUrl::Quality, WUrl::List });
-    registrateUrl({ WUrl::Get, WUrl::Storage, WUrl::Unit, WUrl::List });
+    registrateUrl({ WUrl::Get,    WUrl::Warehouse, WUrl::By, WUrl::Id }, WEnum::Request_can_ignore);
+    registrateUrl({ WUrl::Update, WUrl::Warehouse, WUrl::Cache },        WEnum::Request_can_ignore);
 
-    registrateUrl({ WUrl::Reserve,   WUrl::Container });
-    registrateUrl({ WUrl::Unreserve, WUrl::Container });
+    registrateUrl({ WUrl::Get,    WUrl::Consignment, WUrl::By, WUrl::Nomenclature }, WEnum::Request_can_ignore);
+    registrateUrl({ WUrl::Get,    WUrl::Consignment, WUrl::By, WUrl::Id },           WEnum::Request_can_ignore);
+    registrateUrl({ WUrl::Update, WUrl::Consignment, WUrl::Cache },                  WEnum::Request_can_ignore);
 
-    registrateUrl({ WUrl::Set, WUrl::Allotted,  WUrl::Line });
-    registrateUrl({ WUrl::Set, WUrl::Picking,   WUrl::Line });
-    registrateUrl({ WUrl::Set, WUrl::Purchase,  WUrl::Line });
-    registrateUrl({ WUrl::Set, WUrl::Receiving, WUrl::Line });
+    registrateUrl({ WUrl::Get, WUrl::Quality, WUrl::List },             WEnum::Request_can_ignore);
+    registrateUrl({ WUrl::Get, WUrl::Storage, WUrl::Unit, WUrl::List }, WEnum::Request_can_ignore);
 
-    registrateUrl({ WUrl::Update, WUrl::Allotted,  WUrl::Line });
-    registrateUrl({ WUrl::Update, WUrl::Picking,   WUrl::Line });
-    registrateUrl({ WUrl::Update, WUrl::Purchase,  WUrl::Line });
-    registrateUrl({ WUrl::Update, WUrl::Receiving, WUrl::Line });
+    registrateUrl({ WUrl::Reserve,   WUrl::Container }, WEnum::Request_must_server);
+    registrateUrl({ WUrl::Unreserve, WUrl::Container }, WEnum::Request_must_server);
 
-    registrateUrl({ WUrl::Remove, WUrl::Allotted,  WUrl::Line });
-    registrateUrl({ WUrl::Remove, WUrl::Picking,   WUrl::Line });
-    registrateUrl({ WUrl::Remove, WUrl::Purchase,  WUrl::Line });
-    registrateUrl({ WUrl::Remove, WUrl::Receiving, WUrl::Line });
+    registrateUrl({ WUrl::Set, WUrl::Allotted,  WUrl::Line }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Set, WUrl::Picking,   WUrl::Line }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Set, WUrl::Purchase,  WUrl::Line }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Set, WUrl::Receiving, WUrl::Line }, WEnum::Request_can_cache);
 
-    registrateUrl({ WUrl::Get, WUrl::Allotted,  WUrl::Document });
-    registrateUrl({ WUrl::Get, WUrl::Picking,   WUrl::Document });
-    registrateUrl({ WUrl::Get, WUrl::Purchase,  WUrl::Document });
-    registrateUrl({ WUrl::Get, WUrl::Receiving, WUrl::Document });
+    registrateUrl({ WUrl::Update, WUrl::Allotted,  WUrl::Line }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Update, WUrl::Picking,   WUrl::Line }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Update, WUrl::Purchase,  WUrl::Line }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Update, WUrl::Receiving, WUrl::Line }, WEnum::Request_can_cache);
 
-    registrateUrl({ WUrl::Get, WUrl::Allotted,  WUrl::Document, WUrl::List });
-    registrateUrl({ WUrl::Get, WUrl::Picking,   WUrl::Document, WUrl::List });
-    registrateUrl({ WUrl::Get, WUrl::Purchase,  WUrl::Document, WUrl::List });
-    registrateUrl({ WUrl::Get, WUrl::Receiving, WUrl::Document, WUrl::List });
+    registrateUrl({ WUrl::Remove, WUrl::Allotted,  WUrl::Line }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Remove, WUrl::Picking,   WUrl::Line }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Remove, WUrl::Purchase,  WUrl::Line }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Remove, WUrl::Receiving, WUrl::Line }, WEnum::Request_can_cache);
+
+    registrateUrl({ WUrl::Get, WUrl::Allotted,  WUrl::Document }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Get, WUrl::Picking,   WUrl::Document }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Get, WUrl::Purchase,  WUrl::Document }, WEnum::Request_can_cache);
+    registrateUrl({ WUrl::Get, WUrl::Receiving, WUrl::Document }, WEnum::Request_can_cache);
+
+    registrateUrl({ WUrl::Get, WUrl::Allotted,  WUrl::Document, WUrl::List }, WEnum::Request_must_server);
+    registrateUrl({ WUrl::Get, WUrl::Picking,   WUrl::Document, WUrl::List }, WEnum::Request_must_server);
+    registrateUrl({ WUrl::Get, WUrl::Purchase,  WUrl::Document, WUrl::List }, WEnum::Request_must_server);
+    registrateUrl({ WUrl::Get, WUrl::Receiving, WUrl::Document, WUrl::List }, WEnum::Request_must_server);
 }
 
 bool WServerHandler::handler(QList<WUrl::WUrl_enum> url, WJsonTemplate* json)
@@ -92,6 +98,14 @@ bool WServerHandler::handler(QList<WUrl::WUrl_enum> url, WJsonTemplate* json)
     else if (   WUrl::isEqual(url, { WUrl::Get,    WUrl::Nomenclature, WUrl::By, WUrl::Id })
              or WUrl::isEqual(url, { WUrl::Update, WUrl::Nomenclature, WUrl::Cache }))
         getNomenclature(json);
+
+    else if (   WUrl::isEqual(url, { WUrl::Get,    WUrl::Supplier, WUrl::By, WUrl::Id })
+             or WUrl::isEqual(url, { WUrl::Update, WUrl::Supplier, WUrl::Cache }))
+        getSupplierList(json);
+
+    else if (   WUrl::isEqual(url, { WUrl::Get,    WUrl::Warehouse, WUrl::By, WUrl::Id })
+             or WUrl::isEqual(url, { WUrl::Update, WUrl::Warehouse, WUrl::Cache }))
+        getWarehouseList(json);
 
     else if (   WUrl::isEqual(url, { WUrl::Get,    WUrl::Consignment, WUrl::By, WUrl::Nomenclature })
              or WUrl::isEqual(url, { WUrl::Get,    WUrl::Consignment, WUrl::By, WUrl::Id })
@@ -166,6 +180,16 @@ void WServerHandler::getQualityList(WJsonTemplate* json)
 void WServerHandler::getStorageUnitList(WJsonTemplate* json)
 {
     WCache::get().storage_type()->update(json->json().toArray());
+}
+
+void WServerHandler::getSupplierList(WJsonTemplate* json)
+{
+    WCache::get().supplier()->update(json->json().toArray());
+}
+
+void WServerHandler::getWarehouseList(WJsonTemplate* json)
+{
+    WCache::get().warehouse()->update(json->json().toArray());
 }
 
 void WServerHandler::reserveContainer(WJsonTemplate* json)

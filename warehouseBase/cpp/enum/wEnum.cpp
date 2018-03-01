@@ -8,5 +8,7 @@ QHash<int, QByteArray> WEnum::getModelHash()
     hash[Model_id]      = "m_id";
     hash[Model_item]    = "m_item";
     hash[Model_name]    = "m_name";
+    hash[Model_actualQuantity] = "m_actual";
+    hash[Model_planQuantity] = "m_plan";
     return hash;
 }

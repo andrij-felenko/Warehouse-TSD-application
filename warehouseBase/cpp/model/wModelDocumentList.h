@@ -3,6 +3,8 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QAbstractListModel>
+#include "document/base/wDocumentBase.h"
+#include <QtCore/QMap>
 #include "enum/wUrl.h"
 
 class WModelDocumentList : public QAbstractListModel
@@ -20,7 +22,8 @@ public slots:
 
 private:
     WUrl::WUrl_enum key;
-    int m_lastLength;
+    WEnum::Sort m_sort;
+    QList <WDocumentBase*> m_list;
 
     void updateAll();
 };

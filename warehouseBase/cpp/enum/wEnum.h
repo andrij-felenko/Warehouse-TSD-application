@@ -28,7 +28,7 @@ public:
     enum Request_priority {
         Request_must_server = 0xE200, ///< Запрос требует соединение к серверу
         Request_can_cache,            ///< Запрос может быть кэширован для отправки потом
-        Request_just_info,            ///< Запрос может быть проигнорирован
+        Request_can_ignore,           ///< Запрос может быть проигнорирован
     }; Q_ENUMS(Request_priority)
 
     enum Msg_type {
@@ -94,6 +94,8 @@ public:
         Model_id   = Qt::UserRole,
         Model_name,
         Model_barcode,
+        Model_actualQuantity,
+        Model_planQuantity,
     }; Q_ENUMS(ModelItems)
 
     enum LineType {
@@ -102,6 +104,17 @@ public:
         LineDone,            ///< Все выполненные строки
         LineAll,             ///< Все строки
     }; Q_ENUMS(LineType)
+
+    enum ServerCacheStatus {
+        SCache_created = 0xEA00, ///< Создан
+        SCache_send,             ///< Отправлен
+        SCache_errorData,        ///< Ошибка получаемых данных
+        SCache_errorNetwork,     ///< Ошибка сети или времени ожидания
+        SCache_takeResult,       ///< Получен результат
+        SCache_handlered,        ///< Обработан
+        SCache_done,             ///< Выполнен
+        SCache_canceled,         ///< Отменен
+    }; Q_ENUMS(ServerCacheStatus)
 
 public slots:
     static QHash <int, QByteArray> getModelHash();

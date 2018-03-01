@@ -16,28 +16,22 @@ WPage {
 
         WIconButton {
             id: receiving
-            anchors.left: parent.left
-            anchors.right: parent.right
             anchors.top: parent.top
             anchors.topMargin: 5
             height: parent.height / 12
+            width: parent.width
 
             text: "Приемка"
             clickMode: true
-            onClicked: {
-                WDocList.requestDocumentList(WUrlEnum.Receiving)
-                Model.documentList(WUrlEnum.Receiving, true)
-                mainStack.push(receivingComponent)
-            }
+            onClicked: mainStack.push(receivingComponent)
         }
 
         WIconButton {
             id: allotted
-            anchors.left: parent.left
-            anchors.right: parent.right
             anchors.top: receiving.bottom
             anchors.topMargin: 5
             height: parent.height / 12
+            width: parent.width
 
             text: "Перемещение"
             clickMode: true
@@ -46,11 +40,10 @@ WPage {
 
         WIconButton {
             id: picking
-            anchors.left: parent.left
-            anchors.right: parent.right
             anchors.top: allotted.bottom
             anchors.topMargin: 5
             height: parent.height / 12
+            width: parent.width
 
             text: "Отбор"
             clickMode: true
@@ -59,11 +52,10 @@ WPage {
 
         WIconButton {
             id: purchase
-            anchors.left: parent.left
-            anchors.right: parent.right
             anchors.top: picking.bottom
             anchors.topMargin: 5
             height: parent.height / 12
+            width: parent.width
 
             text: "Отгрузка"
             clickMode: true

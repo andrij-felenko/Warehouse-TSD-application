@@ -47,9 +47,11 @@ WUrl::WUrl(QObject *parent) : QObject(parent)
     m_list.push_back({ Nomenclature, "Nomenclature", WEnum::Version_1_0 });
     m_list.push_back({ Quality,      "Quality",      WEnum::Version_1_0 });
     m_list.push_back({ Storage,      "Storage",      WEnum::Version_1_0 });
+    m_list.push_back({ Supplier,     "Supplier",     WEnum::Version_1_0 });
     m_list.push_back({ Transit,      "Transit",      WEnum::Version_1_0 });
     m_list.push_back({ Type,         "Type",         WEnum::Version_1_0 });
     m_list.push_back({ Unit,         "Unit",         WEnum::Version_1_0 });
+    m_list.push_back({ Warehouse,    "Warehouse",    WEnum::Version_1_0 });
 }
 
 WUrl::WUrl_enum WUrl::fromInt(int key)

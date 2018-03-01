@@ -70,7 +70,7 @@ void WDocumentBase::acceptedReserveContainer(WJsonTemplate* json, bool sender)
     for (auto it : actual)
         if ((not sender and it->containerReceiverId() == container)
                 or (sender and it->containerSenderId() == container))
-            it->setEmployeeId(""); // FIXME
+            it->setEmployeeId(WUser::get().current()->id());
 }
 
 void WDocumentBase::acceptedUnreserveContainer(WJsonTemplate* json, bool sender)

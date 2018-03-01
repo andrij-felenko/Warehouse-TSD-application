@@ -6,6 +6,7 @@
 #include "enum/wUrl.h"
 #include "document/base/wDocumentBase.h"
 #include "cache/single/wContainerSingle.h"
+#include "QtCore/QVariantMap"
 
 class WModelCacheListByDoc : public QAbstractListModel
 {

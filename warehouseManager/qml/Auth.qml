@@ -148,7 +148,8 @@ WPage {
             height: parent.height / 18
             color: "#ffffff"
             wrapMode: Text.WrapAnywhere
-            text: WApp.appName + " v. " + WApp.version + "\n" + "WHLib v. 1.0"
+            text: WApp.appName  + " [" + WApp.dateCompile + "]" + " v. " + WApp.version + "\n"
+                  + "WHLib v. 1.0 [" + WApp.libDateCompile + "]"
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 8
         }

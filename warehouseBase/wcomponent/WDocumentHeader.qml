@@ -14,11 +14,11 @@ WRectangle {
             return "#CCCCFF"
         else
             switch (rect.item.status){
-            case WEnum.Document_created: "#FFCCFF"; break
-            case WEnum.Document_inWorking: "#CCFFE5"; break
-            case WEnum.Document_accepted: "#99FF99"; break
-            case WEnum.Document_done: "#D0D0D0"; break
-            default:"#CCCCFF";
+            case WEnum.Document_created:   "#F2EADF"; break
+            case WEnum.Document_inWorking: "#E5C1AD"; break
+            case WEnum.Document_accepted:  "#F1F1F9"; break
+            case WEnum.Document_done:      "#DBD5DE"; break
+            default:"darkgray";
             }
     }
     
@@ -51,7 +51,7 @@ WRectangle {
             height: heightItem * 0.7
             width: parent.width
             textLeft: qsTr("Date")
-            textRight: rect.item === null ? "" : WStatic.shortDateTimeToString(rect.item.dateCreated)
+            textRight: rect.item === null ? "" : WStatic.fullDateToString(rect.item.dateCreated)
             leftItem.textPercent: 1.6
             rightItem.textPercent: 1.6
         }
@@ -61,7 +61,7 @@ WRectangle {
             height: heightItem * 0.7
             width: parent.width
             textLeft: qsTr("Supplier")
-            textRight: rect.item === null ? "" : rect.item.supplier
+            textRight: rect.item === null ? "" : rect.item.supplierId
             leftItem.textPercent: 1.6
             rightItem.textPercent: 1.6
             visible: textRight !== ""

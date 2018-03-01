@@ -3,7 +3,7 @@
 
 WJsonTemplate::WJsonTemplate(QObject *parent)
     : QObject(parent),
-      m_request(WStatic::guidCreate()), m_url(""), m_employee_id(WStatic::idCreate()),// FIXME
+      m_request(WStatic::guidCreate()), m_url(""), m_employee_id(WUser::get().current()->id()),
       m_json(QJsonObject()), m_dTime(QDateTime::currentDateTime()),
       m_error(-1), m_answer(false), m_text(QString(""))
 {
@@ -47,6 +47,9 @@ QJsonDocument WJsonTemplate::toJsonDocument(WEnum::Version version) const
 std::pair <bool, QString> WJsonTemplate::fromJsonDocument(QJsonDocument document, bool isAnswer,
                                                           WEnum::Version version_)
 {
+    if (isAnswer)
+        m_request = WStatic::guidDefault();
+
     auto obj = document.object();
     if (not WJson::contains(obj, WJson::Meta, version_))
         return std::make_pair(false, QObject::tr("Meta field not found"));
@@ -74,7 +77,7 @@ std::pair <bool, QString> WJsonTemplate::fromJsonDocument(QJsonDocument document
     m_employee_id = WJson::get(metaData, WJson::Employee_id, version_).toString();
     m_request     = WJson::get(metaData, WJson::Request,     version_).toString();
     m_url         = WJson::get(metaData, WJson::Url,         version_).toString();
-    m_json        = WJson::get(metaData, WJson::Data,        version_).toObject();
+    m_json        = WJson::get(obj,      WJson::Data,        version_);
 
     if (isAnswer){
         m_answer = WJson::get(obj, WJson::Answer, version_).toBool();

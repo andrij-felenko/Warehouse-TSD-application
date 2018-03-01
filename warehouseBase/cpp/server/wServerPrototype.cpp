@@ -26,7 +26,7 @@ void WServerPrototype::request(QString url, QString msg, QJsonValue json, WEnum:
     case WEnum::Request_can_cache:
         id_msg = WMessage::get().setMessage(msg, WEnum::Msg_progress, WEnum::Priority_middle_bellow);
         break;
-    case WEnum::Request_just_info:
+    case WEnum::Request_can_ignore:
         id_msg = WMessage::get().setInformationMessage(msg);
         break;
     case WEnum::Request_must_server:
@@ -48,6 +48,7 @@ void WServerPrototype::request(QString url, QString msg, QJsonValue json, WEnum:
     request.setHeader(QNetworkRequest::ContentTypeHeader,
                       QVariant("application/x-www-form-urlencoded"));
     post(request, serverRequest->formRequest());
+    serverRequest->setStatus(WEnum::SCache_send);
 }
 
 // from QML
@@ -86,31 +87,36 @@ void WServerPrototype::authentificate(QNetworkReply *reply, QAuthenticator *auth
 // FIXME work with server cache
 void WServerPrototype::handler(QNetworkReply *reply)
 {
-    qDebug() << QJsonDocument::fromJson(reply->readAll());
     QString url = reply->request().url().toString();
     url = url.rightRef(url.length() - WSetting::get().server()->domain().length()).toString();
 
     // start request has empty url, and thats why we there skip it
     if (url.isEmpty())
         return;
-
-    if (not m_serverHandler->isUrlContains(url)){
-        WMessage::get().setErrorMessage(QObject::tr("Не найден обработчик на метод ") + url);
-        return; // FIXME remove from temp cache
-    }
+    qDebug() << "REQUEST: " << url;
 
     // test request for standart
     WJsonTemplate* json = new WJsonTemplate(this);
     auto resultTestRequest = json->fromJsonDocument(QJsonDocument::fromJson(reply->readAll()), true);
     if (not resultTestRequest.first){
-        WMessage::get().setErrorMessage(resultTestRequest.second);
+        WMessage::get().setWarningMessage(resultTestRequest.second, WEnum::Priority_middle_bellow);
         json->deleteLater();
         return;
     }
 
-    qDebug() << "Return request from server: " << url << "\n" << json;
+    WServerCacheSingle* cacheSingle = m_serverCache->getOne(json->request());
+    if (not m_serverHandler->isUrlContains(url)){
+        WMessage::get().setWarningMessage(QObject::tr("Не найден обработчик на метод ") + url,
+                                          WEnum::Priority_middle_bellow);
+        cacheSingle->setStatus(WEnum::SCache_canceled);
+        return; // FIXME remove from temp cache
+    }
+
+    qDebug() << json;
+    cacheSingle->setStatus(WEnum::SCache_takeResult);
     m_serverHandler->sendRequest(WUrl::disunite(url), json);
     json->deleteLater();
+    cacheSingle->setStatus(WEnum::SCache_done);
 }
 
 // FIXME

@@ -24,11 +24,12 @@ void testVocabulary()
 void testDocumentReceivingList()
 {
     QJsonArray array;
-    for (int i = 0; i < 12; i++){
+    for (int i = 0; i < 25; i++){
         WDocumentHeader header;
         header.setId(WStatic::guidCreate());
         header.setName("name:" + header.id().left(6));
-        header.setSupplier("supplier:" + header.id().right(3));
+        header.setDateCreated(QDateTime(QDate(2000 + rand()%18, rand()%12 + 1, rand()%28 + 1)));
+        header.setSupplierId("supplier:" + header.id().right(3));
         header.setStatus(static_cast <WEnum::DocumentStatus> (+WEnum::Document_created + rand()%4));
         array.push_back(header.toJson());
     }

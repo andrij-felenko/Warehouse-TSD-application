@@ -7,13 +7,15 @@
 class WAREHOUSEBASESHARED_EXPORT WBase : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString appName   READ appName   NOTIFY appNameChanged)
-    Q_PROPERTY(QString version   READ version   NOTIFY versionChanged)
-    Q_PROPERTY(QString orgName   READ orgName   NOTIFY orgNameChanged)
-    Q_PROPERTY(QString orgDomain READ orgDomain NOTIFY orgDomainChanged)
+    Q_PROPERTY(QString appName        READ appName        NOTIFY appNameChanged)
+    Q_PROPERTY(QString version        READ version        NOTIFY versionChanged)
+    Q_PROPERTY(QString orgName        READ orgName        NOTIFY orgNameChanged)
+    Q_PROPERTY(QString orgDomain      READ orgDomain      NOTIFY orgDomainChanged)
+    Q_PROPERTY(QString dateCompile    READ dateCompile    NOTIFY dateCompileChanged)
+    Q_PROPERTY(QString libDateCompile READ libDateCompile NOTIFY libDateCompileChanged)
 
 public:
-    WBase(QObject *parent = nullptr);
+    WBase(QString dateCompile, QObject *parent = nullptr);
 
     void registrateApp(QString version = QString("1.0"),
                        QString appName = QString("Warehouse manager"),
@@ -26,10 +28,12 @@ public:
     void start();
     void setContextProperty(QString key, QObject* obj);
 
-    QString appName()   const { return qApp->applicationName(); }
-    QString version()   const { return qApp->applicationVersion(); }
-    QString orgName()   const { return qApp->organizationName(); }
-    QString orgDomain() const { return qApp->organizationDomain(); }
+    QString appName()     const { return qApp->applicationName(); }
+    QString version()     const { return qApp->applicationVersion(); }
+    QString orgName()     const { return qApp->organizationName(); }
+    QString orgDomain()   const { return qApp->organizationDomain(); }
+    QString dateCompile()    const { return m_dateCompile; }
+    QString libDateCompile() const { return m_libDateCompile; }
 
 public slots:
     void quit();
@@ -40,13 +44,13 @@ signals:
     void versionChanged();
     void orgNameChanged();
     void orgDomainChanged();
+    void dateCompileChanged();
+    void libDateCompileChanged();
 
 private:
     WView *m_view;
-    QString m_appName;
-    QString m_version;
-    QString m_orgName;
-    QString m_orgDomain;
+    QString m_dateCompile;
+    QString m_libDateCompile;
 };
 
 #endif // WAREHOUSEBASE_H

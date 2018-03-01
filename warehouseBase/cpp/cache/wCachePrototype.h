@@ -28,6 +28,8 @@ class WCachePrototype : public QObject
     Q_PROPERTY(WCacheListTemplate <WNomenclatureSingle>* nomenclature READ nomenclature)
     Q_PROPERTY(WCacheListTemplate <WQualitySingle>*      quality      READ quality)
     Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        storage_type READ storage_type)
+    Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        supplier     READ supplier)
+    Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        warehouse    READ warehouse)
 
 public:
     explicit WCachePrototype(QObject *parent = nullptr);
@@ -40,6 +42,8 @@ public:
     WCacheListTemplate <WNomenclatureSingle>* nomenclature() const { return m_nomenclature; }
     WCacheListTemplate <WQualitySingle>*      quality()      const { return m_quality; }
     WCacheListTemplate <WCacheSingle>*        storage_type() const { return m_storage_type; }
+    WCacheListTemplate <WCacheSingle>*        supplier()     const { return m_supplier; }
+    WCacheListTemplate <WCacheSingle>*        warehouse()    const { return m_warehouse; }
 
     void pushCacheToQueque(WUrl::WUrl_enum key, QStringList list);
     WCacheSingle* getOne(QString id, WJson::WJson_enum key);
@@ -62,6 +66,8 @@ private:
     WCacheListTemplate <WNomenclatureSingle>* m_nomenclature;
     WCacheListTemplate <WQualitySingle>* m_quality;
     WCacheListTemplate <WCacheSingle>* m_storage_type;
+    WCacheListTemplate <WCacheSingle>* m_supplier;
+    WCacheListTemplate <WCacheSingle>* m_warehouse;
 };
 
 #endif // CACHEPROTOTYPE_H

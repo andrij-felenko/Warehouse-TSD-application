@@ -14,7 +14,6 @@ class WDocumentHeader : public QObject
     Q_OBJECT
     Q_PROPERTY(QString id       READ id       WRITE setId       RESET resetId       NOTIFY idChanged)
     Q_PROPERTY(QString name     READ name     WRITE setName     RESET resetName     NOTIFY nameChanged)
-    Q_PROPERTY(QString supplier READ supplier WRITE setSupplier RESET resetSupplier NOTIFY supplierChanged)
     Q_PROPERTY(WEnum::DocumentStatus status READ status WRITE setStatus RESET resetStatus NOTIFY statusChanged)
 
     Q_PROPERTY(QDateTime dateCreated READ       dateCreated WRITE setDateCreated
@@ -53,6 +52,12 @@ class WDocumentHeader : public QObject
     Q_PROPERTY(QString employeeReceiverName READ       employeeReceiverName WRITE setEmployeeReceiverName
                                             RESET resetEmployeeReceiverName NOTIFY   employeeReceiverNameChanged)
 
+    Q_PROPERTY(QString supplierId READ       supplierId WRITE setSupplierId
+                                  RESET resetSupplierId NOTIFY   supplierIdChanged)
+
+    Q_PROPERTY(QString supplierName READ       supplierName WRITE setSupplierName
+                                    RESET resetSupplierName NOTIFY   supplierNameChanged)
+
 public:
     explicit WDocumentHeader(QObject *parent = nullptr);
     WDocumentHeader(const QJsonObject& obj, QObject *parent = nullptr);
@@ -64,7 +69,8 @@ public:
     // READ ---------------------------------------------------------------------------------------
     QString id()       const { return m_id; }
     QString name()     const { return m_name; }
-    QString supplier() const { return m_supplier; }
+    QString supplierId()   const { return m_supplierId; }
+    QString supplierName() const { return m_supplierName; }
     QDateTime dateCreated()   const { return m_dateCreated; }
     QDateTime dateAccepted()  const { return m_dateAccepted; }
     QDateTime dateCompleted() const { return m_dateCompleted; }
@@ -83,7 +89,8 @@ public:
     void resetId()            { setId(WStatic::guidDefault()); }
     void resetName()          { setName(WStatic::undefined()); }
     void resetStatus()        { setStatus(WEnum::Document_created); }
-    void resetSupplier()      { setSupplier(WStatic::undefined()); }
+    void resetSupplierId()    { setSupplierId(WStatic::guidDefault()); }
+    void resetSupplierName()  { setSupplierName(WStatic::undefined()); }
     void resetDateCreated()   { setDateCreated  (WStatic::dateTimeNull()); }
     void resetDateAccepted()  { setDateAccepted (WStatic::dateTimeNull()); }
     void resetDateCompleted() { setDateCompleted(WStatic::dateTimeNull()); }
@@ -100,7 +107,8 @@ public:
 signals:
     void idChanged(QString id);
     void nameChanged(QString name);
-    void supplierChanged(QString supplier);
+    void supplierIdChanged(QString supplierId);
+    void supplierNameChanged(QString supplierName);
     void dateCreatedChanged(QDateTime dateCreated);
     void dateAcceptedChanged(QDateTime dateAccepted);
     void dateCompletedChanged(QDateTime dateCompleted);
@@ -118,7 +126,7 @@ signals:
 public slots:
     void setId(QString id);
     void setName(QString name);
-    void setSupplier(QString supplier);
+    void setSupplierId(QString supplierId);
     void setDateCreated(QDateTime dateCreated);
     void setDateAccepted(QDateTime dateAccepted);
     void setDateCompleted(QDateTime dateCompleted);
@@ -137,7 +145,8 @@ protected:
 private:
     QString m_id;
     QString m_name;
-    QString m_supplier;
+    QString m_supplierId;
+    QString m_supplierName;
     QDateTime m_dateCreated;
     QDateTime m_dateAccepted;
     QDateTime m_dateCompleted;
@@ -158,6 +167,9 @@ private:
     void updateEmployee(QStringList list);
     void updateEmployeeSenderName();
     void updateEmployeeReceiverName();
+    void setSupplierName(QString supplierName);
+    void updateSupplier(QStringList list);
+    void updateSupplierName();
 };
 
 #endif // DOCUMENTHEADER_H

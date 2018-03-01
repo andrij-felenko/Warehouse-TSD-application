@@ -7,7 +7,8 @@
 #include "enum/wUrl.h"
 #include "server/wRequestGenerate.h"
 
-WBase::WBase(QObject* parent) : QObject(parent)
+WBase::WBase(QString dateCompile, QObject* parent) : QObject(parent),
+    m_dateCompile(dateCompile), m_libDateCompile(__DATE__)
 {
     m_view = new WView;
     WSetting ::instance(this);
@@ -16,12 +17,14 @@ WBase::WBase(QObject* parent) : QObject(parent)
     qmlRegisterType <WJson> ("WJsonEnum", 1, 0, "WJsonEnum");
     qmlRegisterType <WUrl>  ("WUrlEnum",  1, 0, "WUrlEnum");
 
-    qmlRegisterType <WDocumentBase>   ("WDocument", 1, 0, "WDocument");
-    qmlRegisterType <WDocumentHeader> ("WDocument", 1, 0, "WHeader");
+    qmlRegisterType <WDocumentBase>      ("WDocument", 1, 0, "WDocument");
+    qmlRegisterType <WDocumentHeader>    ("WDocument", 1, 0, "WHeader");
     qmlRegisterType <WDocumentPrototype> ("WDocument", 1, 0, "WDocumentList");
 
     qmlRegisterType <WLineActual> ("WLine", 1, 0, "WLineActual");
     qmlRegisterType <WLinePlan>   ("WLine", 1, 0, "WLinePlan");
+
+    qmlRegisterType <WSettingServer> ("Setting_base", 1, 0, "SettingServer");
 
     QObject::connect(qApp, &QGuiApplication::applicationNameChanged,    this, &WBase::appNameChanged);
     QObject::connect(qApp, &QGuiApplication::organizationNameChanged,   this, &WBase::orgNameChanged);
@@ -48,13 +51,10 @@ void WBase::registrateTypes()
     root->setContextProperty("WSetting", WSetting::registrate());
     root->setContextProperty("WMessage", WMessage::registrate());
     root->setContextProperty("WUser",    WUser::registrate());
-    root->setContextProperty("WStatic",    new WStatic(this));
-    root->setContextProperty("WJson",      new WJson(this));
     root->setContextProperty("WUrl",       new WUrl(this));
+    root->setContextProperty("WJson",      new WJson(this));
+    root->setContextProperty("WStatic",    new WStatic(this));
     root->setContextProperty("WRequestor", new WRequestGenerate(this));
-
-//    qmlRegisterType <MessageSingle> ("MsgSingle", 0, 1, "MsgSingle");
-    WSetting::get().registerType();
 }
 
 void WBase::quit()
@@ -72,8 +72,8 @@ void WBase::init()
 {
     WMessage ::instance(this);
     WServer  ::instance(this);
-    WCache   ::instance(this);
     WUser    ::instance(this);
+    WCache   ::instance(this);
     WDocument::instance(this);
     WModel   ::instance(m_view);
 }

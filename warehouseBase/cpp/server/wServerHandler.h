@@ -21,6 +21,8 @@ private:
     void getNomenclature(WJsonTemplate* json);
     void getQualityList    (WJsonTemplate* json);
     void getStorageUnitList(WJsonTemplate* json);
+    void getSupplierList(WJsonTemplate* json);
+    void getWarehouseList(WJsonTemplate* json);
 
     void   reserveContainer(WJsonTemplate* json);
     void unreserveContainer(WJsonTemplate* json);

@@ -68,6 +68,33 @@ WDocumentBase* WDocumentPrototype::getDocument(WUrl::WUrl_enum key, int position
     return m_empty;
 }
 
+QStringList WDocumentPrototype::getDocumentListByKey(WUrl::WUrl_enum key) const
+{
+    QStringList list;
+    for (auto it : m_list)
+        if (it.key == key)
+            list.push_back(it.document->id());
+    return list;
+}
+
+QMultiMap <WEnum::DocumentStatus, QString> WDocumentPrototype::getDocumentMapByKey(WUrl::WUrl_enum key) const
+{
+    QMultiMap < WEnum::DocumentStatus, QString> map;
+    for (auto it : m_list)
+        if (it.key == key)
+            map.insert(it.document->status(), it.document->id());
+    return map;
+}
+
+QList <WDocumentBase*> WDocumentPrototype::getDocumentPointListByKey(WUrl::WUrl_enum key) const
+{
+    QList <WDocumentBase*> list;
+    for (auto it : m_list)
+        if (it.key == key)
+            list.push_back(it.document);
+    return list;
+}
+
 int WDocumentPrototype::getDocumentLengthByKey(WUrl::WUrl_enum key) const
 {
     int length(0);

@@ -3,8 +3,11 @@
 
 WDocumentHeader::WDocumentHeader(QObject *parent) : QObject(parent)
 {
-    QObject::connect(WCache::get().employee(), &WCacheListObject::listPushed,  this, &WDocumentHeader::updateEmployee);
-    QObject::connect(WCache::get().employee(), &WCacheListObject::listUpdated, this, &WDocumentHeader::updateEmployee);
+    typedef WCacheListObject WCLO;
+    QObject::connect(WCache::get().employee(), &WCLO::listPushed,  this, &WDocumentHeader::updateEmployee);
+    QObject::connect(WCache::get().employee(), &WCLO::listUpdated, this, &WDocumentHeader::updateEmployee);
+    QObject::connect(WCache::get().supplier(), &WCLO::listPushed,  this, &WDocumentHeader::updateSupplier);
+    QObject::connect(WCache::get().supplier(), &WCLO::listUpdated, this, &WDocumentHeader::updateSupplier);
 
     resetAll();
 }
@@ -22,7 +25,8 @@ QJsonObject WDocumentHeader::toJson() const
     auto obj = WJson::createObject({
             std::make_pair(WJson::Id, m_id),
             std::make_pair(WJson::Name, m_name),
-            std::make_pair(WJson::Supplier, m_supplier),
+            std::make_pair(WJson::Supplier_id, m_supplierId),
+            std::make_pair(WJson::Supplier_name, m_supplierName),
             std::make_pair(WJson::Date_created,   m_dateCreated.toString  (WSetting::get().server()->dateFormat())),
             std::make_pair(WJson::Date_accepted,  m_dateAccepted.toString (WSetting::get().server()->dateFormat())),
             std::make_pair(WJson::Date_completed, m_dateCompleted.toString(WSetting::get().server()->dateFormat())),
@@ -47,9 +51,6 @@ void WDocumentHeader::fromJson(const QJsonObject& obj)
 
     if (WJson::contains(obj, WJson::Name))
         setName(WJson::get(obj, WJson::Name).toString());
-
-    if (WJson::contains(obj, WJson::Supplier))
-        setSupplier(WJson::get(obj, WJson::Supplier).toString());
 
     if (WJson::contains(obj, WJson::Date_created))
         setDateCreated(QDateTime::fromString(WJson::get(obj, WJson::Date_created).toString(),
@@ -100,6 +101,15 @@ void WDocumentHeader::fromJson(const QJsonObject& obj)
     else
         updateEmployeeReceiverName();
 
+    // supplier
+    if (WJson::contains(obj, WJson::Supplier_id))
+        setSupplierId(WJson::get(obj, WJson::Supplier_id).toString());
+
+    if (WJson::contains(obj, WJson::Supplier_name))
+        setSupplierName(WJson::get(obj, WJson::Supplier_name).toString());
+    else
+        updateSupplierName();
+
     // status
     if (WJson::contains(obj, WJson::Status))
         setStatus(static_cast <WEnum::DocumentStatus> (static_cast <int> (WEnum::Document_created)
@@ -124,11 +134,11 @@ void WDocumentHeader::setName(QString name)
     }
 }
 
-void WDocumentHeader::setSupplier(QString supplier)
+void WDocumentHeader::setSupplierId(QString supplierId)
 {
-    if (m_supplier != supplier){
-        m_supplier = supplier;
-        emit supplierChanged(m_supplier);
+    if (m_supplierId != supplierId){
+        m_supplierId = supplierId;
+        emit supplierIdChanged(m_supplierId);
     }
 }
 
@@ -239,12 +249,31 @@ void WDocumentHeader::setEmployeeReceiverName(QString employeeReceiverName)
     }
 }
 
+void WDocumentHeader::setSupplierName(QString supplierName)
+{
+    if (m_supplierName != supplierName){
+        m_supplierName = supplierName;
+        emit supplierNameChanged(m_supplierName);
+    }
+}
+
 void WDocumentHeader::updateEmployee(QStringList list)
 {
     if (list.contains(m_employeeReceiverId))
         updateEmployeeReceiverName();
     if (list.contains(m_employeeSenderId))
         updateEmployeeSenderName();
+}
+
+void WDocumentHeader::updateSupplier(QStringList list)
+{
+    if (list.contains(m_supplierId))
+        updateSupplierName();
+}
+
+void WDocumentHeader::updateSupplierName()
+{
+    setSupplierName(WCache::get().supplier()->getNameById(m_supplierId));
 }
 
 void WDocumentHeader::updateEmployeeSenderName()
@@ -266,7 +295,8 @@ void WDocumentHeader::resetAll()
     resetId();
     resetIsStaticCellContains();
     resetName();
-    resetSupplier();
+    resetSupplierName();
+    resetSupplierId();
     resetEmployeeReceiverName();
     resetEmployeeReceiverId();
     resetEmployeeSenderName();

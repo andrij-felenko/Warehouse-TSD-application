@@ -13,30 +13,22 @@ public:
     WServerCacheSingle(QObject* sender = nullptr, QString functionName = "",
                        QString url = "", QString id_msg = "",
                        QJsonValue json = QJsonValue(), QObject *parent = nullptr,
-                       WEnum::Request_priority priority = WEnum::Request_just_info)
-        : QObject(parent), m_sender(sender), m_functionName(functionName), m_id_msg(id_msg),
-          m_json(new WJsonTemplate(url, json, this)), m_priority(priority), m_is_accept(false)
-    {
-        //
-    }
+                       WEnum::Request_priority priority = WEnum::Request_can_ignore);
 
     WServerCacheSingle(QObject* sender, QString functionName,
-                       QString url, QString id_msg, QObject *parent)
-        : WServerCacheSingle(sender, functionName, url, id_msg, QJsonObject(), parent)
-    {
-        //
-    }
+                       QString url, QString id_msg, QObject *parent);
 
-    QByteArray formRequest() { return m_json->toJsonDocument().toJson(); }
+    ~WServerCacheSingle();
 
-    QObject* sender()      { return m_sender; }
-    QString functionName() { return m_functionName; }
-    QString id_msg()       { return m_id_msg; }
-    WJsonTemplate* json()  { return m_json; }
-    WEnum::Request_priority priority() { return m_priority; }
-    int secAfterRequest() { return m_json->dateTime().secsTo(QDateTime::currentDateTime()); }
-    bool isAccept() { return m_is_accept; }
-    void accept()   { m_is_accept = true; }
+    QByteArray formRequest() const;
+    QObject* sender()      const;
+    QString functionName() const;
+    QString id_msg()       const;
+    WJsonTemplate* json()  const;
+    WEnum::Request_priority priority() const;
+    WEnum::ServerCacheStatus status() const;
+    int secAfterRequest() const;
+    void setStatus(WEnum::ServerCacheStatus status);
 
 private:
     QObject* m_sender;
@@ -44,7 +36,7 @@ private:
     QString m_id_msg;
     WJsonTemplate* m_json;
     WEnum::Request_priority m_priority;
-    bool m_is_accept;
+    WEnum::ServerCacheStatus m_status;
 };
 
 #endif // SERVER_CACHE_SINGLE_H

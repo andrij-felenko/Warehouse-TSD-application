@@ -95,7 +95,6 @@ void WMessagePrototype::setMessage(QString str, int msgType, int priority, int t
 void WMessagePrototype::removeMessage()
 {
     removeMessage(m_current->id());
-    qDebug() << "Msg last: " << m_list.length();
 }
 
 void WMessagePrototype::update()

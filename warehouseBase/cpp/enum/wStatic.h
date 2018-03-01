@@ -30,9 +30,9 @@ public slots:
     static QTime timeNull() { return QTime(0, 0, 0); }
     static QDateTime dateTimeNull(){ return QDateTime(QDate(1, 1, 1)); }
     static QString shortDateToString    (QDateTime dTime) { return dTime.toString("dd.MM"); }
-    static QString  fullDateToString    (QDateTime dTime) { return dTime.toString("dddd dd.MM"); }
+    static QString  fullDateToString    (QDateTime dTime) { return dTime.toString("dddd dd.MM.yy"); }
     static QString shortDateTimeToString(QDateTime dTime) { return dTime.toString("dd.MM hh:mm"); }
-    static QString  fullDateTimeToString(QDateTime dTime) { return dTime.toString("dddd dd.MM hh:mm"); }
+    static QString  fullDateTimeToString(QDateTime dTime) { return dTime.toString("dddd dd.MM.yy hh:mm"); }
     static QString timeToString         (QDateTime dTime) { return dTime.toString("hh:mm"); }
 
     static QString dateTimeToString(QDateTime dTime, QString key) { return dTime.toString(key); }

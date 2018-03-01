@@ -24,11 +24,16 @@ QVariant WModelCacheListByDoc::data(const QModelIndex& index, int role) const
     if (single == nullptr)
         return QVariant();
 
+    QVariantMap tempMap(m_map);
+    tempMap.insert(single->id(), +m_jsonKey);
+
     switch (static_cast <WEnum::ModelItems> (role)) {
     case WEnum::Model_item: return QVariant::fromValue(single);
     case WEnum::Model_barcode: return single->barcode();
     case WEnum::Model_name: return single->name();
     case WEnum::Model_id: return single->id();
+    case WEnum::Model_actualQuantity: return m_document->getQuantity(WEnum::LineActual, tempMap);
+    case WEnum::Model_planQuantity: return m_document->getQuantity(WEnum::LinePlan, tempMap);
     default:;
     }
 

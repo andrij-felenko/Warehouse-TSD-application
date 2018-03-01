@@ -61,7 +61,8 @@ SOURCES += \
     cpp/enum/wEnum.cpp \
     cpp/enum/wJson.cpp \
     cpp/enum/wUrl.cpp \
-    cpp/model/wModelCacheListByDoc.cpp
+    cpp/model/wModelCacheListByDoc.cpp \
+    cpp/server/wServerCacheSingle.cpp
 
 HEADERS += \
     cpp/document/base/wDocumentBase.h \

@@ -90,7 +90,6 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Document_date,        "document_date",           WEnum::Version_1_0 });
     m_list.push_back({ Document_name,        "document_name",           WEnum::Version_1_0 });
     m_list.push_back({ Document_header,      "document_header",         WEnum::Version_1_0 });
-    m_list.push_back({ Supplier,             "supplier",                WEnum::Version_1_0 });
     m_list.push_back({ Status,               "status",                  WEnum::Version_1_0 });
     m_list.push_back({ IsStaticCellContains, "is_static_cell_contains", WEnum::Version_1_0 });
     m_list.push_back({ IsCanChangeCell,      "is_can_change_cell",      WEnum::Version_1_0 });
@@ -121,8 +120,8 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Employee_receiver_id,   "employee_receiver_id",   WEnum::Version_1_0 });
     m_list.push_back({ Employee_receiver_name, "employee_receiver_name", WEnum::Version_1_0 });
     m_list.push_back({ Password,               "password",               WEnum::Version_1_0 });
-    m_list.push_back({ Provider_id,            "provider_id",            WEnum::Version_1_0 });
-    m_list.push_back({ Provider_name,          "provider_name",          WEnum::Version_1_0 });
+    m_list.push_back({ Supplier_id,            "supplier_id",            WEnum::Version_1_0 });
+    m_list.push_back({ Supplier_name,          "supplier_name",          WEnum::Version_1_0 });
 
     // server key ------------------------------------------------------------------------------
     m_list.push_back({ Answer,  "answer",  WEnum::Version_1_0 });

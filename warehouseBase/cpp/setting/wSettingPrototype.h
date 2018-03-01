@@ -17,8 +17,6 @@ public:
 
     WSettingServer* server() const { return m_server; }
 
-    static void registerType();
-
 private:
     WSettingServer *m_server;
 

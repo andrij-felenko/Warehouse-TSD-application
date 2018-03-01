@@ -58,9 +58,11 @@ public:
         Nomenclature,     ///< Номенклатура
         Quality,          ///< Качество
         Storage,          ///< StorageUnit - Единица хранения
+        Supplier,         ///< Поставщик
         Transit,          ///< Транзитный товар
         Type,             ///< Тип
         Unit,             ///< Единица чего либо
+        Warehouse,        ///< Склад
 
         // error url
         ___ = 0xBFFF, ///< Ошибка, если не найден ключ

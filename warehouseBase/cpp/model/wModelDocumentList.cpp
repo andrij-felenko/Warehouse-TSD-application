@@ -2,7 +2,7 @@
 #include "wSingleton.h"
 
 WModelDocumentList::WModelDocumentList(WUrl::WUrl_enum key, QObject *parent)
-    : QAbstractListModel(parent), key(key), m_lastLength(0)
+    : QAbstractListModel(parent), key(key), m_sort(WEnum::SortByNewest)
 {
     QObject::connect(WDocument::registrate(), &WDocumentPrototype::documentListUpdate, this, [=](WUrl::WUrl_enum key)
     {
@@ -19,10 +19,10 @@ QHash<int, QByteArray> WModelDocumentList::roleNames() const
 
 QVariant WModelDocumentList::data(const QModelIndex& index, int role) const
 {
-    if (index.row() > m_lastLength and index.row() < 0)
+    if (index.row() > rowCount() and index.row() < 0)
         return QVariant();
 
-    auto document = WDocument::get().getDocument(key, index.row());
+    auto document = WDocument::get().getDocument(m_list.at(index.row())->id());
     if (document->id() == WStatic::guidDefault())
         return QVariant();
 
@@ -38,7 +38,7 @@ QVariant WModelDocumentList::data(const QModelIndex& index, int role) const
 int WModelDocumentList::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent)
-    return m_lastLength;
+    return m_list.length();
 }
 
 bool WModelDocumentList::containsId(QString id)
@@ -48,11 +48,23 @@ bool WModelDocumentList::containsId(QString id)
 
 void WModelDocumentList::updateAll()
 {
-    beginRemoveRows(QModelIndex(), 0, m_lastLength);
+    beginRemoveRows(QModelIndex(), 0, rowCount() - 1);
     endRemoveRows();
 
-    m_lastLength = WDocument::get().getDocumentLengthByKey(key);
-    beginInsertRows(QModelIndex(), 0, m_lastLength - 1);
+    m_list = WDocument::get().getDocumentPointListByKey(key);
+
+    std::sort(m_list.begin(), m_list.end(), [=](const WDocumentBase* f, const WDocumentBase* s){
+        switch(m_sort) {
+        case WEnum::SortByAZ: return f->name() > s->name();
+        case WEnum::SortByZA: return f->name() < s->name();
+        case WEnum::SortByNewest: return f->dateCreated() > s->dateCreated();
+        case WEnum::SortByOldest: return f->dateCreated() < s->dateCreated();
+        default:;
+        }
+        return false;
+    });
+
+    beginInsertRows(QModelIndex(), 0, rowCount() - 1);
     endInsertRows();
 
     emit dataChanged(this->index(0, 0), this->index(rowCount() - 1, 0));

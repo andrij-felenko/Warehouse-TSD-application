@@ -14,6 +14,8 @@ WCachePrototype::WCachePrototype(QObject *parent) : QObject(parent)
     m_nomenclature = new WCacheListTemplate <WNomenclatureSingle>(m_local_dir, "nomenclature", this);
     m_quality      = new WCacheListTemplate <WQualitySingle>     (m_local_dir, "quality",      this);
     m_storage_type = new WCacheListTemplate <WCacheSingle>       (m_local_dir, "storage_type", this);
+    m_supplier     = new WCacheListTemplate <WCacheSingle>       (m_local_dir, "supplier",     this);
+    m_warehouse    = new WCacheListTemplate <WCacheSingle>       (m_local_dir, "warehouse",    this);
 
     m_allCacheTimer = new QTimer(this);
     m_allCacheTimer->setInterval(5 /* minute */ * 60 /* sec */ * 1000 /* ms */);
@@ -64,13 +66,13 @@ WCacheSingle* WCachePrototype::getOne(QString id, WJson::WJson_enum key)
         return m_nomenclature->getOne(id);
     case WJson::Quality_id:
         return m_quality->getOne(id);
-//    case WJson::Warehouse_id:
-//    case WJson::Warehouse_receiver_id:
-//    case WJson::Warehouse_sender_id:
-//        return m_ware
+    case WJson::Warehouse_id:
+    case WJson::Warehouse_receiver_id:
+    case WJson::Warehouse_sender_id:
+        return m_warehouse->getOne(id);
     default:;
     }
-    return nullptr;
+    return m_quality->getOne("");
 }
 
 /*! \brief Создание папки для хранений кэша на диске. */
@@ -145,5 +147,13 @@ void WCachePrototype::updateAllCache()
 
     WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Storage, WUrl::Unit, WUrl::List }),
                            QObject::tr("Обновить список типов хранения."),
+                           WRequestGenerate::empty());
+
+    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Supplier, WUrl::List }),
+                           QObject::tr("Обновить список поставщиков."),
+                           WRequestGenerate::empty());
+
+    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Warehouse, WUrl::List }),
+                           QObject::tr("Обновить список складов."),
                            WRequestGenerate::empty());
 }
