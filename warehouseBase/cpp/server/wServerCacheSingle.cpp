@@ -18,7 +18,8 @@ WServerCacheSingle::WServerCacheSingle(QObject* sender, QString functionName, QS
 
 WServerCacheSingle::~WServerCacheSingle()
 {
-    WMessage::get().removeMessage(m_id_msg);
+    // WARNING why i do this?
+//    WMessage::get().removeMessage(m_id_msg);
 }
 
 QByteArray WServerCacheSingle::formRequest() const

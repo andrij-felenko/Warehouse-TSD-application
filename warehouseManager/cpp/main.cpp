@@ -18,7 +18,7 @@ int main(int argc, char** argv)
     module->init();
     module->registrateTypes();
     module->setContextProperty("Model", new Model(module));
-    WMessage::get().setShowingPriority(WEnum::Priority_high);
+//    WMessage::get().setShowingPriority(WEnum::Priority_high);
 
     module->loadQML(QUrl("qrc:/qml/qml/main.qml"));
     module->start();

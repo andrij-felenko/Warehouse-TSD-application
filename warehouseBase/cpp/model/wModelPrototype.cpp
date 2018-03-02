@@ -18,7 +18,7 @@ QObject* WModelPrototype::getModel(QString key)
         return nullObject;
 }
 
-bool WModelPrototype::registrate(QString key, QObject* model, bool insert_anywhat)
+bool WModelPrototype::registrate(QString key, WModelListTemplate* model, bool insert_anywhat)
 {
     if (model_map.contains(key)){
         if (insert_anywhat)

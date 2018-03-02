@@ -7,10 +7,10 @@ WPage {
     subTitle: qsTr("Контейнера")
     backMode: true
 
-    onBack: {
-        mainStack.pop()
-        Model.cacheDocList("receiving", false)
-    }
+    Component.onCompleted:   Model.cacheDocList("receiving", true, id, WJsonEnum.Container_receiver_id)
+    Component.onDestruction: Model.cacheDocList("receiving", false)
+
+    onBack: mainStack.pop()
 
     content: WRectangle {
         anchors.fill: parent
@@ -37,6 +37,7 @@ WPage {
                 height: containerList.height / 13
                 width: parent.width
                 textLeft: m_item.name
+                textRight: m_actual + m_plan !== 0 ? " / " + m_plan : ""
                 clickMode: true
                 onClicked: console.log("container choose")
             }

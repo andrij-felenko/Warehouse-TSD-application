@@ -3,6 +3,7 @@
 
 #include <QtCore/QObject>
 #include <QtQml/QQmlEngine>
+#include "template/wModelListTemplate.h"
 
 class WModelPrototype : public QObject
 {
@@ -10,7 +11,7 @@ class WModelPrototype : public QObject
 public:
     explicit WModelPrototype(QObject *parent = nullptr);
 
-    bool registrate(QString key, QObject* model, bool insert_anywhat = true);
+    bool registrate(QString key, WModelListTemplate* model, bool insert_anywhat = true);
     bool removeModel(QObject* obj);
     bool removeModel(QString key);
 

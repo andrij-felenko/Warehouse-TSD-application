@@ -62,7 +62,8 @@ SOURCES += \
     cpp/enum/wJson.cpp \
     cpp/enum/wUrl.cpp \
     cpp/model/wModelCacheListByDoc.cpp \
-    cpp/server/wServerCacheSingle.cpp
+    cpp/server/wServerCacheSingle.cpp \
+    cpp/template/wModelListTemplate.cpp
 
 HEADERS += \
     cpp/document/base/wDocumentBase.h \
@@ -107,7 +108,8 @@ HEADERS += \
     cpp/enum/wStatic.h \
     cpp/enum/wJson.h \
     cpp/enum/wEnum.h \
-    cpp/model/wModelCacheListByDoc.h
+    cpp/model/wModelCacheListByDoc.h \
+    cpp/template/wModelListTemplate.h
 
 DISTFILES += \
     jsonAPI.pdf \

@@ -1,19 +1,17 @@
 #ifndef WMODELDOCUMENTLIST_H
 #define WMODELDOCUMENTLIST_H
 
-#include <QtCore/QObject>
-#include <QtCore/QAbstractListModel>
-#include "document/base/wDocumentBase.h"
 #include <QtCore/QMap>
+#include "document/base/wDocumentBase.h"
 #include "enum/wUrl.h"
+#include "template/wModelListTemplate.h"
 
-class WModelDocumentList : public QAbstractListModel
+class WModelDocumentList : public WModelListTemplate
 {
     Q_OBJECT
 public:
-    explicit WModelDocumentList(WUrl::WUrl_enum key, QObject *parent = nullptr);
+    explicit WModelDocumentList(QString name, WUrl::WUrl_enum key, QObject *parent = nullptr);
 
-    QHash <int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
 public slots:
@@ -22,10 +20,9 @@ public slots:
 
 private:
     WUrl::WUrl_enum key;
-    WEnum::Sort m_sort;
     QList <WDocumentBase*> m_list;
 
-    void updateAll();
+    void update() override;
 };
 
 #endif // MODELDOCUMENTLIST_H

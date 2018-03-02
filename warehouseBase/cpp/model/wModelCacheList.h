@@ -1,31 +1,23 @@
 #ifndef WMODELCACHELIST_H
 #define WMODELCACHELIST_H
 
-#include <QtCore/QAbstractListModel>
-#include <QtCore/QObject>
-#include "enum/wEnum.h"
 #include "enum/wStatic.h"
 #include "cache/single/wCacheSingle.h"
 #include "template/wCacheListTemplate.h"
-#include "QDebug"
+#include "template/wModelListTemplate.h"
 
 template <typename T>
-class WModelCacheList : public QAbstractListModel
+class WModelCacheList : public WModelListTemplate
 {
 public:
-    explicit WModelCacheList(T* cache, QObject *parent = nullptr)
-        : QAbstractListModel(parent), cache(cache)
+    explicit WModelCacheList(QString name, T* cache, QObject *parent = nullptr)
+        : WModelListTemplate(name, parent), cache(cache)
     {
         insertLines(cache->getIdList());
 
         QObject::connect(cache, &WCacheListObject::listPoped,   this, &WModelCacheList::removeLines);
         QObject::connect(cache, &WCacheListObject::listPushed,  this, &WModelCacheList::insertLines);
         QObject::connect(cache, &WCacheListObject::listUpdated, this, &WModelCacheList::updateLines);
-    }
-
-    QHash <int, QByteArray> roleNames() const override
-    {
-        return WEnum::getModelHash();
     }
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
@@ -61,7 +53,7 @@ private:
     T* cache;
     QStringList m_list;
 
-    void updateAll()
+    virtual void update() override
     {
         emit dataChanged(this->index(0, 0), this->index(rowCount() - 1, 0));
     }

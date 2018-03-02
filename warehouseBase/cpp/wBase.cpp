@@ -24,7 +24,7 @@ WBase::WBase(QString dateCompile, QObject* parent) : QObject(parent),
     qmlRegisterType <WLineActual> ("WLine", 1, 0, "WLineActual");
     qmlRegisterType <WLinePlan>   ("WLine", 1, 0, "WLinePlan");
 
-    qmlRegisterType <WSettingServer> ("Setting_base", 1, 0, "SettingServer");
+    qmlRegisterType <WSettingServer> ("WSetting", 1, 0, "WSettingServer");
 
     QObject::connect(qApp, &QGuiApplication::applicationNameChanged,    this, &WBase::appNameChanged);
     QObject::connect(qApp, &QGuiApplication::organizationNameChanged,   this, &WBase::orgNameChanged);

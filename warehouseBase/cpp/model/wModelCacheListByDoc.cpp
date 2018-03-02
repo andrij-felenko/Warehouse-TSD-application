@@ -1,18 +1,13 @@
 #include "wModelCacheListByDoc.h"
 #include "wSingleton.h"
 
-WModelCacheListByDoc::WModelCacheListByDoc(WDocumentBase* document, WJson::WJson_enum jsonKey, QVariantMap map,
-                                           QObject *parent)
-    : QAbstractListModel(parent), m_document(document), m_sort(WEnum::SortByAZ), m_jsonKey(jsonKey), m_map(map)
+WModelCacheListByDoc::WModelCacheListByDoc(QString name, WDocumentBase* document, WJson::WJson_enum jsonKey,
+                                           QVariantMap map, QObject *parent)
+    : WModelListTemplate(name, parent), m_document(document), m_jsonKey(jsonKey), m_map(map)
 {
-    updateDocument();
+    update();
 
-    QObject::connect(document, &WDocumentBase::documentLineUpdate, this, &WModelCacheListByDoc::updateDocument);
-}
-
-QHash<int, QByteArray> WModelCacheListByDoc::roleNames() const
-{
-    return WEnum::getModelHash();
+    QObject::connect(document, &WDocumentBase::documentLineUpdate, this, &WModelCacheListByDoc::update);
 }
 
 QVariant WModelCacheListByDoc::data(const QModelIndex& index, int role) const
@@ -40,12 +35,6 @@ QVariant WModelCacheListByDoc::data(const QModelIndex& index, int role) const
     return QVariant();
 }
 
-void WModelCacheListByDoc::setSort(WEnum::Sort sort)
-{
-    m_sort = sort;
-    updateDocument();
-}
-
 int WModelCacheListByDoc::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent)
@@ -70,7 +59,7 @@ WDocumentBase*WModelCacheListByDoc::document()
     return m_document;
 }
 
-void WModelCacheListByDoc::updateDocument()
+void WModelCacheListByDoc::update()
 {
     beginRemoveRows(QModelIndex(), 0, rowCount() - 1);
     m_list.clear();
@@ -81,11 +70,14 @@ void WModelCacheListByDoc::updateDocument()
 
     QStringList list(m_document->getCacheListByParameters(WEnum::LineActual, m_jsonKey, m_map));
 
-    if (m_sort == WEnum::SortByAZ)
-        std::sort(list.begin(), list.end(), [](QString f, QString s){ return f > s; });
-
-    if (m_sort == WEnum::SortByZA)
-        std::sort(list.begin(), list.end(), [](QString f, QString s){ return f < s; });
+    std::sort(list.begin(), list.end(), [=](QString f, QString s){
+        switch (sort()) {
+        case WEnum::SortByAZ: return f > s;
+        case WEnum::SortByZA: return f < s;
+        default:;
+        return false;
+        }
+    });
 
     beginInsertRows(QModelIndex(), 0, list.length() - 1);
     m_list = list;

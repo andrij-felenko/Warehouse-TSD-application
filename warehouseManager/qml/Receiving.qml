@@ -27,10 +27,7 @@ StackView {
 
         header.onRightChoosed: mainPage.currentIndex = 1 // FIXME
         onBack: mainStack.pop()
-        onOpenDocument: {
-            Model.cacheDocList("receiving", true, id, WJsonEnum.Container_receiver_id)
-            mainStack.push(receivingContainerList)
-        }
+        onOpenDocument: mainStack.push(receivingContainerList)
     }
 
     Component {

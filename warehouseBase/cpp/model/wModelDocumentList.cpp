@@ -1,20 +1,16 @@
 #include "wModelDocumentList.h"
 #include "wSingleton.h"
 
-WModelDocumentList::WModelDocumentList(WUrl::WUrl_enum key, QObject *parent)
-    : QAbstractListModel(parent), key(key), m_sort(WEnum::SortByNewest)
+WModelDocumentList::WModelDocumentList(QString name, WUrl::WUrl_enum key, QObject *parent)
+    : WModelListTemplate(name, parent), key(key)
 {
     QObject::connect(WDocument::registrate(), &WDocumentPrototype::documentListUpdate, this, [=](WUrl::WUrl_enum key)
     {
         if (key == this->key)
-            updateAll();
+            update();
     });
-    updateAll();
-}
-
-QHash<int, QByteArray> WModelDocumentList::roleNames() const
-{
-    return WEnum::getModelHash();
+    p_setSort(WEnum::SortByNewest);
+    update();
 }
 
 QVariant WModelDocumentList::data(const QModelIndex& index, int role) const
@@ -46,7 +42,7 @@ bool WModelDocumentList::containsId(QString id)
     return WDocument::get().containsId(key, id);
 }
 
-void WModelDocumentList::updateAll()
+void WModelDocumentList::update()
 {
     beginRemoveRows(QModelIndex(), 0, rowCount() - 1);
     endRemoveRows();
@@ -54,7 +50,7 @@ void WModelDocumentList::updateAll()
     m_list = WDocument::get().getDocumentPointListByKey(key);
 
     std::sort(m_list.begin(), m_list.end(), [=](const WDocumentBase* f, const WDocumentBase* s){
-        switch(m_sort) {
+        switch(sort()) {
         case WEnum::SortByAZ: return f->name() > s->name();
         case WEnum::SortByZA: return f->name() < s->name();
         case WEnum::SortByNewest: return f->dateCreated() > s->dateCreated();
