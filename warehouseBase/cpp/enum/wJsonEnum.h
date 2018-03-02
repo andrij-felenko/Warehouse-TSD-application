@@ -1,22 +1,17 @@
-#ifndef WWJSON_H
-#define WWJSON_H
+#ifndef WJSONENUM_H
+#define WJSONENUM_H
 
-#include <QtCore/QJsonObject>
-#include <QtCore/QJsonArray>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 
 #include "wEnum.h"
-#include "wStatic.h"
+#include "wclass/wStatic.h"
 
-class WJson;
-extern WJson _json;
-
-class WJson : public QObject
+class WJsonEnum : public QObject
 {
     Q_OBJECT
 public:
-    explicit WJson(QObject* parent = nullptr);
+    explicit WJsonEnum(QObject* parent = nullptr);
 
     enum WJson_enum {
         // basic value -----------------------------------------------------------------------------
@@ -155,42 +150,18 @@ public:
 
     }; Q_ENUMS(WJson_enum)
 
-    static WEnum::Version version() { return WEnum::Version_1_0; }
-    static bool insert(QJsonObject& obj, WJson_enum key, const QJsonValue& value_insert,
-                       WEnum::Version version_ = version());
-    QString value(WJson_enum key, QString default_ = WStatic::undefined(),
-                  WEnum::Version version_ = version());
 
-    static QJsonObject createObject(WJson_enum key, const QJsonValue& value_insert,
-                                    WEnum::Version version_ = version());
-
-    static QJsonObject createObject(std::initializer_list<std::pair<WJson_enum, QJsonValue> > list,
-                                    WEnum::Version version_ = version());
-
-    static QJsonValue createValue(WJson_enum key, const QJsonValue& value_insert,
-                                  WEnum::Version version_ = version());
-
-    static QJsonValue createValue(std::initializer_list<std::pair<WJson_enum, QJsonValue> > list,
-                                  WEnum::Version version_ = version());
-
-    static QString toString(WJson_enum key, WEnum::Version version_ = version());
-    static QJsonValue get(const QJsonObject& obj,  WJson_enum key, WEnum::Version version_ = version());
-    static QJsonValue get(const QJsonValue& value, WJson_enum key, WEnum::Version version_ = version());
-    static bool  contains(const QJsonObject& obj,  WJson_enum key, WEnum::Version version_ = version());
-    static bool  contains(const QJsonValue& value, WJson_enum key, WEnum::Version version_ = version());
-    static QJsonArray fromStringList(QStringList list);
-
-public slots:
-    static QString toString(int key, int version_ = version());
+    QString p_value(WJsonEnum::WJson_enum key, QString default_ = WStatic::undefined(),
+                    WEnum::Version version_ = WEnum::Version_1_0);
 
 private:
-    struct WJson_single {
-        WJson_enum key;
+    struct WJsonEnumSingle {
+        WJsonEnum::WJson_enum key;
         QString name;
         WEnum::Version version;
     };
 
-    QList <WJson_single> m_list;
+    QList <WJsonEnumSingle> m_list;
 };
 
-#endif // WJSON_H
+#endif // WJSONENUM_H

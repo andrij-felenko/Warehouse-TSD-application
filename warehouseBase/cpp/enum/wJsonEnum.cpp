@@ -1,8 +1,6 @@
-#include "wJson.h"
+#include "wJsonEnum.h"
 
-WJson _wjson;
-
-WJson::WJson(QObject* parent) : QObject(parent)
+WJsonEnum::WJsonEnum(QObject* parent) : QObject(parent)
 {
     // basic value -----------------------------------------------------------------------------
     m_list.push_back({ Barcode, "barcode", WEnum::Version_1_0 });
@@ -139,7 +137,7 @@ WJson::WJson(QObject* parent) : QObject(parent)
     m_list.push_back({ Folder, "folder", WEnum::Version_1_0 });
 }
 
-QString WJson::value(WJson_enum key, QString default_, WEnum::Version version_)
+QString WJsonEnum::p_value(WJsonEnum::WJson_enum key, QString default_, WEnum::Version version_)
 {
     QString value("");
     WEnum::Version lastSuitableVersion(WEnum::Version_none);
@@ -155,88 +153,4 @@ QString WJson::value(WJson_enum key, QString default_, WEnum::Version version_)
     if (lastSuitableVersion != WEnum::Version_none)
         return value;
     return default_;
-}
-
-QJsonObject WJson::createObject(WJson::WJson_enum key, const QJsonValue& value_insert, WEnum::Version version_)
-{
-    QJsonObject obj;
-    WJson::insert(obj, key, value_insert, version_);
-    return obj;
-}
-
-/*!
- * \brief WJson::createObject
- * \code auto t = WJson::createObject({ std::make_pair(WJson::Name, "1"),
-                                        std::make_pair(WJson::Transit, "2") });
-   \endcode
- * \param list
- * \param version_
- * \return
- */
-QJsonObject WJson::createObject(std::initializer_list<std::pair <WJson::WJson_enum, QJsonValue>> list,
-                                WEnum::Version version_)
-{
-    QJsonObject obj;
-    for (auto it : list)
-        WJson::insert(obj, it.first, it.second, version_);
-    return obj;
-}
-
-QJsonValue WJson::createValue(WJson::WJson_enum key, const QJsonValue& value_insert, WEnum::Version version_)
-{
-    return QJsonValue(WJson::createObject(key, value_insert, version_));
-}
-
-QJsonValue WJson::createValue(std::initializer_list<std::pair <WJson::WJson_enum, QJsonValue>> list,
-                              WEnum::Version version_)
-{
-    return QJsonValue(WJson::createObject(list, version_));
-}
-
-QString WJson::toString(WJson_enum key, WEnum::Version version_)
-{
-    return _wjson.value(key, WStatic::undefined(), version_);
-}
-
-QString WJson::toString(int key, int version_)
-{
-    return WJson::toString(static_cast <WJson_enum> (key), static_cast <WEnum::Version> (version_));
-}
-
-QJsonValue WJson::get(const QJsonObject& obj, WJson_enum key, WEnum::Version version_)
-{
-    return obj.value(WJson::toString(key, version_));
-}
-
-QJsonValue WJson::get(const QJsonValue& value, WJson_enum key, WEnum::Version version_)
-{
-    return WJson::get(value.toObject(), key, version_);
-}
-
-bool WJson::contains(const QJsonObject& obj,  WJson_enum key, WEnum::Version version_)
-{
-    return obj.contains(WJson::toString(key, version_));
-}
-
-bool WJson::contains(const QJsonValue& value, WJson_enum key, WEnum::Version version_)
-{
-    return WJson::contains(value.toObject(), key, version_);
-}
-
-QJsonArray WJson::fromStringList(QStringList list)
-{
-    QJsonArray array;
-    for (auto it : list)
-        array.push_back(it);
-    return array;
-}
-
-bool WJson::insert(QJsonObject& obj, WJson_enum key, const QJsonValue& value_insert,
-                  WEnum::Version version_)
-{
-    if (WStatic::undefined() != WJson::toString(key, version_)){
-        obj.insert(WJson::toString(key, version_), value_insert);
-        return true;
-    }
-    return false;
 }

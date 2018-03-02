@@ -1,4 +1,5 @@
 #include "wNomenclatureSingle.h"
+#include "wclass/wJsonConverter.h"
 
 WNomenclatureSingle::WNomenclatureSingle(QObject *parent) : WCacheSingle(parent)
 {
@@ -14,9 +15,9 @@ WNomenclatureSingle::WNomenclatureSingle(const QJsonObject &obj, QObject *parent
 QJsonObject WNomenclatureSingle::toJson() const
 {
     QJsonObject obj = WCacheSingle::toJson();
-    WJson::insert(obj, WJson::Folder, m_folder);
-    WJson::insert(obj, WJson::ModelTypeId, m_modelTypeId);
-    WJson::insert(obj, WJson::Consignment, m_consignment); // FIXME
+    WJsonConverter::insert(obj, WJsonEnum::Folder, m_folder);
+    WJsonConverter::insert(obj, WJsonEnum::ModelTypeId, m_modelTypeId);
+    WJsonConverter::insert(obj, WJsonEnum::Consignment, m_consignment); // FIXME
     return obj;
 }
 
@@ -24,11 +25,11 @@ void WNomenclatureSingle::fromJson(const QJsonObject &obj)
 {
     WCacheSingle::fromJson(obj);
 
-    if (WJson::contains(obj, WJson::Folder))
-        setFolder(WJson::get(obj, WJson::Folder).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Folder))
+        setFolder(WJsonConverter::get(obj, WJsonEnum::Folder).toString());
 
-    if (WJson::contains(obj, WJson::ModelTypeId))
-        setModelTypeId(WJson::get(obj, WJson::ModelTypeId).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::ModelTypeId))
+        setModelTypeId(WJsonConverter::get(obj, WJsonEnum::ModelTypeId).toString());
 
     // FIXME consignment list
 }

@@ -5,7 +5,8 @@
 #include <QtCore/QVariantMap>
 #include "wDocumentHeader.h"
 #include "document/line/wLineActual.h"
-#include "server/wJsonTemplate.h"
+#include "wclass/wJson.h"
+#include "enum/wUrlEnum.h"
 
 class WDocumentBase : public WDocumentHeader
 {
@@ -14,7 +15,7 @@ class WDocumentBase : public WDocumentHeader
     Q_PROPERTY(WLinePlan*   currentPlan   READ currentPlan)
 
 public:
-    explicit WDocumentBase(WUrl::WUrl_enum documentKey = WUrl::___, QObject *parent = nullptr);
+    explicit WDocumentBase(WUrlEnum::WUrl_enum documentKey = WUrlEnum::___, QObject *parent = nullptr);
 
     void writeHeader(QJsonValue value);
     void writeLines(QJsonValue value);
@@ -22,14 +23,15 @@ public:
     WLineActual* currentActual() const { return m_currentActual; }
     WLinePlan*   currentPlan()   const { return m_currentPlan; }
 
-    void acceptedUpdateLine(WJsonTemplate* json);
-    void acceptedSetLine(WJsonTemplate* json);
-    void acceptedRemoveLine(WJsonTemplate* json);
-    void acceptedReserveContainer(WJsonTemplate* json, bool sender);
-    void acceptedUnreserveContainer(WJsonTemplate* json, bool sender);
+    void acceptedUpdateLine(WJson* json);
+    void acceptedSetLine(WJson* json);
+    void acceptedRemoveLine(WJson* json);
+    void acceptedReserveContainer(WJson* json, bool sender);
+    void acceptedUnreserveContainer(WJson* json, bool sender);
 
-    QStringList getCacheList(WJson::WJson_enum type);
-    QStringList getCacheListByParameters(WEnum::LineType type, WJson::WJson_enum key, QVariantMap map = QVariantMap());
+    QStringList getCacheList(WJsonEnum::WJson_enum type);
+    QStringList getCacheListByParameters(WEnum::LineType type, WJsonEnum::WJson_enum key,
+                                         QVariantMap map = QVariantMap());
     int getQuantity(WEnum::LineType type, QVariantMap map);
 
 public slots:
@@ -49,7 +51,7 @@ protected:
     WLinePlan* m_currentPlan;
 
 private:
-    WUrl::WUrl_enum documentKey;
+    WUrlEnum::WUrl_enum documentKey;
 };
 
 #endif // DOCUMENTBASE_H

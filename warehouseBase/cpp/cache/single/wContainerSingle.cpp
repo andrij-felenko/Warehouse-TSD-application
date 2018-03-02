@@ -1,4 +1,5 @@
 #include "wContainerSingle.h"
+#include "wclass/wJsonConverter.h"
 
 WContainerSingle::WContainerSingle(QObject *parent) : WCacheSingle(parent)
 {
@@ -13,7 +14,7 @@ WContainerSingle::WContainerSingle(const QJsonObject &obj, QObject *parent) : WC
 QJsonObject WContainerSingle::toJson() const
 {
     QJsonObject obj = WCacheSingle::toJson();
-    WJson::insert(obj, WJson::Employee_id, QJsonValue(m_employee_id));
+    WJsonConverter::insert(obj, WJsonEnum::Employee_id, QJsonValue(m_employee_id));
     return obj;
 }
 
@@ -21,8 +22,8 @@ void WContainerSingle::fromJson(const QJsonObject& obj)
 {
     WCacheSingle::fromJson(obj);
 
-    if (WJson::contains(obj, WJson::Employee_id))
-        setEmployeeId(WJson::get(obj, WJson::Employee_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Employee_id))
+        setEmployeeId(WJsonConverter::get(obj, WJsonEnum::Employee_id).toString());
 }
 
 QString WContainerSingle::employeeId() const

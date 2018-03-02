@@ -1,4 +1,5 @@
 #include "wCellSingle.h"
+#include "wclass/wJsonConverter.h"
 
 WCellSingle::WCellSingle(QObject *parent) : WCacheSingle(parent)
 {
@@ -13,7 +14,7 @@ WCellSingle::WCellSingle(const QJsonObject &obj, QObject *parent) : WCellSingle(
 QJsonObject WCellSingle::toJson() const
 {
     QJsonObject obj = WCacheSingle::toJson();
-    WJson::insert(obj, WJson::Warehouse_id, QJsonValue(m_warehouseId));
+    WJsonConverter::insert(obj, WJsonEnum::Warehouse_id, QJsonValue(m_warehouseId));
     return obj;
 }
 
@@ -21,8 +22,8 @@ void WCellSingle::fromJson(const QJsonObject& obj)
 {
     WCellSingle::fromJson(obj);
 
-    if (WJson::contains(obj, WJson::Warehouse_id))
-        setWarehouseId(WJson::get(obj, WJson::Warehouse_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Warehouse_id))
+        setWarehouseId(WJsonConverter::get(obj, WJsonEnum::Warehouse_id).toString());
 }
 
 void WCellSingle::setWarehouseId(QString warehouseId)

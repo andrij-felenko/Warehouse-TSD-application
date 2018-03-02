@@ -1,5 +1,5 @@
 #include "wEnum.h"
-#include "wStatic.h"
+#include "wclass/wStatic.h"
 
 QHash<int, QByteArray> WEnum::getModelHash()
 {

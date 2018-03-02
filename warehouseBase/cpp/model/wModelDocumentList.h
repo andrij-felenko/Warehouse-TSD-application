@@ -3,14 +3,14 @@
 
 #include <QtCore/QMap>
 #include "document/base/wDocumentBase.h"
-#include "enum/wUrl.h"
+#include "enum/wUrlEnum.h"
 #include "template/wModelListTemplate.h"
 
 class WModelDocumentList : public WModelListTemplate
 {
     Q_OBJECT
 public:
-    explicit WModelDocumentList(QString name, WUrl::WUrl_enum key, QObject *parent = nullptr);
+    explicit WModelDocumentList(QString name, WUrlEnum::WUrl_enum key, QObject *parent = nullptr);
 
     QVariant data(const QModelIndex &index, int role) const override;
 
@@ -19,7 +19,7 @@ public slots:
     bool containsId(QString id);
 
 private:
-    WUrl::WUrl_enum key;
+    WUrlEnum::WUrl_enum key;
     QList <WDocumentBase*> m_list;
 
     void update() override;

@@ -1,7 +1,7 @@
 #ifndef WMODELCACHELIST_H
 #define WMODELCACHELIST_H
 
-#include "enum/wStatic.h"
+#include "wclass/wStatic.h"
 #include "cache/single/wCacheSingle.h"
 #include "template/wCacheListTemplate.h"
 #include "template/wModelListTemplate.h"

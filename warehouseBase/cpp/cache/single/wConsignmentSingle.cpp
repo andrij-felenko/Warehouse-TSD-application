@@ -14,15 +14,21 @@ WConsignmentSingle::WConsignmentSingle(const QJsonObject &obj, QObject *parent) 
 QJsonObject WConsignmentSingle::toJson() const
 {
     QJsonObject obj = WCacheSingle::toJson();
-    WJson::insert(obj, WJson::Height, m_height);
-    WJson::insert(obj, WJson::Width,  m_width);
-    WJson::insert(obj, WJson::Length, m_length);
-    WJson::insert(obj, WJson::Weight, m_weight);
-    WJson::insert(obj, WJson::Nomenclature_id, m_nomenclatureId);
-    WJson::insert(obj, WJson::Nomenclature_name, m_nomenclatureName);
-    WJson::insert(obj, WJson::Date_packing, m_datePacking.toString(WSetting::get().server()->dateFormat()));
-    WJson::insert(obj, WJson::Date_production, m_dateProduction.toString(WSetting::get().server()->dateFormat()));
-    WJson::insert(obj, WJson::ShelfLife, m_shelfLife.toString(WSetting::get().server()->dateFormat()));
+    WJsonConverter::insert(obj, WJsonEnum::Height, m_height);
+    WJsonConverter::insert(obj, WJsonEnum::Width,  m_width);
+    WJsonConverter::insert(obj, WJsonEnum::Length, m_length);
+    WJsonConverter::insert(obj, WJsonEnum::Weight, m_weight);
+    WJsonConverter::insert(obj, WJsonEnum::Nomenclature_id, m_nomenclatureId);
+    WJsonConverter::insert(obj, WJsonEnum::Nomenclature_name, m_nomenclatureName);
+
+    WJsonConverter::insert(obj, WJsonEnum::Date_packing,
+                           m_datePacking.toString(WSetting::get().server()->dateFormat()));
+
+    WJsonConverter::insert(obj, WJsonEnum::Date_production,
+                           m_dateProduction.toString(WSetting::get().server()->dateFormat()));
+
+    WJsonConverter::insert(obj, WJsonEnum::ShelfLife,
+                           m_shelfLife.toString(WSetting::get().server()->dateFormat()));
     return obj;
 }
 
@@ -30,36 +36,36 @@ void WConsignmentSingle::fromJson(const QJsonObject &obj)
 {
     WCacheSingle::fromJson(obj);
 
-    if (WJson::contains(obj, WJson::Length))
-        setLength(WJson::get(obj, WJson::Length).toDouble());
+    if (WJsonConverter::contains(obj, WJsonEnum::Length))
+        setLength(WJsonConverter::get(obj, WJsonEnum::Length).toDouble());
 
-    if (WJson::contains(obj, WJson::Width))
-        setWidth(WJson::get(obj, WJson::Width).toDouble());
+    if (WJsonConverter::contains(obj, WJsonEnum::Width))
+        setWidth(WJsonConverter::get(obj, WJsonEnum::Width).toDouble());
 
-    if (WJson::contains(obj, WJson::Weight))
-        setWeight(WJson::get(obj, WJson::Weight).toDouble());
+    if (WJsonConverter::contains(obj, WJsonEnum::Weight))
+        setWeight(WJsonConverter::get(obj, WJsonEnum::Weight).toDouble());
 
-    if (WJson::contains(obj, WJson::Height))
-        setHeight(WJson::get(obj, WJson::Height).toDouble());
+    if (WJsonConverter::contains(obj, WJsonEnum::Height))
+        setHeight(WJsonConverter::get(obj, WJsonEnum::Height).toDouble());
 
-    if (WJson::contains(obj, WJson::Nomenclature_id))
-        setNomenclatureId(WJson::get(obj, WJson::Nomenclature_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Nomenclature_id))
+        setNomenclatureId(WJsonConverter::get(obj, WJsonEnum::Nomenclature_id).toString());
 
-    if (WJson::contains(obj, WJson::Nomenclature_name))
-        setNomenclatureName(WJson::get(obj, WJson::Nomenclature_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Nomenclature_name))
+        setNomenclatureName(WJsonConverter::get(obj, WJsonEnum::Nomenclature_name).toString());
     else
         setNomenclatureName(WCache::get().nomenclature()->getNameById(m_nomenclatureId));
 
-    if (WJson::contains(obj, WJson::Date_packing))
-        setDatePacking(QDateTime::fromString(WJson::get(obj, WJson::Date_packing).toString(),
+    if (WJsonConverter::contains(obj, WJsonEnum::Date_packing))
+        setDatePacking(QDateTime::fromString(WJsonConverter::get(obj, WJsonEnum::Date_packing).toString(),
                                              WSetting::get().server()->dateFormat()));
 
-    if (WJson::contains(obj, WJson::Date_production))
-        setDateProduction(QDateTime::fromString(WJson::get(obj, WJson::Date_production).toString(),
+    if (WJsonConverter::contains(obj, WJsonEnum::Date_production))
+        setDateProduction(QDateTime::fromString(WJsonConverter::get(obj, WJsonEnum::Date_production).toString(),
                                                 WSetting::get().server()->dateFormat()));
 
-    if (WJson::contains(obj, WJson::ShelfLife))
-        setShelfLife(QDateTime::fromString(WJson::get(obj, WJson::ShelfLife).toString(),
+    if (WJsonConverter::contains(obj, WJsonEnum::ShelfLife))
+        setShelfLife(QDateTime::fromString(WJsonConverter::get(obj, WJsonEnum::ShelfLife).toString(),
                                            WSetting::get().server()->dateFormat()));
 }
 

@@ -148,8 +148,9 @@ WPage {
             height: parent.height / 18
             color: "#ffffff"
             wrapMode: Text.WrapAnywhere
-            text: WApp.appName  + " [" + WApp.dateCompile + "]" + " v. " + WApp.version + "\n"
-                  + "WHLib v. 1.0 [" + WApp.libDateCompile + "]"
+            text: WApp.appName + " v. " + WApp.version + " [" + WApp.dateCompile + "]\n"
+                  + qsTr("base on ") + "WHLib v. 1.0 [" + WApp.libDateCompile + "]"
+            font.family: "Monospace"
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 8
         }
@@ -165,6 +166,7 @@ WPage {
             color: "#ffffff"
             wrapMode: Text.WrapAnywhere
             text: "\n© " + qsTr("Andrij Felenko")
+            font.family: "Noto Mono"
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
             font.pointSize: 6

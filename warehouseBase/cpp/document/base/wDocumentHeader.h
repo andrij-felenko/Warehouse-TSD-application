@@ -6,8 +6,8 @@
 #include <QtCore/QString>
 
 #include "enum/wEnum.h"
-#include "enum/wJson.h"
-#include "enum/wStatic.h"
+#include "enum/wJsonEnum.h"
+#include "wclass/wStatic.h"
 
 class WDocumentHeader : public QObject
 {

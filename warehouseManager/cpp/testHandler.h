@@ -11,14 +11,14 @@ void testVocabulary()
     for (int i = 0; i < 6; i++){
         QString id(WStatic::guidCreate());
         QJsonObject obj;
-        WJson::insert(obj, WJson::Id, id);
-        WJson::insert(obj, WJson::Password, "123");
-        WJson::insert(obj, WJson::Name, id.left(6));
+        WJsonConverter::insert(obj, WJsonEnum::Id, id);
+        WJsonConverter::insert(obj, WJsonEnum::Password, "123");
+        WJsonConverter::insert(obj, WJsonEnum::Name, id.left(6));
         array.push_back(QJsonValue(obj));
     }
-    auto *req = new WJsonTemplate(WUrl::compareUrl({ WUrl::Get, WUrl::Employee, WUrl::List }),
-                                  QJsonValue(array));
-    WServer::get().requestHandler()->sendRequest(WUrl::disunite(req->url()), req);
+    auto *req = new WJson(WUrlConverter::compareUrl({ WUrlEnum::Get, WUrlEnum::Employee, WUrlEnum::List }),
+                          QJsonValue(array));
+    WServer::get().requestHandler()->sendRequest(WUrlConverter::disunite(req->url()), req);
 }
 
 void testDocumentReceivingList()
@@ -33,9 +33,10 @@ void testDocumentReceivingList()
         header.setStatus(static_cast <WEnum::DocumentStatus> (+WEnum::Document_created + rand()%4));
         array.push_back(header.toJson());
     }
-    auto *req = new WJsonTemplate(WUrl::compareUrl({ WUrl::Get, WUrl::Receiving, WUrl::Document, WUrl::List }),
-                                  QJsonValue(array));
-    WServer::get().requestHandler()->sendRequest(WUrl::disunite(req->url()), req);
+    auto *req = new WJson(WUrlConverter::compareUrl({ WUrlEnum::Get, WUrlEnum::Receiving,
+                                                      WUrlEnum::Document, WUrlEnum::List }),
+                          QJsonValue(array));
+    WServer::get().requestHandler()->sendRequest(WUrlConverter::disunite(req->url()), req);
 }
 
 #endif // TESTHANDLER_H

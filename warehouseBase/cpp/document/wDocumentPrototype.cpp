@@ -4,10 +4,10 @@
 
 WDocumentPrototype::WDocumentPrototype(QObject *parent) : QObject(parent)
 {
-    m_empty = new WDocumentBase(WUrl::WUrl_enum::___, this);
+    m_empty = new WDocumentBase(WUrlEnum::WUrl_enum::___, this);
 }
 
-void WDocumentPrototype::updateDocumentList(WJsonTemplate* json, WUrl::WUrl_enum key)
+void WDocumentPrototype::updateDocumentList(WJson* json, WUrlEnum::WUrl_enum key)
 {
     int i(0);
     QJsonArray array(json->json().toArray());
@@ -15,8 +15,8 @@ void WDocumentPrototype::updateDocumentList(WJsonTemplate* json, WUrl::WUrl_enum
         if (it.key == key){
             bool isFound(false);
             for (auto subIt : array)
-                if (WJson::contains(subIt, WJson::Id))
-                    if (it.document->id() == WJson::get(subIt, WJson::Id).toString()){
+                if (WJsonConverter::contains(subIt, WJsonEnum::Id))
+                    if (it.document->id() == WJsonConverter::get(subIt, WJsonEnum::Id).toString()){
                         it.document->writeHeader(subIt);
                         updateDocumentVocabulary(it.document);
                         isFound = true;
@@ -31,8 +31,8 @@ void WDocumentPrototype::updateDocumentList(WJsonTemplate* json, WUrl::WUrl_enum
         i++;
     }
     for (auto it : array)
-        if (WJson::contains(it, WJson::Id))
-            if (not containsId(key, WJson::get(it, WJson::Id).toString())){
+        if (WJsonConverter::contains(it, WJsonEnum::Id))
+            if (not containsId(key, WJsonConverter::get(it, WJsonEnum::Id).toString())){
                 auto document = new WDocumentBase(key, this);
                 document->writeHeader(it);
                 updateDocumentVocabulary(document);
@@ -44,15 +44,15 @@ void WDocumentPrototype::updateDocumentList(WJsonTemplate* json, WUrl::WUrl_enum
     emit documentListUpdate(key);
 }
 
-WDocumentBase* WDocumentPrototype::getDocument(QString id, WUrl::WUrl_enum key) const
+WDocumentBase* WDocumentPrototype::getDocument(QString id, WUrlEnum::WUrl_enum key) const
 {
     for (auto it : m_list)
-        if ((key == WUrl::___ and it.document->id() == id) or key == it.key)
+        if ((key == WUrlEnum::___ and it.document->id() == id) or key == it.key)
             return it.document;
     return nullptr;
 }
 
-WDocumentBase* WDocumentPrototype::getDocument(WUrl::WUrl_enum key, int position) const
+WDocumentBase* WDocumentPrototype::getDocument(WUrlEnum::WUrl_enum key, int position) const
 {
     if (getDocumentLengthByKey(key) <= position)
         return m_empty;
@@ -68,7 +68,7 @@ WDocumentBase* WDocumentPrototype::getDocument(WUrl::WUrl_enum key, int position
     return m_empty;
 }
 
-QStringList WDocumentPrototype::getDocumentListByKey(WUrl::WUrl_enum key) const
+QStringList WDocumentPrototype::getDocumentListByKey(WUrlEnum::WUrl_enum key) const
 {
     QStringList list;
     for (auto it : m_list)
@@ -77,7 +77,7 @@ QStringList WDocumentPrototype::getDocumentListByKey(WUrl::WUrl_enum key) const
     return list;
 }
 
-QMultiMap <WEnum::DocumentStatus, QString> WDocumentPrototype::getDocumentMapByKey(WUrl::WUrl_enum key) const
+QMultiMap <WEnum::DocumentStatus, QString> WDocumentPrototype::getDocumentMapByKey(WUrlEnum::WUrl_enum key) const
 {
     QMultiMap < WEnum::DocumentStatus, QString> map;
     for (auto it : m_list)
@@ -86,7 +86,7 @@ QMultiMap <WEnum::DocumentStatus, QString> WDocumentPrototype::getDocumentMapByK
     return map;
 }
 
-QList <WDocumentBase*> WDocumentPrototype::getDocumentPointListByKey(WUrl::WUrl_enum key) const
+QList <WDocumentBase*> WDocumentPrototype::getDocumentPointListByKey(WUrlEnum::WUrl_enum key) const
 {
     QList <WDocumentBase*> list;
     for (auto it : m_list)
@@ -95,7 +95,7 @@ QList <WDocumentBase*> WDocumentPrototype::getDocumentPointListByKey(WUrl::WUrl_
     return list;
 }
 
-int WDocumentPrototype::getDocumentLengthByKey(WUrl::WUrl_enum key) const
+int WDocumentPrototype::getDocumentLengthByKey(WUrlEnum::WUrl_enum key) const
 {
     int length(0);
     for (auto it : m_list)
@@ -104,7 +104,7 @@ int WDocumentPrototype::getDocumentLengthByKey(WUrl::WUrl_enum key) const
     return length;
 }
 
-bool WDocumentPrototype::containsId(WUrl::WUrl_enum key, QString id) const
+bool WDocumentPrototype::containsId(WUrlEnum::WUrl_enum key, QString id) const
 {
     for (auto it : m_list)
         if (it.key == key)
@@ -115,19 +115,19 @@ bool WDocumentPrototype::containsId(WUrl::WUrl_enum key, QString id) const
 
 void WDocumentPrototype::requestDocumentList(int key)
 {
-    WUrl::WUrl_enum urlKey = static_cast <WUrl::WUrl_enum> (key);
-    if (not WUrl::contains(urlKey)){
+    WUrlEnum::WUrl_enum urlKey = static_cast <WUrlEnum::WUrl_enum> (key);
+    if (not WUrlConverter::contains(urlKey)){
         WMessage::get().setErrorMessage(QObject::tr("Не удалось найти ключ в списке url: ") + QString::number(key));
         return;
     }
-    WServer::get().request(WUrl::compareUrl({ WUrl::Get, urlKey, WUrl::Document, WUrl::List }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Get, urlKey, WUrlEnum::Document, WUrlEnum::List }),
                            QObject::tr("Запрос списка документов."), WRequestGenerate::empty());
 }
 
 void WDocumentPrototype::updateDocumentVocabulary(WDocumentBase* document)
 {
-    WCache::get().pushCacheToQueque(WUrl::Cell,         document->getCacheList(WJson::Cell_id));
-    WCache::get().pushCacheToQueque(WUrl::Consignment,  document->getCacheList(WJson::Consignment_id));
-    WCache::get().pushCacheToQueque(WUrl::Container,    document->getCacheList(WJson::Container_id));
-    WCache::get().pushCacheToQueque(WUrl::Nomenclature, document->getCacheList(WJson::Nomenclature_id));
+    WCache::get().pushCacheToQueque(WUrlEnum::Cell,         document->getCacheList(WJsonEnum::Cell_id));
+    WCache::get().pushCacheToQueque(WUrlEnum::Consignment,  document->getCacheList(WJsonEnum::Consignment_id));
+    WCache::get().pushCacheToQueque(WUrlEnum::Container,    document->getCacheList(WJsonEnum::Container_id));
+    WCache::get().pushCacheToQueque(WUrlEnum::Nomenclature, document->getCacheList(WJsonEnum::Nomenclature_id));
 }

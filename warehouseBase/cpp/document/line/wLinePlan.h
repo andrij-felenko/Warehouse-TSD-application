@@ -5,8 +5,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
-#include "enum/wJson.h"
-#include "enum/wStatic.h"
+#include "enum/wJsonEnum.h"
+#include "wclass/wStatic.h"
 
 class WLinePlan : public QObject
 {
@@ -56,7 +56,7 @@ public:
     void fromJson(const QJsonObject& obj);
 
     // ANALIZE LINE FUNCTION ----------------------------------------------------------------------
-    QString getVariableByJsonKey(WJson::WJson_enum key) const;
+    QString getVariableByJsonKey(WJsonEnum::WJson_enum key) const;
     bool isConcordiaLineByParameter(QVariantMap map);
 
     // READ ---------------------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 #include "wCacheSingle.h"
-#include "enum/wJson.h"
-#include "enum/wStatic.h"
+#include "enum/wJsonEnum.h"
+#include "wclass/wStatic.h"
+#include "wclass/wJsonConverter.h"
 
 /*!
  * \brief По умолчанию.
@@ -30,9 +31,9 @@ WCacheSingle::WCacheSingle(const QJsonObject& obj, QObject* parent) : WCacheSing
 QJsonObject WCacheSingle::toJson() const
 {
     QJsonObject obj;
-    WJson::insert(obj, WJson::Id,      m_id);
-    WJson::insert(obj, WJson::Name,    m_name);
-    WJson::insert(obj, WJson::Barcode, m_barcode);
+    WJsonConverter::insert(obj, WJsonEnum::Id,      m_id);
+    WJsonConverter::insert(obj, WJsonEnum::Name,    m_name);
+    WJsonConverter::insert(obj, WJsonEnum::Barcode, m_barcode);
     return obj;
 }
 
@@ -43,9 +44,14 @@ QJsonObject WCacheSingle::toJson() const
 void WCacheSingle::fromJson(const QJsonObject& obj)
 {
     resetAll();
-    if (WJson::contains(obj, WJson::Id))      setId     (WJson::get(obj, WJson::Id)     .toString());
-    if (WJson::contains(obj, WJson::Name))    setName   (WJson::get(obj, WJson::Name)   .toString());
-    if (WJson::contains(obj, WJson::Barcode)) setBarcode(WJson::get(obj, WJson::Barcode).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Id))
+        setId(WJsonConverter::get(obj, WJsonEnum::Id).toString());
+
+    if (WJsonConverter::contains(obj, WJsonEnum::Name))
+        setName(WJsonConverter::get(obj, WJsonEnum::Name).toString());
+
+    if (WJsonConverter::contains(obj, WJsonEnum::Barcode))
+        setBarcode(WJsonConverter::get(obj, WJsonEnum::Barcode).toString());
 }
 
 /*!

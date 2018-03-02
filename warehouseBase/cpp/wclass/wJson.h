@@ -1,24 +1,26 @@
-#ifndef WWJSONTEMPLATE_H
-#define WWJSONTEMPLATE_H
+#ifndef WWJSON_H
+#define WWJSON_H
 
 #include <QtCore/QDebug>
 #include <QtCore/QObject>
-#include "enum/wJson.h"
-#include "enum/wStatic.h"
-#include "enum/wUrl.h"
+#include <QtCore/QJsonValue>
+#include "enum/wJsonEnum.h"
+#include "wclass/wStatic.h"
+#include "enum/wUrlEnum.h"
 #include <utility>
+#include "wclass/wUrlConverter.h"
 
-class WJsonTemplate : public QObject
+class WJson : public QObject
 {
 public:
-    explicit WJsonTemplate(QObject *parent = nullptr);
-    WJsonTemplate(QString url, QJsonValue json, QObject *parent = nullptr);
-    WJsonTemplate(QJsonDocument& document, WEnum::Version version_, QObject *parent = nullptr);
-    WJsonTemplate(QJsonDocument& document, QObject *parent = nullptr);
+    explicit WJson(QObject *parent = nullptr);
+    WJson(QString url, QJsonValue json, QObject *parent = nullptr);
+    WJson(QJsonDocument& document, WEnum::Version version_, QObject *parent = nullptr);
+    WJson(QJsonDocument& document, QObject *parent = nullptr);
 
-    QJsonDocument toJsonDocument(WEnum::Version version = WJson::version()) const;
+    QJsonDocument toJsonDocument(WEnum::Version version = WEnum::Version_1_0) const;
     std::pair<bool, QString> fromJsonDocument(QJsonDocument document, bool isAnswer = false,
-                                              WEnum::Version version_ = WUrl::version());
+                                              WEnum::Version version_ = WUrlConverter::version());
 
     QString employee_id() const { return m_employee_id; }
     QString request()     const { return m_request; }
@@ -31,8 +33,8 @@ public:
     bool answer()  { return m_answer; }
     QString text() { return m_text; }
 
-    friend QDebug operator << (QDebug d, const WJsonTemplate& json);
-    friend QDebug operator << (QDebug d, const WJsonTemplate* json);
+    friend QDebug operator << (QDebug d, const WJson& json);
+    friend QDebug operator << (QDebug d, const WJson* json);
     static QDebug parse(QDebug d, int deep, QString key, QJsonValue value);
 
 private:
@@ -48,4 +50,4 @@ private:
     QString m_text;
 };
 
-#endif // WJSONTEMPLATE_H
+#endif // WJSON_H

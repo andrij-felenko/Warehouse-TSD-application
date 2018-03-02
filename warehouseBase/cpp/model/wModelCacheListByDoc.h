@@ -10,7 +10,7 @@ class WModelCacheListByDoc : public WModelListTemplate
 {
     Q_OBJECT
 public:
-    explicit WModelCacheListByDoc(QString name, WDocumentBase *document, WJson::WJson_enum jsonKey,
+    explicit WModelCacheListByDoc(QString name, WDocumentBase *document, WJsonEnum::WJson_enum jsonKey,
                                   QVariantMap map = QVariantMap(), QObject *parent = nullptr);
 
     QVariant data(const QModelIndex &index, int role) const override;
@@ -23,7 +23,7 @@ public slots:
 
 private:
     WDocumentBase *m_document;
-    WJson::WJson_enum m_jsonKey;
+    WJsonEnum::WJson_enum m_jsonKey;
     QVariantMap m_map;
     QStringList m_list;
 

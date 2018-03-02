@@ -3,7 +3,7 @@
 
 #include <QtCore/QTimer>
 #include "enum/wEnum.h"
-#include "enum/wStatic.h"
+#include "wclass/wStatic.h"
 
 class WMessageSingle : public QObject
 {

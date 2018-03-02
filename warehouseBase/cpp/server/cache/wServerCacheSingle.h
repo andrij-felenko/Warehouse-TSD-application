@@ -5,7 +5,7 @@
 #include <QtCore/QJsonDocument>
 #include <QtCore/QDateTime>
 #include "enum/wEnum.h"
-#include "wJsonTemplate.h"
+#include "wclass/wJson.h"
 
 class WServerCacheSingle : public QObject
 {
@@ -24,7 +24,7 @@ public:
     QObject* sender()      const;
     QString functionName() const;
     QString id_msg()       const;
-    WJsonTemplate* json()  const;
+    WJson* json()  const;
     WEnum::Request_priority priority() const;
     WEnum::ServerCacheStatus status() const;
     int secAfterRequest() const;
@@ -34,7 +34,7 @@ private:
     QObject* m_sender;
     QString m_functionName;
     QString m_id_msg;
-    WJsonTemplate* m_json;
+    WJson* m_json;
     WEnum::Request_priority m_priority;
     WEnum::ServerCacheStatus m_status;
 };

@@ -1,6 +1,6 @@
 #include "wEmployeeSingle.h"
 #include <QtCore/QCryptographicHash>
-#include <QDebug>
+#include "wclass/wJsonConverter.h"
 
 WEmployeeSingle::WEmployeeSingle(QObject *parent) : WCacheSingle(parent)
 {
@@ -16,8 +16,8 @@ void WEmployeeSingle::fromJson(const QJsonObject &obj)
 {
     WCacheSingle::fromJson(obj);
 
-    if (WJson::contains(obj, WJson::Password))
-        m_password = WJson::get(obj, WJson::Password).toString();
+    if (WJsonConverter::contains(obj, WJsonEnum::Password))
+        m_password = WJsonConverter::get(obj, WJsonEnum::Password).toString();
     else
         m_password = WStatic::undefined();
 }

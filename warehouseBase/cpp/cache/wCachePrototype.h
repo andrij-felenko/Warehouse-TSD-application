@@ -14,7 +14,7 @@
 #include "single/wNomenclatureSingle.h"
 #include "single/wQualitySingle.h"
 #include "template/wCacheListTemplate.h"
-#include "enum/wUrl.h"
+#include "enum/wUrlEnum.h"
 
 ///< Общий клас для управления всем кэшем.
 class WCachePrototype : public QObject
@@ -45,18 +45,18 @@ public:
     WCacheListTemplate <WCacheSingle>*        supplier()     const { return m_supplier; }
     WCacheListTemplate <WCacheSingle>*        warehouse()    const { return m_warehouse; }
 
-    void pushCacheToQueque(WUrl::WUrl_enum key, QStringList list);
-    WCacheSingle* getOne(QString id, WJson::WJson_enum key);
+    void pushCacheToQueque(WUrlEnum::WUrl_enum key, QStringList list);
+    WCacheSingle* getOne(QString id, WJsonEnum::WJson_enum key);
 
 private:
     inline void createLocalDir();
-    inline void updateCacheByKey(WUrl::WUrl_enum key);
+    inline void updateCacheByKey(WUrlEnum::WUrl_enum key);
     void updateCache();
     void updateAllCache();
     QDir m_local_dir; ///< Директория для хранения кэша.
     QTimer *m_allCacheTimer;  ///< Таймер автоматического обновления кэша.
     QTimer *m_quequeTimer;
-    QHash <WUrl::WUrl_enum, QString> m_cacheUpdateList;
+    QHash <WUrlEnum::WUrl_enum, QString> m_cacheUpdateList;
 
     WCacheListTemplate <WCellSingle>* m_cell;
     WCacheListTemplate <WConsignmentSingle>* m_consignment;

@@ -1,7 +1,7 @@
 #include "wModelCacheListByDoc.h"
 #include "wSingleton.h"
 
-WModelCacheListByDoc::WModelCacheListByDoc(QString name, WDocumentBase* document, WJson::WJson_enum jsonKey,
+WModelCacheListByDoc::WModelCacheListByDoc(QString name, WDocumentBase* document, WJsonEnum::WJson_enum jsonKey,
                                            QVariantMap map, QObject *parent)
     : WModelListTemplate(name, parent), m_document(document), m_jsonKey(jsonKey), m_map(map)
 {

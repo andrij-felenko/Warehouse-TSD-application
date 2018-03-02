@@ -1,6 +1,6 @@
 #include "model.h"
 #include "wSingleton.h"
-#include "enum/wUrl.h"
+#include "enum/wUrlEnum.h"
 #include "model/wModelCacheList.h"
 #include "model/wModelDocumentList.h"
 #include "model/wModelCacheListByDoc.h"
@@ -22,9 +22,9 @@ void Model::employeeList(bool visible)
 
 void Model::documentList(int key, bool visible)
 {
-    QString modelName(WUrl::toString(static_cast <WUrl::WUrl_enum>(key)).append("DocumentList"));
+    QString modelName(WUrlConverter::toString(static_cast <WUrlEnum::WUrl_enum>(key)).append("DocumentList"));
     if (visible)
-        WModel::get().registrate(modelName, new WModelDocumentList(modelName, WUrl::fromInt(key), this));
+        WModel::get().registrate(modelName, new WModelDocumentList(modelName, WUrlConverter::fromInt(key), this));
     else
         WModel::get().removeModel(modelName);
 }
@@ -35,7 +35,7 @@ void Model::cacheDocList(QString name, bool visible, QString id, int jsonKey, QV
     if (visible){
         if (jsonKey != 0 and id != WStatic::guidDefault())
             WModel::get().registrate(modelName, new WModelCacheListByDoc(modelName, WDocument::get().getDocument(id),
-                                                                         static_cast <WJson::WJson_enum> (jsonKey),
+                                                                         static_cast <WJsonEnum::WJson_enum> (jsonKey),
                                                                          map, this));
     }
     else

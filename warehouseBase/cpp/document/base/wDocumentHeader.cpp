@@ -22,98 +22,98 @@ QJsonObject WDocumentHeader::toJson() const
     QJsonArray array;
     for (auto it : m_cellIdList)
         array.push_back(it);
-    auto obj = WJson::createObject({
-            std::make_pair(WJson::Id, m_id),
-            std::make_pair(WJson::Name, m_name),
-            std::make_pair(WJson::Supplier_id, m_supplierId),
-            std::make_pair(WJson::Supplier_name, m_supplierName),
-            std::make_pair(WJson::Date_created,   m_dateCreated.toString  (WSetting::get().server()->dateFormat())),
-            std::make_pair(WJson::Date_accepted,  m_dateAccepted.toString (WSetting::get().server()->dateFormat())),
-            std::make_pair(WJson::Date_completed, m_dateCompleted.toString(WSetting::get().server()->dateFormat())),
-            std::make_pair(WJson::IsStaticCellContains, m_isStaticCellContains),
-            std::make_pair(WJson::IsCanChangeCell, m_isCanChangeCell),
-            std::make_pair(WJson::IsTwoVerifyAccepted, m_isTwoVerifyAccepted),
-            std::make_pair(WJson::IsGeoposition, m_isGeoposition),
-            std::make_pair(WJson::Employee_receiver_id, m_employeeReceiverId),
-            std::make_pair(WJson::Employee_receiver_name, m_employeeReceiverName),
-            std::make_pair(WJson::Employee_sender_id, m_employeeSenderId),
-            std::make_pair(WJson::Employee_sender_name, m_employeeSenderName),
-            std::make_pair(WJson::Status, static_cast <int> (m_status) - +WEnum::Document_created)
+    auto obj = WJsonConverter::createObject({
+            std::make_pair(WJsonEnum::Id, m_id),
+            std::make_pair(WJsonEnum::Name, m_name),
+            std::make_pair(WJsonEnum::Supplier_id, m_supplierId),
+            std::make_pair(WJsonEnum::Supplier_name, m_supplierName),
+            std::make_pair(WJsonEnum::Date_created,   m_dateCreated.toString  (WSetting::get().server()->dateFormat())),
+            std::make_pair(WJsonEnum::Date_accepted,  m_dateAccepted.toString (WSetting::get().server()->dateFormat())),
+            std::make_pair(WJsonEnum::Date_completed, m_dateCompleted.toString(WSetting::get().server()->dateFormat())),
+            std::make_pair(WJsonEnum::IsStaticCellContains, m_isStaticCellContains),
+            std::make_pair(WJsonEnum::IsCanChangeCell, m_isCanChangeCell),
+            std::make_pair(WJsonEnum::IsTwoVerifyAccepted, m_isTwoVerifyAccepted),
+            std::make_pair(WJsonEnum::IsGeoposition, m_isGeoposition),
+            std::make_pair(WJsonEnum::Employee_receiver_id, m_employeeReceiverId),
+            std::make_pair(WJsonEnum::Employee_receiver_name, m_employeeReceiverName),
+            std::make_pair(WJsonEnum::Employee_sender_id, m_employeeSenderId),
+            std::make_pair(WJsonEnum::Employee_sender_name, m_employeeSenderName),
+            std::make_pair(WJsonEnum::Status, static_cast <int> (m_status) - +WEnum::Document_created)
     });
-    WJson::insert(obj, WJson::Cell_id_list, QJsonValue(array));
+    WJsonConverter::insert(obj, WJsonEnum::Cell_id_list, QJsonValue(array));
     return obj;
 }
 
 void WDocumentHeader::fromJson(const QJsonObject& obj)
 {
-    if (WJson::contains(obj, WJson::Id))
-        setId(WJson::get(obj, WJson::Id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Id))
+        setId(WJsonConverter::get(obj, WJsonEnum::Id).toString());
 
-    if (WJson::contains(obj, WJson::Name))
-        setName(WJson::get(obj, WJson::Name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Name))
+        setName(WJsonConverter::get(obj, WJsonEnum::Name).toString());
 
-    if (WJson::contains(obj, WJson::Date_created))
-        setDateCreated(QDateTime::fromString(WJson::get(obj, WJson::Date_created).toString(),
+    if (WJsonConverter::contains(obj, WJsonEnum::Date_created))
+        setDateCreated(QDateTime::fromString(WJsonConverter::get(obj, WJsonEnum::Date_created).toString(),
                                              WSetting::get().server()->dateFormat()));
 
-    if (WJson::contains(obj, WJson::Date_accepted))
-        setDateAccepted(QDateTime::fromString(WJson::get(obj, WJson::Date_accepted).toString(),
+    if (WJsonConverter::contains(obj, WJsonEnum::Date_accepted))
+        setDateAccepted(QDateTime::fromString(WJsonConverter::get(obj, WJsonEnum::Date_accepted).toString(),
                                               WSetting::get().server()->dateFormat()));
 
-    if (WJson::contains(obj, WJson::Date_completed))
-        setDateCompleted(QDateTime::fromString(WJson::get(obj, WJson::Date_completed).toString(),
+    if (WJsonConverter::contains(obj, WJsonEnum::Date_completed))
+        setDateCompleted(QDateTime::fromString(WJsonConverter::get(obj, WJsonEnum::Date_completed).toString(),
                                                WSetting::get().server()->dateFormat()));
 
-    if (WJson::contains(obj, WJson::IsStaticCellContains))
-        setIsStaticCellContains(WJson::get(obj, WJson::IsStaticCellContains).toBool());
+    if (WJsonConverter::contains(obj, WJsonEnum::IsStaticCellContains))
+        setIsStaticCellContains(WJsonConverter::get(obj, WJsonEnum::IsStaticCellContains).toBool());
 
-    if (WJson::contains(obj, WJson::IsCanChangeCell))
-        setIsCanChangeCell(WJson::get(obj, WJson::IsCanChangeCell).toBool());
+    if (WJsonConverter::contains(obj, WJsonEnum::IsCanChangeCell))
+        setIsCanChangeCell(WJsonConverter::get(obj, WJsonEnum::IsCanChangeCell).toBool());
 
-    if (WJson::contains(obj, WJson::IsGeoposition))
-        setIsGeoposition(WJson::get(obj, WJson::IsGeoposition).toBool());
+    if (WJsonConverter::contains(obj, WJsonEnum::IsGeoposition))
+        setIsGeoposition(WJsonConverter::get(obj, WJsonEnum::IsGeoposition).toBool());
 
-    if (WJson::contains(obj, WJson::IsTwoVerifyAccepted))
-        setIsTwoVerifyAccepted(WJson::get(obj, WJson::IsTwoVerifyAccepted).toBool());
+    if (WJsonConverter::contains(obj, WJsonEnum::IsTwoVerifyAccepted))
+        setIsTwoVerifyAccepted(WJsonConverter::get(obj, WJsonEnum::IsTwoVerifyAccepted).toBool());
 
-    if (WJson::contains(obj, WJson::Cell_id_list)){
+    if (WJsonConverter::contains(obj, WJsonEnum::Cell_id_list)){
         QStringList list;
-        for (auto it : WJson::get(obj, WJson::Line_number).toArray())
+        for (auto it : WJsonConverter::get(obj, WJsonEnum::Line_number).toArray())
             list.push_back(it.toString());
         setCellIdList(list);
     }
 
     // sender
-    if (WJson::contains(obj, WJson::Employee_sender_id))
-        setEmployeeSenderId(WJson::get(obj, WJson::Employee_sender_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Employee_sender_id))
+        setEmployeeSenderId(WJsonConverter::get(obj, WJsonEnum::Employee_sender_id).toString());
 
-    if (WJson::contains(obj, WJson::Employee_sender_name))
-        setEmployeeSenderName(WJson::get(obj, WJson::Employee_sender_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Employee_sender_name))
+        setEmployeeSenderName(WJsonConverter::get(obj, WJsonEnum::Employee_sender_name).toString());
     else
         updateEmployeeSenderName();
 
     // receiver
-    if (WJson::contains(obj, WJson::Employee_receiver_id))
-        setEmployeeReceiverId(WJson::get(obj, WJson::Employee_receiver_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Employee_receiver_id))
+        setEmployeeReceiverId(WJsonConverter::get(obj, WJsonEnum::Employee_receiver_id).toString());
 
-    if (WJson::contains(obj, WJson::Employee_receiver_name))
-        setEmployeeReceiverName(WJson::get(obj, WJson::Employee_receiver_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Employee_receiver_name))
+        setEmployeeReceiverName(WJsonConverter::get(obj, WJsonEnum::Employee_receiver_name).toString());
     else
         updateEmployeeReceiverName();
 
     // supplier
-    if (WJson::contains(obj, WJson::Supplier_id))
-        setSupplierId(WJson::get(obj, WJson::Supplier_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Supplier_id))
+        setSupplierId(WJsonConverter::get(obj, WJsonEnum::Supplier_id).toString());
 
-    if (WJson::contains(obj, WJson::Supplier_name))
-        setSupplierName(WJson::get(obj, WJson::Supplier_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Supplier_name))
+        setSupplierName(WJsonConverter::get(obj, WJsonEnum::Supplier_name).toString());
     else
         updateSupplierName();
 
     // status
-    if (WJson::contains(obj, WJson::Status))
+    if (WJsonConverter::contains(obj, WJsonEnum::Status))
         setStatus(static_cast <WEnum::DocumentStatus> (static_cast <int> (WEnum::Document_created)
-                                                       + WJson::get(obj, WJson::Status).toInt()));
+                                                       + WJsonConverter::get(obj, WJsonEnum::Status).toInt()));
     else
         resetStatus();
 }

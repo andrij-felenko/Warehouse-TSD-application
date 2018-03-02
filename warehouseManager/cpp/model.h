@@ -3,7 +3,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QVariantMap>
-#include "enum/wStatic.h"
+#include "wclass/wStatic.h"
 
 class Model : public QObject
 {

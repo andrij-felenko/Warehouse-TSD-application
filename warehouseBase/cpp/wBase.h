@@ -1,6 +1,7 @@
 #ifndef WWAREHOUSEBASE_H
 #define WWAREHOUSEBASE_H
 
+#include <QtCore/QDate>
 #include "wBase_global.h"
 #include "view/wView.h"
 
@@ -17,9 +18,9 @@ class WAREHOUSEBASESHARED_EXPORT WBase : public QObject
 public:
     WBase(QString dateCompile, QObject *parent = nullptr);
 
-    void registrateApp(QString version = QString("1.0"),
-                       QString appName = QString("Warehouse manager"),
-                       QString orgName = QString("Warehouse manager"),
+    void registrateApp(QString version   = QString("1.0"),
+                       QString appName   = QString("Warehouse manager"),
+                       QString orgName   = QString("Warehouse manager"),
                        QString orgDomain = QString("http://wh-tech.com.ua"));
 
     void init();
@@ -28,16 +29,15 @@ public:
     void start();
     void setContextProperty(QString key, QObject* obj);
 
-    QString appName()     const { return qApp->applicationName(); }
-    QString version()     const { return qApp->applicationVersion(); }
-    QString orgName()     const { return qApp->organizationName(); }
-    QString orgDomain()   const { return qApp->organizationDomain(); }
+    QString appName()   const { return qApp->applicationName(); }
+    QString version()   const { return qApp->applicationVersion(); }
+    QString orgName()   const { return qApp->organizationName(); }
+    QString orgDomain() const { return qApp->organizationDomain(); }
     QString dateCompile()    const { return m_dateCompile; }
     QString libDateCompile() const { return m_libDateCompile; }
 
 public slots:
     void quit();
-    QGuiApplication* app();
 
 signals:
     void appNameChanged();

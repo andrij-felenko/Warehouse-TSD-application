@@ -1,4 +1,5 @@
 #include "wQualitySingle.h"
+#include "wclass/wJsonConverter.h"
 
 WQualitySingle::WQualitySingle(QObject *parent) : WCacheSingle(parent)
 {
@@ -13,7 +14,7 @@ WQualitySingle::WQualitySingle(const QJsonObject &obj, QObject *parent) : WQuali
 QJsonObject WQualitySingle::toJson() const
 {
     QJsonObject obj = WQualitySingle::toJson();
-    WJson::insert(obj, WJson::Is_default, QJsonValue(m_isDefault));
+    WJsonConverter::insert(obj, WJsonEnum::Is_default, QJsonValue(m_isDefault));
     return obj;
 }
 
@@ -21,8 +22,8 @@ void WQualitySingle::fromJson(const QJsonObject& obj)
 {
     WQualitySingle::fromJson(obj);
 
-    if (WJson::contains(obj, WJson::Is_default))
-        setIsDefault(WJson::get(obj, WJson::Is_default).toBool());
+    if (WJsonConverter::contains(obj, WJsonEnum::Is_default))
+        setIsDefault(WJsonConverter::get(obj, WJsonEnum::Is_default).toBool());
 }
 
 bool WQualitySingle::isDefault() const

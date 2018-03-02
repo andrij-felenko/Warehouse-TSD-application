@@ -55,7 +55,7 @@ void WServerPrototype::request(QString url, QString msg, QJsonValue json, WEnum:
 void WServerPrototype::request(QList<int> url, int version, QString msg, QJsonObject json,
                                int priority, QObject* senderObject, QString functionName)
 {
-    request(WUrl::compareUrl(url, static_cast <WEnum::Version> (version)), msg, json,
+    request(WUrlConverter::compareUrl(url, static_cast <WEnum::Version> (version)), msg, json,
             static_cast <WEnum::Request_priority> (priority), senderObject, functionName);
 }
 
@@ -96,7 +96,7 @@ void WServerPrototype::handler(QNetworkReply *reply)
     qDebug() << "REQUEST: " << url;
 
     // test request for standart
-    WJsonTemplate* json = new WJsonTemplate(this);
+    WJson* json = new WJson(this);
     auto resultTestRequest = json->fromJsonDocument(QJsonDocument::fromJson(reply->readAll()), true);
     if (not resultTestRequest.first){
         WMessage::get().setWarningMessage(resultTestRequest.second, WEnum::Priority_middle_bellow);
@@ -114,7 +114,7 @@ void WServerPrototype::handler(QNetworkReply *reply)
 
     qDebug() << json;
     cacheSingle->setStatus(WEnum::SCache_takeResult);
-    m_serverHandler->sendRequest(WUrl::disunite(url), json);
+    m_serverHandler->sendRequest(WUrlConverter::disunite(url), json);
     json->deleteLater();
     cacheSingle->setStatus(WEnum::SCache_done);
 }

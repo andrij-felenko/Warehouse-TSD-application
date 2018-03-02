@@ -17,24 +17,24 @@ WLineActual::WLineActual(const QJsonObject& obj, QObject* parent) : WLineActual(
 QJsonObject WLineActual::toJson() const
 {
     auto obj = WLinePlan::toJson();
-    WJson::insert(obj, WJson::Line_id, m_lineId);
-    WJson::insert(obj, WJson::Employee_id,   m_employeeId);
-    WJson::insert(obj, WJson::Employee_name, m_employeeName);
+    WJsonConverter::insert(obj, WJsonEnum::Line_id, m_lineId);
+    WJsonConverter::insert(obj, WJsonEnum::Employee_id,   m_employeeId);
+    WJsonConverter::insert(obj, WJsonEnum::Employee_name, m_employeeName);
     return obj;
 }
 
 void WLineActual::fromJson(const QJsonObject& obj)
 {
     // Line id
-    if (WJson::contains(obj, WJson::Line_id))
-        setLineId(WJson::get(obj, WJson::Line_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Line_id))
+        setLineId(WJsonConverter::get(obj, WJsonEnum::Line_id).toString());
 
     // Employee
-    if (WJson::contains(obj, WJson::Employee_id))
-        setEmployeeId(WJson::get(obj, WJson::Employee_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Employee_id))
+        setEmployeeId(WJsonConverter::get(obj, WJsonEnum::Employee_id).toString());
 
-    if (WJson::contains(obj, WJson::Employee_name))
-        setEmployeeName(WJson::get(obj, WJson::Employee_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Employee_name))
+        setEmployeeName(WJsonConverter::get(obj, WJsonEnum::Employee_name).toString());
     else
         updateEmployeeName();
 }

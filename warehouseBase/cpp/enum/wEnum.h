@@ -1,5 +1,5 @@
-#ifndef WWENUM_H
-#define WWENUM_H
+#ifndef WENUM_H
+#define WENUM_H
 
 #include <QtCore/QByteArray>
 #include <QtCore/QObject>

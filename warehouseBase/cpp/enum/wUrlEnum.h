@@ -1,19 +1,18 @@
-#ifndef WWURL_H
-#define WWURL_H
+#ifndef WURLENUM_H
+#define WURLENUM_H
 
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 #include "wEnum.h"
-#include "wStatic.h"
+#include "wclass/wStatic.h"
 
-class WUrl;
-extern WUrl _wurl;
+class WUrlEnum;
 
-class WUrl : public QObject
+class WUrlEnum : public QObject
 {
     Q_OBJECT
 public:
-    explicit WUrl(QObject* parent = nullptr);
+    explicit WUrlEnum(QObject* parent = nullptr);
 
     enum WUrl_enum {
         // first word to request -------------------------------------------------------------------
@@ -68,39 +67,20 @@ public:
         ___ = 0xBFFF, ///< Ошибка, если не найден ключ
     }; Q_ENUMS(WUrl_enum)
 
-    // static variable
-    static WEnum::Version version () { return     WEnum::Version_1_0; }
-    static WUrl_enum      errorKey() { return WUrl_enum::___;         }
-
-    // static convert method
-    static WUrl_enum fromInt(int key);
-    static WUrl_enum fromString(QString name, WEnum::Version version_ = version());
-    static QString    toString(WUrl_enum key, WEnum::Version version_ = version());
-
-    static bool contains(WUrl_enum key);
-
     // non static method
-    WUrl_enum p_fromString(QString name, WEnum::Version version_ = version());
-    QString    p_toString(WUrl_enum key, WEnum::Version version_ = version());
-    bool m_contains(WUrl_enum key);
-
-public slots:
-    static QString toString(int key, WEnum::Version version_ = version());
-    static QString compareUrl(std::initializer_list <WUrl_enum> list, WEnum::Version version_ = version());
-    static QString compareUrl(QList <int> list, WEnum::Version version_ = version());
-    static QString compareUrl(QList <WUrl_enum> list, WEnum::Version version_ = version());
-    static QList <WUrl_enum> compareUrlList(std::initializer_list<WUrl_enum> list);
-    static QList <WUrl_enum> disunite(const QString& url, WEnum::Version version_ = version());
-    static bool isEqual(QList <WUrl_enum> url, std::initializer_list <WUrl_enum> list);
-    static int versionToInt();
+    WUrl_enum p_fromString(QString name, WEnum::Version version_ = WEnum::Version_1_0);
+    QString    p_toString(WUrl_enum key, WEnum::Version version_ = WEnum::Version_1_0);
+    bool p_contains(WUrl_enum key);
+    WUrlEnum::WUrl_enum p_errorKey();
 
 private:
-    struct WUrl_single {
-        WUrl_enum key;
+    struct WUrlSingle {
+        WUrlEnum::WUrl_enum key;
         QString name;
         WEnum::Version version;
     };
-    QList <WUrl_single> m_list;
+
+    QList <WUrlSingle> m_list;
 };
 
 #endif // WURL_H

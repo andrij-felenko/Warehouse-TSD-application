@@ -2,16 +2,17 @@
 #define WSERVERPROTOTYPE_H
 
 #include <QtCore/QJsonDocument>
+#include <QtCore/QJsonObject>
 #include <QtCore/QObject>
 #include <QtNetwork/QAuthenticator>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 
-#include "enum/wUrl.h"
+#include "enum/wUrlEnum.h"
 #include "enum/wEnum.h"
-#include "enum/wJson.h"
-#include "wServerCache.h"
-#include "wServerHandlerManager.h"
+#include "enum/wJsonEnum.h"
+#include "server/cache/wServerCache.h"
+#include "server/handler/wServerHandlerManager.h"
 
 class WServerPrototype : public QNetworkAccessManager
 {

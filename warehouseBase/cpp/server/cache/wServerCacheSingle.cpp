@@ -4,7 +4,7 @@
 WServerCacheSingle::WServerCacheSingle(QObject* sender, QString functionName, QString url, QString id_msg,
                                        QJsonValue json, QObject* parent, WEnum::Request_priority priority)
     : QObject(parent), m_sender(sender), m_functionName(functionName), m_id_msg(id_msg),
-      m_json(new WJsonTemplate(url, json, this)), m_priority(priority), m_status(WEnum::SCache_created)
+      m_json(new WJson(url, json, this)), m_priority(priority), m_status(WEnum::SCache_created)
 {
     //
 }
@@ -42,7 +42,7 @@ QString WServerCacheSingle::id_msg() const
     return m_id_msg;
 }
 
-WJsonTemplate*WServerCacheSingle::json() const
+WJson*WServerCacheSingle::json() const
 {
     return m_json;
 }

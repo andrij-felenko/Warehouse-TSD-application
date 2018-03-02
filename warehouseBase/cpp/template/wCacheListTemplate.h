@@ -10,7 +10,8 @@
 #include <QtCore/QString>
 
 #include "cache/list/wCacheListObject.h"
-#include "enum/wJson.h"
+#include "enum/wJsonEnum.h"
+#include "wclass/wJsonConverter.h"
 
 /*!
  * \brief Шаблон для класов списков кэша.
@@ -232,7 +233,7 @@ public:
         QStringList idPushList;
         QStringList idUpdateList;
         for (auto it : array){
-            QString id(WJson::get(it, WJson::Id).toString());
+            QString id(WJsonConverter::get(it, WJsonEnum::Id).toString());
             T* single = getOne(id);
             if (p_update(single, it.toObject()))
                 idPushList.push_back(id);
@@ -254,7 +255,7 @@ public:
      */
     virtual void update(const QJsonObject& obj) final
     {
-        QString id(WJson::get(obj, WJson::Id).toString());
+        QString id(WJsonConverter::get(obj, WJsonEnum::Id).toString());
         T* single = getOne(id);
         if (p_update(single, obj))
             emit listPushed(QStringList(id));

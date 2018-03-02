@@ -2,7 +2,7 @@
 #include "wSingleton.h"
 #include "server/wRequestGenerate.h"
 
-WDocumentBase::WDocumentBase(WUrl::WUrl_enum documentKey, QObject *parent)
+WDocumentBase::WDocumentBase(WUrlEnum::WUrl_enum documentKey, QObject *parent)
     : WDocumentHeader(parent), documentKey(documentKey)
 {
     m_currentActual = new WLineActual(this);
@@ -18,25 +18,25 @@ void WDocumentBase::writeLines(QJsonValue value)
 {
     QJsonObject obj(value.toObject());
 
-    if (not WJson::contains(obj, WJson::Document_header)){
+    if (not WJsonConverter::contains(obj, WJsonEnum::Document_header)){
         WMessage::get().setWarningMessage(QObject::tr("У документа отсутствует шапка, чтение невозможно"),
                                           WEnum::Priority_middle);
         return;
     }
 
     resetAll();
-    writeHeader(WJson::get(obj, WJson::Document_header));
-    for (auto it : WJson::get(obj, WJson::Plan).toArray())
+    writeHeader(WJsonConverter::get(obj, WJsonEnum::Document_header));
+    for (auto it : WJsonConverter::get(obj, WJsonEnum::Plan).toArray())
         plan.push_back(new WLinePlan(it.toObject(), this));
-    for (auto it : WJson::get(obj, WJson::Actual).toArray())
+    for (auto it : WJsonConverter::get(obj, WJsonEnum::Actual).toArray())
         actual.push_back(new WLineActual(it.toObject(), this));
 
     emit documentLineUpdate(this);
 }
 
-void WDocumentBase::acceptedUpdateLine(WJsonTemplate* json)
+void WDocumentBase::acceptedUpdateLine(WJson* json)
 {
-    auto line_id = WJson::get(json->json(), WJson::Line_id).toString();
+    auto line_id = WJsonConverter::get(json->json(), WJsonEnum::Line_id).toString();
     for (auto it : actual)
         if (it->lineId() == line_id){
             it->fromJson(json->json().toObject());
@@ -44,18 +44,18 @@ void WDocumentBase::acceptedUpdateLine(WJsonTemplate* json)
         }
 }
 
-void WDocumentBase::acceptedSetLine(WJsonTemplate* json)
+void WDocumentBase::acceptedSetLine(WJson* json)
 {
-    auto line_id = WJson::get(json->json(), WJson::Line_id).toString();
+    auto line_id = WJsonConverter::get(json->json(), WJsonEnum::Line_id).toString();
     for (auto it : actual)
         if (it->lineId() == line_id)
             return;
     actual.push_back(new WLineActual(json->json().toObject(), this));
 }
 
-void WDocumentBase::acceptedRemoveLine(WJsonTemplate* json)
+void WDocumentBase::acceptedRemoveLine(WJson* json)
 {
-    auto line_id = WJson::get(json->json(), WJson::Line_id).toString();
+    auto line_id = WJsonConverter::get(json->json(), WJsonEnum::Line_id).toString();
     for (auto it : actual)
         if (it->lineId() == line_id){
             actual.removeOne(it);
@@ -64,48 +64,48 @@ void WDocumentBase::acceptedRemoveLine(WJsonTemplate* json)
         }
 }
 
-void WDocumentBase::acceptedReserveContainer(WJsonTemplate* json, bool sender)
+void WDocumentBase::acceptedReserveContainer(WJson* json, bool sender)
 {
-    auto container = WJson::get(json->json(), WJson::Container_id).toString();
+    auto container = WJsonConverter::get(json->json(), WJsonEnum::Container_id).toString();
     for (auto it : actual)
         if ((not sender and it->containerReceiverId() == container)
                 or (sender and it->containerSenderId() == container))
             it->setEmployeeId(WUser::get().current()->id());
 }
 
-void WDocumentBase::acceptedUnreserveContainer(WJsonTemplate* json, bool sender)
+void WDocumentBase::acceptedUnreserveContainer(WJson* json, bool sender)
 {
-    auto container = WJson::get(json->json(), WJson::Container_id).toString();
+    auto container = WJsonConverter::get(json->json(), WJsonEnum::Container_id).toString();
     for (auto it : actual)
         if ((not sender and it->containerReceiverId() == container)
                 or (sender and it->containerSenderId() == container))
             it->resetEmployeeId();
 }
 
-QStringList WDocumentBase::getCacheList(WJson::WJson_enum type)
+QStringList WDocumentBase::getCacheList(WJsonEnum::WJson_enum type)
 {
     QStringList list;
 
     for (auto it : actual)
         switch (type){
-        case WJson::Cell_id:
+        case WJsonEnum::Cell_id:
             list.push_back(it->cellReceiverId());
             list.push_back(it->cellSenderId());
             break;
-        case WJson::Consignment_id:
+        case WJsonEnum::Consignment_id:
             list.push_back(it->consignmentId());
             break;
-        case WJson::Container_id:
+        case WJsonEnum::Container_id:
             list.push_back(it->containerReceiverId());
             list.push_back(it->containerSenderId());
             break;
-        case WJson::Nomenclature_id:
+        case WJsonEnum::Nomenclature_id:
             list.push_back(it->nomenclatureId());
             break;
         default:;
         }
 
-    if (type == WJson::Cell_id)
+    if (type == WJsonEnum::Cell_id)
         list.append(cellIdList());
 
     list.removeDuplicates();
@@ -115,7 +115,7 @@ QStringList WDocumentBase::getCacheList(WJson::WJson_enum type)
     return list;
 }
 
-QStringList WDocumentBase::getCacheListByParameters(WEnum::LineType type, WJson::WJson_enum key, QVariantMap map)
+QStringList WDocumentBase::getCacheListByParameters(WEnum::LineType type, WJsonEnum::WJson_enum key, QVariantMap map)
 {
     QStringList list;
 
@@ -171,9 +171,9 @@ bool WDocumentBase::chooseNextLine(QVariantMap map)
                 bool isAcceptMap(true);
                 QJsonObject tempJson(it->toJson());
                 for (auto subIt = map.begin(); subIt != map.end(); ++subIt){
-                    auto key = static_cast <WJson::WJson_enum> (subIt.value().toInt());
-                    if (WJson::contains(tempJson, key))
-                        if (WJson::get(tempJson, key).toString() != subIt.key()){
+                    auto key = static_cast <WJsonEnum::WJson_enum> (subIt.value().toInt());
+                    if (WJsonConverter::contains(tempJson, key))
+                        if (WJsonConverter::get(tempJson, key).toString() != subIt.key()){
                             isAcceptMap = false;
                             break;
                         }
@@ -195,7 +195,7 @@ void WDocumentBase::createLine(QVariantMap map)
     currentActual()->clear();
     auto obj = currentActual()->toJson();
     for (auto it = map.begin(); it != map.end(); ++it)
-        WJson::insert(obj, static_cast <WJson::WJson_enum> (it.value().toInt()), it.key());
+        WJsonConverter::insert(obj, static_cast <WJsonEnum::WJson_enum> (it.value().toInt()), it.key());
     currentActual()->fromJson(obj);
 }
 
@@ -203,13 +203,13 @@ void WDocumentBase::saveLine(QObject* senderObj, QString funcName)
 {
     for (auto it : actual)
         if (it->lineId() == currentActual()->lineId()){
-            WServer::get().request(WUrl::compareUrl({ WUrl::Update, documentKey, WUrl::Line }),
+            WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Update, documentKey, WUrlEnum::Line }),
                                    QObject::tr("Обновить строку."),
                                    WRequestGenerate::actualLine(currentActual()->toJson(), this->id()),
                                    WEnum::Request_can_cache, senderObj, funcName);
             return;
         }
-    WServer::get().request(WUrl::compareUrl({ WUrl::Set, documentKey, WUrl::Line }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Set, documentKey, WUrlEnum::Line }),
                            QObject::tr("Установить новую строку."),
                            WRequestGenerate::actualLine(currentActual()->toJson(), this->id()),
                            WEnum::Request_can_cache, senderObj, funcName);
@@ -217,7 +217,7 @@ void WDocumentBase::saveLine(QObject* senderObj, QString funcName)
 
 void WDocumentBase::removeLine(QObject* senderObj, QString funcName)
 {
-    WServer::get().request(WUrl::compareUrl({ WUrl::Remove, documentKey, WUrl::Line }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Remove, documentKey, WUrlEnum::Line }),
                            QObject::tr("Удаляем строку."),
                            WRequestGenerate::removeLine(currentActual()->lineId(), this->id()),
                            WEnum::Request_can_cache, senderObj, funcName);

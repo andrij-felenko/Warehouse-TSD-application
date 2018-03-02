@@ -33,7 +33,7 @@ WRectangle {
             textPercent: 1.2
             width: parent.width
             textItem.horizontalAlignment: Text.AlignRight
-            text: rect.item === null ? "" : WStatic.statusToString(rect.item.status)
+            text: rect.item === null ? "" : WConverter.statusToString(rect.item.status)
         }
         
         WMirrorLabel {
@@ -51,7 +51,8 @@ WRectangle {
             height: heightItem * 0.7
             width: parent.width
             textLeft: qsTr("Date")
-            textRight: rect.item === null ? "" : WStatic.fullDateToString(rect.item.dateCreated)
+            textRight: rect.item === null ? "" : WConverter.fullDateToString(WConverter.dateTimeToDate(
+                                                                                 rect.item.dateCreated))
             leftItem.textPercent: 1.6
             rightItem.textPercent: 1.6
         }

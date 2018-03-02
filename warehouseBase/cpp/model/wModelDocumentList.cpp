@@ -1,10 +1,11 @@
 #include "wModelDocumentList.h"
 #include "wSingleton.h"
 
-WModelDocumentList::WModelDocumentList(QString name, WUrl::WUrl_enum key, QObject *parent)
+WModelDocumentList::WModelDocumentList(QString name, WUrlEnum::WUrl_enum key, QObject *parent)
     : WModelListTemplate(name, parent), key(key)
 {
-    QObject::connect(WDocument::registrate(), &WDocumentPrototype::documentListUpdate, this, [=](WUrl::WUrl_enum key)
+    QObject::connect(WDocument::registrate(), &WDocumentPrototype::documentListUpdate,
+                     this, [=](WUrlEnum::WUrl_enum key)
     {
         if (key == this->key)
             update();

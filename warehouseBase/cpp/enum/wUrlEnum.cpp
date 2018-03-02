@@ -1,9 +1,7 @@
-#include "wUrl.h"
+#include "wUrlEnum.h"
 #include <QDebug>
 
-WUrl _wurl;
-
-WUrl::WUrl(QObject *parent) : QObject(parent)
+WUrlEnum::WUrlEnum(QObject *parent) : QObject(parent)
 {
     // first word to request -----------------------------------------------------------------------
     m_list.push_back({ Get,       "get",       WEnum::Version_1_0 });
@@ -54,29 +52,7 @@ WUrl::WUrl(QObject *parent) : QObject(parent)
     m_list.push_back({ Warehouse,    "Warehouse",    WEnum::Version_1_0 });
 }
 
-WUrl::WUrl_enum WUrl::fromInt(int key)
-{
-    if (not _wurl.contains(static_cast <WUrl_enum> (key)))
-        return WUrl_enum::___;
-    return static_cast <WUrl_enum> (key);
-}
-
-WUrl::WUrl_enum WUrl::fromString(QString name, WEnum::Version version_)
-{
-    return _wurl.p_fromString(name, version_);
-}
-
-QString WUrl::toString(WUrl::WUrl_enum key, WEnum::Version version_)
-{
-    return _wurl.p_toString(key, version_);
-}
-
-QString WUrl::toString(int key, WEnum::Version version_)
-{
-    return _wurl.p_toString(static_cast <WUrl::WUrl_enum> (key), version_);
-}
-
-WUrl::WUrl_enum WUrl::p_fromString(QString name, WEnum::Version version_)
+WUrlEnum::WUrl_enum WUrlEnum::p_fromString(QString name, WEnum::Version version_)
 {
     WUrl_enum key;
     WEnum::Version lastSuitableVersion(WEnum::Version_none);
@@ -91,12 +67,12 @@ WUrl::WUrl_enum WUrl::p_fromString(QString name, WEnum::Version version_)
                 }
     if (lastSuitableVersion != WEnum::Version_none)
         return key;
-    return errorKey();
+    return p_errorKey();
 }
 
-QString WUrl::p_toString(WUrl::WUrl_enum key, WEnum::Version version_)
+QString WUrlEnum::p_toString(WUrl_enum key, WEnum::Version version_)
 {
-    if (errorKey() == key)
+    if (p_errorKey() == key)
         return WStatic::undefined();
 
     QString value("");
@@ -115,12 +91,7 @@ QString WUrl::p_toString(WUrl::WUrl_enum key, WEnum::Version version_)
     return WStatic::undefined();
 }
 
-bool WUrl::contains(WUrl::WUrl_enum key)
-{
-    return _wurl.m_contains(key);
-}
-
-bool WUrl::m_contains(WUrl::WUrl_enum key)
+bool WUrlEnum::p_contains(WUrl_enum key)
 {
     for (auto it : m_list)
         if (it.key == key)
@@ -128,68 +99,4 @@ bool WUrl::m_contains(WUrl::WUrl_enum key)
     return false;
 }
 
-QString WUrl::compareUrl(std::initializer_list<WUrl_enum> list, WEnum::Version version_)
-{
-    QString ret("");
-    for (auto it : list)
-        ret += toString(it, version_);
-    return ret;
-}
-
-QString WUrl::compareUrl(QList<int> list, WEnum::Version version_)
-{
-    QString ret("");
-    for (auto it : list)
-        ret += toString(static_cast <WUrl::WUrl_enum> (it), version_);
-    return ret;
-}
-
-QString WUrl::compareUrl(QList<WUrl_enum> list, WEnum::Version version_)
-{
-    QString ret("");
-    for (auto it : list)
-        ret += toString(it, version_);
-    return ret;
-}
-
-QList<WUrl::WUrl_enum> WUrl::compareUrlList(std::initializer_list<WUrl::WUrl_enum> list)
-{
-    QList <WUrl::WUrl_enum> url;
-    for (auto it : list)
-        url.push_back(it);
-    return url;
-}
-
-QList<WUrl::WUrl_enum> WUrl::disunite(const QString& url, WEnum::Version version_)
-{
-    QList<WUrl::WUrl_enum> list;
-    QString value("");
-    for (int i = 0; i < url.length(); i++){
-        if (url[i].isUpper() and not value.isEmpty()){
-            auto key = fromString(value, version_);
-            if (key != errorKey())
-                list.push_back(key);
-            value.clear();
-            value += url[i];
-        }
-        else if (i + 1 == url.length()){
-            value += url[i];
-            auto key = fromString(value, version_);
-            if (key != errorKey())
-                list.push_back(key);
-        }
-        else
-            value += url[i];
-    }
-    return list;
-}
-
-bool WUrl::isEqual(QList<WUrl::WUrl_enum> url, std::initializer_list<WUrl::WUrl_enum> list)
-{
-    return url == compareUrlList(list);
-}
-
-int WUrl::versionToInt()
-{
-    return static_cast <int> (_wurl.version());
-}
+WUrlEnum::WUrl_enum WUrlEnum::p_errorKey() { return WUrlEnum::WUrl_enum::___;         }

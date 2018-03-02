@@ -25,112 +25,112 @@ WLinePlan::WLinePlan(const QJsonObject& obj, QObject* parent) : WLinePlan(parent
 
 QJsonObject WLinePlan::toJson() const
 {
-    return WJson::createObject({
-        std::make_pair(WJson::Is_done, m_isDone),
-        std::make_pair(WJson::Quantity, m_quantity),
-        std::make_pair(WJson::Line_number, m_lineNumber),
-        std::make_pair(WJson::Consignment_id,   m_consignmentId),
-        std::make_pair(WJson::Consignment_name, m_consignmentName),
-        std::make_pair(WJson::Nomenclature_id,   m_nomenclatureId),
-        std::make_pair(WJson::Nomenclature_name, m_nomenclatureName),
-        std::make_pair(WJson::Quality_id,   m_qualityId),
-        std::make_pair(WJson::Quality_name, m_qualityName),
-        std::make_pair(WJson::Container_receiver_id,   m_containerReceiverId),
-        std::make_pair(WJson::Container_receiver_name, m_containerReceiverName),
-        std::make_pair(WJson::Container_sender_id,   m_containerSenderId),
-        std::make_pair(WJson::Container_sender_name, m_containerSenderName),
-        std::make_pair(WJson::Cell_receiver_id,   m_cellReceiverId),
-        std::make_pair(WJson::Cell_receiver_name, m_cellReceiverName),
-        std::make_pair(WJson::Cell_sender_id,   m_cellSenderId),
-        std::make_pair(WJson::Cell_sender_name, m_cellSenderName),
+    return WJsonConverter::createObject({
+        std::make_pair(WJsonEnum::Is_done, m_isDone),
+        std::make_pair(WJsonEnum::Quantity, m_quantity),
+        std::make_pair(WJsonEnum::Line_number, m_lineNumber),
+        std::make_pair(WJsonEnum::Consignment_id,   m_consignmentId),
+        std::make_pair(WJsonEnum::Consignment_name, m_consignmentName),
+        std::make_pair(WJsonEnum::Nomenclature_id,   m_nomenclatureId),
+        std::make_pair(WJsonEnum::Nomenclature_name, m_nomenclatureName),
+        std::make_pair(WJsonEnum::Quality_id,   m_qualityId),
+        std::make_pair(WJsonEnum::Quality_name, m_qualityName),
+        std::make_pair(WJsonEnum::Container_receiver_id,   m_containerReceiverId),
+        std::make_pair(WJsonEnum::Container_receiver_name, m_containerReceiverName),
+        std::make_pair(WJsonEnum::Container_sender_id,   m_containerSenderId),
+        std::make_pair(WJsonEnum::Container_sender_name, m_containerSenderName),
+        std::make_pair(WJsonEnum::Cell_receiver_id,   m_cellReceiverId),
+        std::make_pair(WJsonEnum::Cell_receiver_name, m_cellReceiverName),
+        std::make_pair(WJsonEnum::Cell_sender_id,   m_cellSenderId),
+        std::make_pair(WJsonEnum::Cell_sender_name, m_cellSenderName),
     });
 }
 
 void WLinePlan::fromJson(const QJsonObject& obj)
 {
-    if (WJson::contains(obj, WJson::Is_done))
-        setIsDone(WJson::get(obj, WJson::Is_done).toBool());
+    if (WJsonConverter::contains(obj, WJsonEnum::Is_done))
+        setIsDone(WJsonConverter::get(obj, WJsonEnum::Is_done).toBool());
 
     // Quantity
-    if (WJson::contains(obj, WJson::Quantity))
-        setQuantity(WJson::get(obj, WJson::Quantity).toInt());
+    if (WJsonConverter::contains(obj, WJsonEnum::Quantity))
+        setQuantity(WJsonConverter::get(obj, WJsonEnum::Quantity).toInt());
 
     // Line number
-    if (WJson::contains(obj, WJson::Line_number))
-        setLineNumber(WJson::get(obj, WJson::Line_number).toInt());
+    if (WJsonConverter::contains(obj, WJsonEnum::Line_number))
+        setLineNumber(WJsonConverter::get(obj, WJsonEnum::Line_number).toInt());
 
     // Consignment
-    if (WJson::contains(obj, WJson::Consignment_id))
-        setConsignmentId(WJson::get(obj, WJson::Consignment_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Consignment_id))
+        setConsignmentId(WJsonConverter::get(obj, WJsonEnum::Consignment_id).toString());
 
-    if (WJson::contains(obj, WJson::Consignment_name))
-        setConsignmentName(WJson::get(obj, WJson::Consignment_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Consignment_name))
+        setConsignmentName(WJsonConverter::get(obj, WJsonEnum::Consignment_name).toString());
     else
         updateConsignmentName();
 
     // Nomenclature
-    if (WJson::contains(obj, WJson::Nomenclature_id))
-        setNomenclatureId(WJson::get(obj, WJson::Nomenclature_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Nomenclature_id))
+        setNomenclatureId(WJsonConverter::get(obj, WJsonEnum::Nomenclature_id).toString());
 
-    if (WJson::contains(obj, WJson::Nomenclature_name))
-        setNomenclatureName(WJson::get(obj, WJson::Nomenclature_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Nomenclature_name))
+        setNomenclatureName(WJsonConverter::get(obj, WJsonEnum::Nomenclature_name).toString());
     else
         updateNomenclatureName();
 
     // Quality
-    if (WJson::contains(obj, WJson::Quality_id))
-        setQualityId(WJson::get(obj, WJson::Quality_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Quality_id))
+        setQualityId(WJsonConverter::get(obj, WJsonEnum::Quality_id).toString());
 
-    if (WJson::contains(obj, WJson::Quality_name))
-        setQualityName(WJson::get(obj, WJson::Quality_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Quality_name))
+        setQualityName(WJsonConverter::get(obj, WJsonEnum::Quality_name).toString());
     else
         updateQualityName();
 
     // Container
-    if (WJson::contains(obj, WJson::Container_receiver_id))
-        setContainerReceiverId(WJson::get(obj, WJson::Container_receiver_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Container_receiver_id))
+        setContainerReceiverId(WJsonConverter::get(obj, WJsonEnum::Container_receiver_id).toString());
 
-    if (WJson::contains(obj, WJson::Container_receiver_name))
-        setContainerReceiverName(WJson::get(obj, WJson::Container_receiver_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Container_receiver_name))
+        setContainerReceiverName(WJsonConverter::get(obj, WJsonEnum::Container_receiver_name).toString());
     else
         updateContainerReceiverName();
 
-    if (WJson::contains(obj, WJson::Container_sender_id))
-        setContainerSenderId(WJson::get(obj, WJson::Container_sender_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Container_sender_id))
+        setContainerSenderId(WJsonConverter::get(obj, WJsonEnum::Container_sender_id).toString());
 
-    if (WJson::contains(obj, WJson::Container_sender_name))
-        setContainerSenderName(WJson::get(obj, WJson::Container_sender_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Container_sender_name))
+        setContainerSenderName(WJsonConverter::get(obj, WJsonEnum::Container_sender_name).toString());
     else
         updateContainerSenderName();
 
     // Cell
-    if (WJson::contains(obj, WJson::Cell_receiver_id))
-        setCellReceiverId(WJson::get(obj, WJson::Cell_receiver_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Cell_receiver_id))
+        setCellReceiverId(WJsonConverter::get(obj, WJsonEnum::Cell_receiver_id).toString());
 
-    if (WJson::contains(obj, WJson::Cell_receiver_name))
-        setCellReceiverName(WJson::get(obj, WJson::Cell_receiver_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Cell_receiver_name))
+        setCellReceiverName(WJsonConverter::get(obj, WJsonEnum::Cell_receiver_name).toString());
     else
         updateCellReceiverName();
 
-    if (WJson::contains(obj, WJson::Cell_sender_id))
-        setCellSenderId(WJson::get(obj, WJson::Cell_sender_id).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Cell_sender_id))
+        setCellSenderId(WJsonConverter::get(obj, WJsonEnum::Cell_sender_id).toString());
 
-    if (WJson::contains(obj, WJson::Cell_sender_name))
-        setCellSenderName(WJson::get(obj, WJson::Cell_sender_name).toString());
+    if (WJsonConverter::contains(obj, WJsonEnum::Cell_sender_name))
+        setCellSenderName(WJsonConverter::get(obj, WJsonEnum::Cell_sender_name).toString());
     else
         updateCellSenderName();
 }
 
-QString WLinePlan::getVariableByJsonKey(WJson::WJson_enum key) const
+QString WLinePlan::getVariableByJsonKey(WJsonEnum::WJson_enum key) const
 {
     switch (key) {
-    case WJson::Container_receiver_id: return m_containerReceiverId;
-    case WJson::Container_sender_id: return m_containerSenderId;
-    case WJson::Cell_receiver_id: return m_cellReceiverId;
-    case WJson::Cell_sender_id: return m_cellSenderId;
-    case WJson::Consignment_id: return m_consignmentId;
-    case WJson::Quality_id: return m_qualityId;
-    case WJson::Nomenclature_id: return m_nomenclatureId;
+    case WJsonEnum::Container_receiver_id: return m_containerReceiverId;
+    case WJsonEnum::Container_sender_id: return m_containerSenderId;
+    case WJsonEnum::Cell_receiver_id: return m_cellReceiverId;
+    case WJsonEnum::Cell_sender_id: return m_cellSenderId;
+    case WJsonEnum::Consignment_id: return m_consignmentId;
+    case WJsonEnum::Quality_id: return m_qualityId;
+    case WJsonEnum::Nomenclature_id: return m_nomenclatureId;
     default:;
     }
     return WStatic::guidDefault();
@@ -139,32 +139,32 @@ QString WLinePlan::getVariableByJsonKey(WJson::WJson_enum key) const
 bool WLinePlan::isConcordiaLineByParameter(QVariantMap map)
 {
     for (auto it = map.begin(); it != map.end(); ++it){
-        switch (static_cast <WJson::WJson_enum> (it.value().toInt())) {
-        case WJson::Container_receiver_id:
+        switch (static_cast <WJsonEnum::WJson_enum> (it.value().toInt())) {
+        case WJsonEnum::Container_receiver_id:
             if (m_containerReceiverId != it.key())
                 return false;
             break;
-        case WJson::Container_sender_id:
+        case WJsonEnum::Container_sender_id:
             if (m_containerSenderId != it.key())
                 return false;
             break;
-        case WJson::Cell_receiver_id:
+        case WJsonEnum::Cell_receiver_id:
             if (m_cellReceiverId != it.key())
                 return false;
             break;
-        case WJson::Cell_sender_id:
+        case WJsonEnum::Cell_sender_id:
             if (m_cellSenderId != it.key())
                 return false;
             break;
-        case WJson::Consignment_id:
+        case WJsonEnum::Consignment_id:
             if (m_consignmentId != it.key())
                 return false;
             break;
-        case WJson::Quality_id:
+        case WJsonEnum::Quality_id:
             if (m_qualityId != it.key())
                 return false;
             break;
-        case WJson::Nomenclature_id:
+        case WJsonEnum::Nomenclature_id:
             if (m_nomenclatureId != it.key())
                 return false;
             break;

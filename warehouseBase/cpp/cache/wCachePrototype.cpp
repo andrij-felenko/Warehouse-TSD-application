@@ -28,7 +28,7 @@ WCachePrototype::WCachePrototype(QObject *parent) : QObject(parent)
     updateAllCache();
 }
 
-void WCachePrototype::pushCacheToQueque(WUrl::WUrl_enum key, QStringList list)
+void WCachePrototype::pushCacheToQueque(WUrlEnum::WUrl_enum key, QStringList list)
 {
     for (auto it : list)
         if (it != WStatic::guidDefault())
@@ -44,31 +44,31 @@ void WCachePrototype::pushCacheToQueque(WUrl::WUrl_enum key, QStringList list)
             }
 }
 
-WCacheSingle* WCachePrototype::getOne(QString id, WJson::WJson_enum key)
+WCacheSingle* WCachePrototype::getOne(QString id, WJsonEnum::WJson_enum key)
 {
     switch (key) {
-    case WJson::Cell_id:
-    case WJson::Cell_receiver_id:
-    case WJson::Cell_sender_id:
+    case WJsonEnum::Cell_id:
+    case WJsonEnum::Cell_receiver_id:
+    case WJsonEnum::Cell_sender_id:
         return m_cell->getOne(id);
-    case WJson::Consignment:
-    case WJson::Consignment_id:
+    case WJsonEnum::Consignment:
+    case WJsonEnum::Consignment_id:
         return m_consignment->getOne(id);
-    case WJson::Container_id:
-    case WJson::Container_receiver_id:
-    case WJson::Container_sender_id:
+    case WJsonEnum::Container_id:
+    case WJsonEnum::Container_receiver_id:
+    case WJsonEnum::Container_sender_id:
         return m_container->getOne(id);
-    case WJson::Employee_id:
+    case WJsonEnum::Employee_id:
         return m_employee->getOne(id);
-    case WJson::ModelTypeId:
+    case WJsonEnum::ModelTypeId:
         return m_model_type->getOne(id);
-    case WJson::Nomenclature_id:
+    case WJsonEnum::Nomenclature_id:
         return m_nomenclature->getOne(id);
-    case WJson::Quality_id:
+    case WJsonEnum::Quality_id:
         return m_quality->getOne(id);
-    case WJson::Warehouse_id:
-    case WJson::Warehouse_receiver_id:
-    case WJson::Warehouse_sender_id:
+    case WJsonEnum::Warehouse_id:
+    case WJsonEnum::Warehouse_receiver_id:
+    case WJsonEnum::Warehouse_sender_id:
         return m_warehouse->getOne(id);
     default:;
     }
@@ -89,7 +89,7 @@ void WCachePrototype::createLocalDir()
     m_local_dir = dir;
 }
 
-void WCachePrototype::updateCacheByKey(WUrl::WUrl_enum key)
+void WCachePrototype::updateCacheByKey(WUrlEnum::WUrl_enum key)
 {
     QStringList list;
     for (auto it = m_cacheUpdateList.begin(); it != m_cacheUpdateList.end(); ++it)
@@ -98,17 +98,17 @@ void WCachePrototype::updateCacheByKey(WUrl::WUrl_enum key)
     if (list.isEmpty())
         return;
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Get, key, WUrl::By, WUrl::Id }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Get, key, WUrlEnum::By, WUrlEnum::Id }),
                            QObject::tr("Обновить список ячеек."),
                            WRequestGenerate::list(list));
 }
 
 void WCachePrototype::updateCache()
 {
-    updateCacheByKey(WUrl::Cell);
-    updateCacheByKey(WUrl::Consignment);
-    updateCacheByKey(WUrl::Container);
-    updateCacheByKey(WUrl::Nomenclature);
+    updateCacheByKey(WUrlEnum::Cell);
+    updateCacheByKey(WUrlEnum::Consignment);
+    updateCacheByKey(WUrlEnum::Container);
+    updateCacheByKey(WUrlEnum::Nomenclature);
 
     m_cacheUpdateList.clear();
 }
@@ -117,43 +117,45 @@ void WCachePrototype::updateAllCache()
 {
     updateCache();
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Cell, WUrl::Cache }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Update, WUrlEnum::Cell, WUrlEnum::Cache }),
                            QObject::tr("Обновить список ячеек."),
                            WRequestGenerate::date(m_cell->dateTime()));
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Consignment, WUrl::Cache }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Update, WUrlEnum::Consignment, WUrlEnum::Cache }),
                            QObject::tr("Обновить список партий."),
                            WRequestGenerate::date(m_consignment->dateTime()));
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Container, WUrl::Cache }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Update, WUrlEnum::Container, WUrlEnum::Cache }),
                            QObject::tr("Обновить список контейнеров."),
                            WRequestGenerate::date(m_container->dateTime()));
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Get, WUrl::Employee, WUrl::List }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Get, WUrlEnum::Employee, WUrlEnum::List }),
                            QObject::tr("Обновить список пользователей."),
                            WRequestGenerate::empty(), WEnum::Request_must_server);
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Model, WUrl::Type, WUrl::Cache }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Update, WUrlEnum::Model,
+                                                       WUrlEnum::Type, WUrlEnum::Cache }),
                            QObject::tr("Обновить список моделей учета."),
                            WRequestGenerate::date(m_model_type->dateTime()));
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Nomenclature, WUrl::Cache }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Update, WUrlEnum::Nomenclature, WUrlEnum::Cache }),
                            QObject::tr("Обновить список номенклатур."),
                            WRequestGenerate::date(m_nomenclature->dateTime()));
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Quality, WUrl::List }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Update, WUrlEnum::Quality, WUrlEnum::List }),
                            QObject::tr("Обновить список качеств."),
                            WRequestGenerate::empty());
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Storage, WUrl::Unit, WUrl::List }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Update, WUrlEnum::Storage,
+                                                       WUrlEnum::Unit, WUrlEnum::List }),
                            QObject::tr("Обновить список типов хранения."),
                            WRequestGenerate::empty());
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Supplier, WUrl::List }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Update, WUrlEnum::Supplier, WUrlEnum::List }),
                            QObject::tr("Обновить список поставщиков."),
                            WRequestGenerate::empty());
 
-    WServer::get().request(WUrl::compareUrl({ WUrl::Update, WUrl::Warehouse, WUrl::List }),
+    WServer::get().request(WUrlConverter::compareUrl({ WUrlEnum::Update, WUrlEnum::Warehouse, WUrlEnum::List }),
                            QObject::tr("Обновить список складов."),
                            WRequestGenerate::empty());
 }
