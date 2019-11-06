@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>wcomponent/WComboBox.qml</file>
+        <file>wcomponent/WIcon.qml</file>
+        <file>wcomponent/WIconButton.qml</file>
+        <file>wcomponent/WMirrorLabel.qml</file>
+        <file>wcomponent/WRectangle.qml</file>
+        <file>wcomponent/WTextInput.qml</file>
+        <file>wcomponent/WPage.qml</file>
+        <file>wcomponent/WItem.qml</file>
+        <file>wcomponent/WItemIconBorder.qml</file>
+        <file>wcomponent/WTwoStepped.qml</file>
+        <file>wcomponent/WText.qml</file>
+        <file>wcomponent/WAdditionalWindow.qml</file>
+        <file>wcomponent/WDocumentHeader.qml</file>
+        <file>wcomponent/WDocumentList.qml</file>
+        <file>wcomponent/WEmployeeList.qml</file>
+        <file>wcomponent/WMsg.qml</file>
+        <file>wcomponent/WBorder.qml</file>
+        <file>wcomponent/WCircleIcon.qml</file>
+    </qresource>
+</RCC>
