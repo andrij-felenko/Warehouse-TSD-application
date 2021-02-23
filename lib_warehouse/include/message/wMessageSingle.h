@@ -24,7 +24,7 @@ public:
           m_type(type), m_time_ms(time_ms), m_dateTimeCreate(QDateTime::currentDateTime())
     {
         if (m_time_ms > 100)
-            QTimer::singleShot(m_time_ms, [=]() { emit removeMessage(m_id); });
+            QTimer::singleShot(m_time_ms, this, [=]() { emit removeMessage(m_id); });
         QObject::connect(this, &WMessageSingle::dateTimeCreateChanged, [=]() { emit updateMessage(m_id); });
         QObject::connect(this, &WMessageSingle::idChanged,             [=]() { emit updateMessage(m_id); });
         QObject::connect(this, &WMessageSingle::priorityChanged,       [=]() { emit updateMessage(m_id); });

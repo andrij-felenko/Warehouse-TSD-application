@@ -56,7 +56,7 @@ WUrlEnum::WUrl_enum WUrlEnum::p_fromString(QString name, WEnum::Version version_
 {
     WUrl_enum key;
     WEnum::Version lastSuitableVersion(WEnum::Version_none);
-    for (auto it : m_list)
+    for (const auto &it : m_list)
         if (it.name == name)
             if (+version_ >= +it.version)
                 if (+it.version > +lastSuitableVersion){
@@ -77,7 +77,7 @@ QString WUrlEnum::p_toString(WUrl_enum key, WEnum::Version version_)
 
     QString value("");
     WEnum::Version lastSuitableVersion(WEnum::Version_none);
-    for (auto it : m_list)
+    for (const auto &it : m_list)
         if (it.key == key)
             if (+version_ >= +it.version)
                 if (+it.version > +lastSuitableVersion){
@@ -93,7 +93,7 @@ QString WUrlEnum::p_toString(WUrl_enum key, WEnum::Version version_)
 
 bool WUrlEnum::p_contains(WUrl_enum key)
 {
-    for (auto it : m_list)
+    for (const auto &it : m_list)
         if (it.key == key)
             return true;
     return false;

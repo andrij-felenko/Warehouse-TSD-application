@@ -30,11 +30,11 @@ WCachePrototype::WCachePrototype(QObject *parent) : QObject(parent)
 
 void WCachePrototype::pushCacheToQueque(WUrlEnum::WUrl_enum key, QStringList list)
 {
-    for (auto it : list)
+    for (const auto &it : list)
         if (it != WStatic::guidDefault())
             if (it != WStatic::guidNull()){
                 bool isFound(false);
-                for (auto cit : m_cacheUpdateList)
+                for (const auto &cit : qAsConst(m_cacheUpdateList))
                     if (cit == it){
                         isFound = true;
                         break;

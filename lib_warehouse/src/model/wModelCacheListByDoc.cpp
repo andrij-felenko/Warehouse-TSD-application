@@ -48,7 +48,7 @@ bool WModelCacheListByDoc::containsId(QString id)
 
 bool WModelCacheListByDoc::containsBarcode(QString barcode)
 {
-    for (auto it : m_list)
+    for (const auto &it : m_list)
         if (WCache::get().container()->getOne(it)->barcode() == barcode)
             return true;
     return false;

@@ -121,7 +121,7 @@ QDebug WJson::parse(QDebug d, int deep, QString key, QJsonValue value)
     }
     else if (value.isObject()){
         d << "{" << "\n";
-        for (QString keyIt : value.toObject().keys()){
+        for (const QString &keyIt : value.toObject().keys()){
             WJson::parse(d, deep + 1, keyIt, value.toObject().value(keyIt));
         }
         d << QString(deep * 4, ' ').append(" }") << "\n";

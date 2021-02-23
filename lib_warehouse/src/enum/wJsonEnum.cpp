@@ -141,7 +141,7 @@ QString WJsonEnum::p_value(WJsonEnum::WJson_enum key, QString default_, WEnum::V
 {
     QString value("");
     WEnum::Version lastSuitableVersion(WEnum::Version_none);
-    for (auto it : m_list)
+    for (const auto &it : m_list)
         if (it.key == key)
             if (+version_ >= +it.version)
                 if (+it.version > +lastSuitableVersion){

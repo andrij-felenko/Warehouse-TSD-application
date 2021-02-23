@@ -20,7 +20,7 @@ WDocumentHeader::WDocumentHeader(const QJsonObject& obj, QObject* parent) : WDoc
 QJsonObject WDocumentHeader::toJson() const
 {
     QJsonArray array;
-    for (auto it : m_cellIdList)
+    for (const auto &it : m_cellIdList)
         array.push_back(it);
     auto obj = WJsonConverter::createObject({
             std::make_pair(WJsonEnum::Id, m_id),

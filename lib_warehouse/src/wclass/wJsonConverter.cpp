@@ -34,7 +34,7 @@ QJsonObject WJsonConverter::createObject(std::initializer_list<std::pair <WJsonE
                                 WEnum::Version version_)
 {
     QJsonObject obj;
-    for (auto it : list)
+    for (const auto &it : list)
         WJsonConverter::insert(obj, it.first, it.second, version_);
     return obj;
 }
@@ -84,7 +84,7 @@ bool WJsonConverter::contains(const QJsonValue& value, WJsonEnum::WJson_enum key
 QJsonArray WJsonConverter::fromStringList(QStringList list)
 {
     QJsonArray array;
-    for (auto it : list)
+    for (const auto &it : list)
         array.push_back(it);
     return array;
 }

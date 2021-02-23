@@ -26,7 +26,7 @@ public slots:
     // time & date ---------------------------------------------------------------------------------
     static QDate dateNull() { return QDate(1, 1, 1); }
     static QTime timeNull() { return QTime(0, 0, 0); }
-    static QDateTime dateTimeNull(){ return QDateTime(QDate(1, 1, 1)); }
+    static QDateTime dateTimeNull(){ return QDateTime(QDate(1, 1, 1), QTime()); }
 
     // string --------------------------------------------------------------------------------------
     static QString undefined() { return QObject::tr("Не найден"); }

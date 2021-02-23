@@ -88,7 +88,7 @@ void WServerPrototype::authentificate(QNetworkReply *reply, QAuthenticator *auth
 void WServerPrototype::handler(QNetworkReply *reply)
 {
     QString url = reply->request().url().toString();
-    url = url.rightRef(url.length() - WSetting::get().server()->domain().length()).toString();
+    url = url.right(url.length() - WSetting::get().server()->domain().length());
 
     // start request has empty url, and thats why we there skip it
     if (url.isEmpty())

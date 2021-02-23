@@ -15,7 +15,7 @@ public:
         Side_rigth,         ///< Привязка к правой стороне
         Side_top,           ///< Привязка к верху
         Side_bottom,        ///< Привязка к низу
-    }; Q_ENUMS(Side)
+    }; Q_ENUM(Side)
 
     enum Priority {
         Priority_low           = 0xE100 | (1 << 0), ///< Низкий
@@ -23,26 +23,26 @@ public:
         Priority_middle        = 0xE100 | (1 << 2), ///< Средний
         Priority_middle_above  = 0xE100 | (1 << 3), ///< Выше среднего
         Priority_high          = 0xE100 | (1 << 4), ///< Высокий
-    }; Q_ENUMS(Priority)
+    }; Q_ENUM(Priority)
 
     enum Request_priority {
         Request_must_server = 0xE200, ///< Запрос требует соединение к серверу
         Request_can_cache,            ///< Запрос может быть кэширован для отправки потом
         Request_can_ignore,           ///< Запрос может быть проигнорирован
-    }; Q_ENUMS(Request_priority)
+    }; Q_ENUM(Request_priority)
 
     enum Msg_type {
         Msg_progress = 0xE300, ///< Сообщение о процесе запроса или работы с кэшем
         Msg_complete,          ///< Выполненое сообщение
         Msg_warning,           ///< Сообщение содержит предупреждение о возможных проблемах
         Msg_error,             ///< Сообщение об ошибке
-    }; Q_ENUMS(Msg_type)
+    }; Q_ENUM(Msg_type)
 
     enum Msg_status {
         Msg_close = 0xE320, ///< Сообщение уже было показано
         Msg_show,           ///< Сообщение отображаеться в данный момент
         Msg_waiting,        ///< Сообщение в ожидании для отображения
-    }; Q_ENUMS(Msg_status)
+    }; Q_ENUM(Msg_status)
 
     enum Document_type {
         Document_receiving = 0xE400, ///< Приемка
@@ -50,7 +50,7 @@ public:
         Document_picking,            ///< Отбор
         Document_purchase,           ///< Отгрузка
         Document_none,               ///< Документ отсутствует
-    }; Q_ENUMS(Document_type)
+    }; Q_ENUM(Document_type)
 
     enum Version {
         Version_none = 0xE500, ///< Без версии
@@ -71,7 +71,7 @@ public:
         Cache_storageType,           ///< Тип хранения
         Cache_supplier,              ///< Поставщик
         Cache_unknown,               ///< Пустой кэш
-    }; Q_ENUMS(CacheType)
+    }; Q_ENUM(CacheType)
 
     enum Sort {
         SortByAZ = 0xE700,   ///< Сортировка по алфавиту
@@ -80,14 +80,14 @@ public:
         SortByOldest,        ///< Сортировка, старые сначала
         SortByPushed,        ///< Сортировка по времени добавления
         SortByPushedReverse, ///< Сортировка по времени убывания
-    }; Q_ENUMS(Sort)
+    }; Q_ENUM(Sort)
 
     enum DocumentStatus {
         Document_created = 0xE800, ///< Документ создан
         Document_inWorking,        ///< Документ в работе
         Document_accepted,         ///< Документ выполнен
         Document_done,             ///< Документ подтвержден и закрыт
-    }; Q_ENUMS(DocumentStatus)
+    }; Q_ENUM(DocumentStatus)
 
     enum ModelItems {
         Model_item = Qt::DisplayRole, ///< Единица из списка в моделе
@@ -96,14 +96,14 @@ public:
         Model_barcode,
         Model_actualQuantity,
         Model_planQuantity,
-    }; Q_ENUMS(ModelItems)
+    }; Q_ENUM(ModelItems)
 
     enum LineType {
         LineActual = 0xE900, ///< Актуальные строки
         LinePlan,            ///< Плановые строки
         LineDone,            ///< Все выполненные строки
         LineAll,             ///< Все строки
-    }; Q_ENUMS(LineType)
+    }; Q_ENUM(LineType)
 
     enum ServerCacheStatus {
         SCache_created = 0xEA00, ///< Создан
@@ -114,7 +114,7 @@ public:
         SCache_handlered,        ///< Обработан
         SCache_done,             ///< Выполнен
         SCache_canceled,         ///< Отменен
-    }; Q_ENUMS(ServerCacheStatus)
+    }; Q_ENUM(ServerCacheStatus)
 
 public slots:
     static QHash <int, QByteArray> getModelHash();

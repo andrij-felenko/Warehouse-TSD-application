@@ -93,11 +93,10 @@ set (wh_cpp
     )
 
 set (CMAKE_AUTORCC)
-find_package(Qt5Core)
-find_package(Qt5Qml)
-find_package(Qt5Quick)
+find_package(Qt6 COMPONENTS Core Qml Quick)
 
 add_library(lib_warehouse SHARED ${wh_h} ${wh_cpp})
 
+set_target_properties(lib_warehouse PROPERTIES OUTPUT_NAME "warehouse")
 target_include_directories(lib_warehouse PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(lib_warehouse Qt5::Core Qt5::Quick Qt5::Qml)
+target_link_libraries(lib_warehouse Qt6::Core Qt6::Quick Qt6::Qml)

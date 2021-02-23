@@ -20,16 +20,16 @@
 class WCachePrototype : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(WCacheListTemplate <WCellSingle>*         cell         READ cell)
-    Q_PROPERTY(WCacheListTemplate <WConsignmentSingle>*  consignment  READ consignment)
-    Q_PROPERTY(WCacheListTemplate <WContainerSingle>*    container    READ container)
-    Q_PROPERTY(WCacheListTemplate <WEmployeeSingle>*     employee     READ employee)
-    Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        model_type   READ model_type)
-    Q_PROPERTY(WCacheListTemplate <WNomenclatureSingle>* nomenclature READ nomenclature)
-    Q_PROPERTY(WCacheListTemplate <WQualitySingle>*      quality      READ quality)
-    Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        storage_type READ storage_type)
-    Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        supplier     READ supplier)
-    Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        warehouse    READ warehouse)
+    Q_PROPERTY(WCacheListTemplate <WCellSingle>*         cell         READ cell         CONSTANT)
+    Q_PROPERTY(WCacheListTemplate <WConsignmentSingle>*  consignment  READ consignment  CONSTANT)
+    Q_PROPERTY(WCacheListTemplate <WContainerSingle>*    container    READ container    CONSTANT)
+    Q_PROPERTY(WCacheListTemplate <WEmployeeSingle>*     employee     READ employee     CONSTANT)
+    Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        model_type   READ model_type   CONSTANT)
+    Q_PROPERTY(WCacheListTemplate <WNomenclatureSingle>* nomenclature READ nomenclature CONSTANT)
+    Q_PROPERTY(WCacheListTemplate <WQualitySingle>*      quality      READ quality      CONSTANT)
+    Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        storage_type READ storage_type CONSTANT)
+    Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        supplier     READ supplier     CONSTANT)
+    Q_PROPERTY(WCacheListTemplate <WCacheSingle>*        warehouse    READ warehouse    CONSTANT)
 
 public:
     explicit WCachePrototype(QObject *parent = nullptr);

@@ -65,7 +65,7 @@ public:
 
         // error url
         ___ = 0xBFFF, ///< Ошибка, если не найден ключ
-    }; Q_ENUMS(WUrl_enum)
+    }; Q_ENUM(WUrl_enum)
 
     // non static method
     WUrl_enum p_fromString(QString name, WEnum::Version version_ = WEnum::Version_1_0);

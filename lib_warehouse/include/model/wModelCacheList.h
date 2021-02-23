@@ -81,9 +81,9 @@ private:
     void updateLines(QStringList list)
     {
         int i(0);
-        for (auto sendIt : list){
+        for (const auto &sendIt : list){
             i = 0;
-            for (auto it : m_list){
+            for (const auto &it : m_list){
                 if (it == sendIt){
                     emit dataChanged(this->index(i - 1), this->index(i));
                     break;
@@ -96,9 +96,9 @@ private:
     void removeLines(QStringList list)
     {
         int i(0);
-        for (auto sendIt : list){
+        for (const auto &sendIt : list){
             i = 0;
-            for (auto it : m_list){
+            for (const auto &it : m_list){
                 i++;
                 if (it == sendIt){
                     beginRemoveRows(QModelIndex(), i - 1, i);

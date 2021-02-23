@@ -9,7 +9,7 @@ WRequestGenerate::WRequestGenerate(QObject *parent) : QObject(parent)
 QJsonValue WRequestGenerate::list(QStringList list)
 {
     QJsonArray array;
-    for (auto it : list)
+    for (const auto &it : list)
         array.push_back(it);
     return WJsonConverter::createValue(WJsonEnum::List, QJsonValue(array));
 }

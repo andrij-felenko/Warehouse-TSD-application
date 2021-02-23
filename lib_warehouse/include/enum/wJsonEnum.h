@@ -148,7 +148,7 @@ public:
         // other ----------------------------------------------------------------------------------
         Folder = 0xA700, ///< Папка (директория)
 
-    }; Q_ENUMS(WJson_enum)
+    }; Q_ENUM(WJson_enum)
 
 
     QString p_value(WJsonEnum::WJson_enum key, QString default_ = WStatic::undefined(),

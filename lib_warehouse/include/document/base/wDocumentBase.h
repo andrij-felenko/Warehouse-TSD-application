@@ -11,8 +11,8 @@
 class WDocumentBase : public WDocumentHeader
 {
     Q_OBJECT
-    Q_PROPERTY(WLineActual* currentActual READ currentActual)
-    Q_PROPERTY(WLinePlan*   currentPlan   READ currentPlan)
+    Q_PROPERTY(WLineActual* currentActual READ currentActual CONSTANT)
+    Q_PROPERTY(WLinePlan*   currentPlan   READ currentPlan   CONSTANT)
 
 public:
     explicit WDocumentBase(WUrlEnum::WUrl_enum documentKey = WUrlEnum::___, QObject *parent = nullptr);

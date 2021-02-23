@@ -28,7 +28,7 @@ void testDocumentReceivingList()
         WDocumentHeader header;
         header.setId(WStatic::guidCreate());
         header.setName("name:" + header.id().left(6));
-        header.setDateCreated(QDateTime(QDate(2000 + rand()%18, rand()%12 + 1, rand()%28 + 1)));
+        header.setDateCreated(QDateTime(QDate(2000 + rand()%18, rand()%12 + 1, rand()%28 + 1), QTime()));
         header.setSupplierId("supplier:" + header.id().right(3));
         header.setStatus(static_cast <WEnum::DocumentStatus> (+WEnum::Document_created + rand()%4));
         array.push_back(header.toJson());

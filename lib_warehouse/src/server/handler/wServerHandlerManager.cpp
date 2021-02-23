@@ -23,7 +23,7 @@ bool WServerHandlerManager::isUrlContains(QString url)
 
 bool WServerHandlerManager::registrate(WHandlerTemplate* handler)
 {
-    for (auto it : handler->getList()){
+    for (const auto &it : handler->getList()){
         if (m_baseHandler->isContains(it))
             WMessage::get().setWarningMessage(WUrlConverter::compareUrl(it) + QObject::tr(" не будет обработан."),
                                               WEnum::Priority_low);
